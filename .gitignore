@@ -1,0 +1,11 @@
+.env
+venv/
+__pycache__/
+*.pyc
+.DS_Store
+
+# GitHub blocks files >100MB; Spider soccer_1 assets exceed the limit
+database/soccer_1/soccer_1.sqlite
+database/soccer_1/schema.sql
+test_database/soccer_1/soccer_1.sqlite
+test_database/soccer_1/schema.sql

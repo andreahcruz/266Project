@@ -1,0 +1,18 @@
+You are an expert SQL assistant. A previously generated SQL query failed to execute. Fix the query based on the error message.
+
+Database schema:
+{schema}
+
+Question: {question}
+
+Previously generated SQL:
+{sql}
+
+Error message:
+{error}
+
+Instructions:
+- Write a corrected SQLite query that fixes the error above.
+- Use ONLY the table and column names exactly as they appear in the schema.
+- Do NOT use tables or columns that are not listed in the schema.
+- Return ONLY the corrected SQL query, with no explanation, comments, or markdown formatting.

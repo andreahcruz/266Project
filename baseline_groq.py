@@ -1,7 +1,12 @@
-"""Baseline pipeline for running Groq-based SQL generation tests."""
+"""Baseline pipeline for Groq on the Spider **dev** split (full dev.json).
+
+For Cerebras on the **test** split (first NUM_QUESTIONS examples), use:
+  python baseline/baseline_cerebras.py
+  python baseline/self_correction_cerebras.py
+Evaluate with: python run_eval.py --pred baseline/results/cerebras_zero_shot.sql
+"""
 
 import json
-import re
 import time
 import argparse
 from groq import Groq
@@ -12,53 +17,8 @@ from config import (
 )
 from schema_loader import load_tables, get_schema_string
 from sql_executor import execute_sql
-
-
-def parse_sql_response(text):
-    """Extract a clean SQL query from an LLM response.
-
-    Handles markdown code fences, trailing semicolons, and
-    explanatory text that models sometimes add.
-    """
-    if not text or not text.strip():
-        return "SELECT 1"
-
-    cleaned = text.strip()
-
-    # Strip markdown code fences (```sql ... ``` or ``` ... ```)
-    fence_pattern = r"```(?:sql)?\s*\n?(.*?)```"
-    match = re.search(fence_pattern, cleaned, re.DOTALL | re.IGNORECASE)
-    if match:
-        cleaned = match.group(1).strip()
-
-    # If the response starts with a SQL keyword, take everything from there
-    # This handles cases where the model adds preamble text
-    sql_start = re.search(
-        r"(?i)^(SELECT|INSERT|UPDATE|DELETE|CREATE|ALTER|DROP|WITH)\b",
-        cleaned,
-        re.MULTILINE,
-    )
-    if sql_start:
-        cleaned = cleaned[sql_start.start():]
-
-    # Trim trailing non-SQL text: stop at the first blank line after SQL
-    parts = re.split(r"\n\s*\n", cleaned)
-    if parts:
-        cleaned = parts[0]
-
-    cleaned = cleaned.rstrip(";").strip()
-
-    # Replace any internal newlines with spaces for single-line output
-    cleaned = " ".join(cleaned.split())
-
-    return cleaned if cleaned else "SELECT 1"
-
-
-def load_prompt(template_name):
-    """Read a prompt template from the prompts/ directory."""
-    path = PROMPT_DIR / template_name
-    with open(path) as f:
-        return f.read()
+from sqlgen_parse import parse_sql_response
+from prompt_utils import load_prompt
 
 
 def call_groq(client, prompt, max_attempts=5):

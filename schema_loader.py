@@ -61,10 +61,24 @@ def get_schema_string(db_id, tables_data):
     return "\n".join(lines)
 
 
+def get_schema_string_for_split(db_id, split="dev"):
+    """Load the correct tables.json for dev or test and return schema text."""
+    from config import TABLES_JSON, TEST_TABLES_JSON
+
+    path = TEST_TABLES_JSON if split == "test" else TABLES_JSON
+    tables_data = load_tables(path)
+    return get_schema_string(db_id, tables_data)
+
+
 if __name__ == "__main__":
-    from config import TABLES_JSON
+    from config import TABLES_JSON, TEST_TABLES_JSON
 
     tables = load_tables(TABLES_JSON)
     print(get_schema_string("perpetrator", tables))
     print()
     print(get_schema_string("department_management", tables))
+
+    tables_test = load_tables(TEST_TABLES_JSON)
+    print()
+    print("--- soccer_3 (test split) ---")
+    print(get_schema_string("soccer_3", tables_test))

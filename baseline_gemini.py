@@ -11,7 +11,8 @@ from config import (
 )
 from schema_loader import load_tables, get_schema_string
 from sql_executor import execute_sql
-from baseline_groq import parse_sql_response, load_prompt
+from sqlgen_parse import parse_sql_response
+from prompt_utils import load_prompt
 
 
 def call_gemini(model, prompt):

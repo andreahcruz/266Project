@@ -1,18 +1,18 @@
-"""Cerebras text-to-SQL baselines on the first NUM_QUESTIONS Spider test examples.
+"""OpenAI (e.g. GPT-5.4 mini) text-to-SQL baselines on the first NUM_QUESTIONS Spider test examples.
 
 Strategies: zero_shot, chain_of_thought, few_shot.
 
 Run from repository root:
-  python baseline/baseline_cerebras.py
-  python baseline/baseline_cerebras.py --strategy chain_of_thought
-  python baseline/baseline_cerebras.py --strategy few_shot
+  python baseline/baseline_openai.py
+  python baseline/baseline_openai.py --strategy chain_of_thought
+  python baseline/baseline_openai.py --strategy few_shot
 
 Evaluate (same line count as gold slice):
-  python run_eval.py --pred baseline/results/cerebras_chain_of_thought.sql --etype exec
-  python run_eval.py --pred baseline/results/cerebras_few_shot.sql --etype exec
+  python run_eval.py --pred baseline/results/openai_chain_of_thought.sql --etype exec
+  python run_eval.py --pred baseline/results/openai_few_shot.sql --etype exec
 
 Dry run one question:
-  python baseline/baseline_cerebras.py --strategy few_shot -n 1
+  python baseline/baseline_openai.py --strategy few_shot -n 1
 """
 
 import argparse
@@ -33,14 +33,14 @@ from config import (
     BALANCED_INDICES,
     SPIDER_TEST_SPLIT,
     balanced_pred_filename,
-    CEREBRAS_API_KEY,
-    CEREBRAS_BASE_URL,
-    CEREBRAS_MAX_TOKENS,
-    CEREBRAS_MAX_TOKENS_COT,
-    CEREBRAS_MODEL,
     FEW_SHOT_K,
     FEW_SHOT_SEED,
     NUM_QUESTIONS,
+    OPENAI_API_KEY,
+    OPENAI_BASE_URL,
+    OPENAI_MAX_TOKENS,
+    OPENAI_MAX_TOKENS_COT,
+    OPENAI_MODEL,
     QUESTIONS_JSON,
     RESULTS_DIR,
     TABLES_FOR_RUN,
@@ -58,16 +58,16 @@ from schema_loader import load_tables, get_schema_string
 from sqlgen_parse import parse_sql_after_chain_of_thought, parse_sql_response
 
 
-def call_cerebras(client, prompt, max_tokens=None, max_attempts=5):
-    """Send prompt to Cerebras (OpenAI-compatible); retry on rate limits."""
-    mt = CEREBRAS_MAX_TOKENS if max_tokens is None else max_tokens
+def call_openai(client, prompt, max_tokens=None, max_attempts=5):
+    """Send prompt to OpenAI Chat Completions; retry on rate limits."""
+    mt = OPENAI_MAX_TOKENS if max_tokens is None else max_tokens
     for attempt in range(max_attempts):
         try:
             response = client.chat.completions.create(
-                model=CEREBRAS_MODEL,
+                model=OPENAI_MODEL,
                 messages=[{"role": "user", "content": prompt}],
                 temperature=0,
-                max_tokens=mt,
+                max_completion_tokens=mt,
             )
             return response.choices[0].message.content
         except Exception as e:
@@ -78,12 +78,12 @@ def call_cerebras(client, prompt, max_tokens=None, max_attempts=5):
                 time.sleep(wait)
             else:
                 raise
-    raise RuntimeError("Cerebras: rate limit retries exhausted")
+    raise RuntimeError("OpenAI: rate limit retries exhausted")
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Cerebras text-to-SQL on Spider test (first N questions)",
+        description="OpenAI text-to-SQL on Spider test (first N questions)",
     )
     parser.add_argument(
         "--strategy",
@@ -110,27 +110,27 @@ def main():
             "Use the same -n when running run_eval.py.",
         )
 
-    if not CEREBRAS_API_KEY:
-        sys.exit("Set CEREBRAS_API_KEY in .env")
+    if not OPENAI_API_KEY:
+        sys.exit("Set OPENAI_API_KEY in .env")
 
     strategy = args.strategy
     if strategy == "zero_shot":
         template_name = "zero_shot.txt"
-        out_name = balanced_pred_filename("cerebras_zero_shot")
+        out_name = balanced_pred_filename("openai_zero_shot")
         parse_fn = parse_sql_response
-        max_tok = CEREBRAS_MAX_TOKENS
+        max_tok = OPENAI_MAX_TOKENS
     elif strategy == "chain_of_thought":
         template_name = "chain_of_thought.txt"
-        out_name = balanced_pred_filename("cerebras_chain_of_thought")
+        out_name = balanced_pred_filename("openai_chain_of_thought")
         parse_fn = parse_sql_after_chain_of_thought
-        max_tok = CEREBRAS_MAX_TOKENS_COT
+        max_tok = OPENAI_MAX_TOKENS_COT
     else:
         template_name = "few_shot.txt"
-        out_name = balanced_pred_filename("cerebras_few_shot")
+        out_name = balanced_pred_filename("openai_few_shot")
         parse_fn = parse_sql_response
-        max_tok = CEREBRAS_MAX_TOKENS
+        max_tok = OPENAI_MAX_TOKENS
 
-    client = OpenAI(api_key=CEREBRAS_API_KEY, base_url=CEREBRAS_BASE_URL)
+    client = OpenAI(api_key=OPENAI_API_KEY, base_url=OPENAI_BASE_URL)
 
     with open(QUESTIONS_JSON, encoding="utf-8") as f:
         all_q = json.load(f)
@@ -150,7 +150,7 @@ def main():
         by_db_indices = index_train_by_db(train_rows)
 
     label = strategy.replace("_", " ")
-    print(f"Running Cerebras {label} on {len(questions)} questions (test split)...")
+    print(f"Running OpenAI ({OPENAI_MODEL}) {label} on {len(questions)} questions (test split)...")
     with open(out_path, "w", encoding="utf-8") as out:
         for i, q in enumerate(questions):
             db_id = q["db_id"]
@@ -170,7 +170,7 @@ def main():
                 prompt = template.format(schema=schema, question=question)
 
             try:
-                raw = call_cerebras(client, prompt, max_tokens=max_tok)
+                raw = call_openai(client, prompt, max_tokens=max_tok)
                 sql = parse_fn(raw)
             except Exception as e:
                 print(f"  [ERROR] Question {i}: {e}")

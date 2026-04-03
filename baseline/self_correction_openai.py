@@ -1,7 +1,7 @@
-"""Cerebras baseline with self-correction on execution errors (test split, first N questions).
+"""OpenAI baseline with self-correction on execution errors (test split, first N questions).
 
 Run from repository root:
-  python baseline/self_correction_cerebras.py
+  python baseline/self_correction_openai.py
 """
 
 import argparse
@@ -21,12 +21,12 @@ from config import (
     BALANCED_INDICES,
     SPIDER_TEST_SPLIT,
     balanced_pred_filename,
-    CEREBRAS_API_KEY,
-    CEREBRAS_BASE_URL,
-    CEREBRAS_MODEL,
     DATABASE_DIR_FOR_RUN,
     MAX_RETRIES,
     NUM_QUESTIONS,
+    OPENAI_API_KEY,
+    OPENAI_BASE_URL,
+    OPENAI_MODEL,
     QUESTIONS_JSON,
     RESULTS_DIR,
     TABLES_FOR_RUN,
@@ -38,14 +38,14 @@ from sql_executor import execute_sql
 from sqlgen_parse import parse_sql_response
 
 
-def call_cerebras(client, prompt, max_attempts=5):
+def call_openai(client, prompt, max_attempts=5):
     for attempt in range(max_attempts):
         try:
             response = client.chat.completions.create(
-                model=CEREBRAS_MODEL,
+                model=OPENAI_MODEL,
                 messages=[{"role": "user", "content": prompt}],
                 temperature=0,
-                max_tokens=512,
+                max_completion_tokens=512,
             )
             return response.choices[0].message.content
         except Exception as e:
@@ -56,11 +56,11 @@ def call_cerebras(client, prompt, max_attempts=5):
                 time.sleep(wait)
             else:
                 raise
-    raise RuntimeError("Cerebras: rate limit retries exhausted")
+    raise RuntimeError("OpenAI: rate limit retries exhausted")
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Cerebras self-correction on Spider test (first N questions)")
+    parser = argparse.ArgumentParser(description="OpenAI self-correction on Spider test (first N questions)")
     parser.add_argument(
         "-n",
         "--num-questions",
@@ -80,10 +80,10 @@ def main():
             "Use the same -n when running run_eval.py.",
         )
 
-    if not CEREBRAS_API_KEY:
-        sys.exit("Set CEREBRAS_API_KEY in .env")
+    if not OPENAI_API_KEY:
+        sys.exit("Set OPENAI_API_KEY in .env")
 
-    client = OpenAI(api_key=CEREBRAS_API_KEY, base_url=CEREBRAS_BASE_URL)
+    client = OpenAI(api_key=OPENAI_API_KEY, base_url=OPENAI_BASE_URL)
 
     with open(QUESTIONS_JSON, encoding="utf-8") as f:
         all_q = json.load(f)
@@ -93,9 +93,9 @@ def main():
     zs_template = load_prompt("zero_shot.txt")
     sc_template = load_prompt("self_correction.txt")
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
-    out_path = RESULTS_DIR / balanced_pred_filename("cerebras_self_correction")
+    out_path = RESULTS_DIR / balanced_pred_filename("openai_self_correction")
 
-    print(f"Running Cerebras self-correction on {len(questions)} questions (test split)...")
+    print(f"Running OpenAI ({OPENAI_MODEL}) self-correction on {len(questions)} questions (test split)...")
     with open(out_path, "w", encoding="utf-8") as out:
         for i, q in enumerate(questions):
             db_id = q["db_id"]
@@ -104,7 +104,7 @@ def main():
 
             prompt = zs_template.format(schema=schema, question=question)
             try:
-                raw = call_cerebras(client, prompt)
+                raw = call_openai(client, prompt)
                 sql = parse_sql_response(raw)
             except Exception as e:
                 print(f"  [ERROR] Question {i} initial: {e}")
@@ -122,7 +122,7 @@ def main():
                     error=error_msg,
                 )
                 try:
-                    raw = call_cerebras(client, correction_prompt)
+                    raw = call_openai(client, correction_prompt)
                     sql = parse_sql_response(raw)
                 except Exception as e:
                     print(f"  [ERROR] Question {i} correction {attempt + 1}: {e}")

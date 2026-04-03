@@ -21,6 +21,9 @@ TEST_TABLES_JSON = BASE_DIR / "test_tables.json"
 TEST_JSON = BASE_DIR / "test.json"
 TEST_GOLD = BASE_DIR / "test_gold.sql"
 
+# Few-shot ICL (train examples; disjoint from test questions)
+TRAIN_SPIDER_JSON = BASE_DIR / "train_spider.json"
+
 # ── Cerebras test-50 run (aligned: same split for questions, schema, DBs, gold) ──
 QUESTIONS_JSON = TEST_JSON
 TABLES_FOR_RUN = TEST_TABLES_JSON
@@ -41,6 +44,11 @@ GEMINI_MODEL = "gemini-2.0-flash"
 # Public production IDs include llama3.1-8b and gpt-oss-120b; llama-3.3-70b often 404s on shared API.
 CEREBRAS_BASE_URL = os.getenv("CEREBRAS_BASE_URL", "https://api.cerebras.ai/v1")
 CEREBRAS_MODEL = os.getenv("CEREBRAS_MODEL", "llama3.1-8b")
+CEREBRAS_MAX_TOKENS = int(os.getenv("CEREBRAS_MAX_TOKENS", "512"))
+CEREBRAS_MAX_TOKENS_COT = int(os.getenv("CEREBRAS_MAX_TOKENS_COT", "1536"))
+
+FEW_SHOT_K = int(os.getenv("FEW_SHOT_K", "3"))
+FEW_SHOT_SEED = int(os.getenv("FEW_SHOT_SEED", "42"))
 
 # ── Experiment Settings ───────────────────────────────────
 MAX_RETRIES = 3

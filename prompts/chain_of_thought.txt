@@ -1,0 +1,21 @@
+You are an expert SQL assistant for SQLite. Use chain-of-thought reasoning, then output the final query.
+
+Database schema:
+{schema}
+
+Question: {question}
+
+Instructions:
+1. Think step by step before writing SQL. In your reasoning, briefly identify:
+   - Which table(s) hold the needed information
+   - Whether joins are needed (use foreign keys from the schema)
+   - Filters, aggregations, grouping, ordering, and limits
+2. Do NOT include any SQL inside your reasoning except in the final code block below.
+3. After your reasoning, output ONLY the final answer as a single SQLite query inside a markdown code block with the sql language tag, like this:
+
+```sql
+YOUR_QUERY_HERE
+```
+
+4. Use ONLY table and column names exactly as they appear in the schema.
+5. The ```sql block must contain exactly one complete query and nothing else.

@@ -1,14 +1,14 @@
-"""Cerebras few-shot + RAG with self-correction on execution errors.
+"""OpenAI few-shot + RAG with self-correction on execution errors.
 
-Combines the best prompting strategy (few-shot) with schema retrieval (RAG)
-and self-correction: generate SQL -> execute -> if error, feed error back
-to the model to fix.
+Combines few-shot prompting with schema retrieval (RAG) and self-correction:
+generate SQL -> execute -> if error, feed error back to fix.
 
 Run from repository root:
-  SPIDER_TEST_SPLIT=balanced_80x4 python baseline/self_correction_cerebras_rag.py
+  SPIDER_TEST_SPLIT=balanced_80x4 python baseline/self_correction_openai_rag.py
+  SPIDER_TEST_SPLIT=balanced_80x4 python baseline/self_correction_openai_rag.py --mode hybrid
 
 Evaluate:
-  SPIDER_TEST_SPLIT=balanced_80x4 python run_eval.py --pred baseline/results/cerebras_few_shot_self_correction_rag_balanced_80x4.sql --etype exec
+  SPIDER_TEST_SPLIT=balanced_80x4 python run_eval.py --pred baseline/results/openai_few_shot_self_correction_rag_balanced_80x4.sql --etype exec
 """
 
 import argparse
@@ -29,19 +29,17 @@ from config import (
     BALANCED_INDICES,
     SPIDER_TEST_SPLIT,
     balanced_pred_filename,
-    CEREBRAS_API_KEY,
-    CEREBRAS_BASE_URL,
-    CEREBRAS_MAX_TOKENS,
-    CEREBRAS_MODEL,
     DATABASE_DIR_FOR_RUN,
     FEW_SHOT_K,
     FEW_SHOT_SEED,
     MAX_RETRIES,
     NUM_QUESTIONS,
-    QUESTIONS_JSON,
-    RESULTS_DIR,
     OPENAI_API_KEY,
     OPENAI_BASE_URL,
+    OPENAI_MAX_TOKENS,
+    OPENAI_MODEL,
+    QUESTIONS_JSON,
+    RESULTS_DIR,
     RETRIEVER_TOP_K_TABLES,
     RETRIEVER_TOP_N_COLUMNS,
     TABLES_FOR_RUN,
@@ -63,14 +61,14 @@ from sqlgen_parse import parse_sql_response
 from vector_store import load_index
 
 
-def call_cerebras(client, prompt, max_attempts=5):
+def call_openai(client, prompt, max_attempts=5):
     for attempt in range(max_attempts):
         try:
             response = client.chat.completions.create(
-                model=CEREBRAS_MODEL,
+                model=OPENAI_MODEL,
                 messages=[{"role": "user", "content": prompt}],
                 temperature=0,
-                max_tokens=CEREBRAS_MAX_TOKENS,
+                max_completion_tokens=OPENAI_MAX_TOKENS,
             )
             return response.choices[0].message.content
         except Exception as e:
@@ -81,7 +79,7 @@ def call_cerebras(client, prompt, max_attempts=5):
                 time.sleep(wait)
             else:
                 raise
-    raise RuntimeError("Cerebras: rate limit retries exhausted")
+    raise RuntimeError("OpenAI: rate limit retries exhausted")
 
 
 def load_vector_index_or_exit():
@@ -97,7 +95,7 @@ def load_vector_index_or_exit():
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Cerebras few-shot + RAG + self-correction on Spider test",
+        description="OpenAI few-shot + RAG + self-correction on Spider test",
     )
     parser.add_argument(
         "-n", "--num-questions", type=int, default=None,
@@ -122,17 +120,15 @@ def main():
             f"(using {NUM_QUESTIONS} stratified questions).",
         )
 
-    if not CEREBRAS_API_KEY:
-        sys.exit("Set CEREBRAS_API_KEY in .env")
-    if args.mode == "hybrid" and not OPENAI_API_KEY:
-        sys.exit("Set OPENAI_API_KEY in .env (needed for hybrid vector reranking)")
+    if not OPENAI_API_KEY:
+        sys.exit("Set OPENAI_API_KEY in .env")
 
-    client = OpenAI(api_key=CEREBRAS_API_KEY, base_url=CEREBRAS_BASE_URL)
+    # Same client for generation and embeddings
+    client = OpenAI(api_key=OPENAI_API_KEY, base_url=OPENAI_BASE_URL)
 
-    embed_client = None
+    embed_client = client if args.mode == "hybrid" else None
     vector_index = None
     if args.mode == "hybrid":
-        embed_client = OpenAI(api_key=OPENAI_API_KEY, base_url=OPENAI_BASE_URL)
         print(f"Loading vector index from {VECTOR_INDEX_PATH}...")
         vector_index = load_vector_index_or_exit()
 
@@ -144,8 +140,9 @@ def main():
     fs_template = load_prompt("few_shot.txt")
     sc_template = load_prompt("self_correction.txt")
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+
     rag_suffix = "hybrid_rag" if args.mode == "hybrid" else "rag"
-    out_path = RESULTS_DIR / balanced_pred_filename(f"cerebras_few_shot_self_correction_{rag_suffix}")
+    out_path = RESULTS_DIR / balanced_pred_filename(f"openai_few_shot_self_correction_{rag_suffix}")
 
     # Load training examples for few-shot
     print(f"Loading train examples from {TRAIN_SPIDER_JSON} ...")
@@ -154,7 +151,7 @@ def main():
     rng = random.Random(FEW_SHOT_SEED)
 
     print(
-        f"Running Cerebras ({CEREBRAS_MODEL}) few-shot + {args.mode} RAG + self-correction "
+        f"Running OpenAI ({OPENAI_MODEL}) few-shot + {args.mode} RAG + self-correction "
         f"(top_k={args.top_k_tables}, top_n={args.top_n_columns}, retries={MAX_RETRIES}) "
         f"on {len(questions)} questions..."
     )
@@ -182,13 +179,13 @@ def main():
                 schema=schema, question=question, examples=examples_block,
             )
             try:
-                raw = call_cerebras(client, prompt)
+                raw = call_openai(client, prompt)
                 sql = parse_sql_response(raw)
             except Exception as e:
                 print(f"  [ERROR] Question {i} initial: {e}")
                 sql = "SELECT 1"
 
-            # Self-correction loop: execute and fix errors
+            # Self-correction loop
             for attempt in range(MAX_RETRIES):
                 ok, result = execute_sql(db_id, sql, DATABASE_DIR_FOR_RUN)
                 if ok:
@@ -201,7 +198,7 @@ def main():
                     error=error_msg,
                 )
                 try:
-                    raw = call_cerebras(client, correction_prompt)
+                    raw = call_openai(client, correction_prompt)
                     sql = parse_sql_response(raw)
                 except Exception as e:
                     print(f"  [ERROR] Question {i} correction {attempt + 1}: {e}")

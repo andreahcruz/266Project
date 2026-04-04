@@ -9,3 +9,7 @@ database/soccer_1/soccer_1.sqlite
 database/soccer_1/schema.sql
 test_database/soccer_1/soccer_1.sqlite
 test_database/soccer_1/schema.sql
+
+# Generated embedding artifacts (rebuild with: python build_vector_index.py)
+schema_embeddings.json
+chroma_db/

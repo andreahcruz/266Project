@@ -1,14 +1,16 @@
-"""OpenAI text-to-SQL with schema retrieval (RAG MVP).
+"""OpenAI text-to-SQL with schema retrieval (RAG).
 
-Same as baseline_openai.py but replaces full schema with keyword-retrieved
-schema via retriever.retrieve_schema().  Reuses the same few_shot.txt prompt
-template so that retrieval is the only variable changing.
+Two retrieval modes:
+  --mode lexical  : keyword-overlap only (fast, no extra API calls)
+  --mode hybrid   : lexical + vector reranking via pre-computed embeddings
 
 Run from repository root:
   SPIDER_TEST_SPLIT=balanced_80x4 python baseline/baseline_openai_rag.py --strategy few_shot
+  SPIDER_TEST_SPLIT=balanced_80x4 python baseline/baseline_openai_rag.py --strategy few_shot --mode hybrid
 
 Evaluate:
   SPIDER_TEST_SPLIT=balanced_80x4 python run_eval.py --pred baseline/results/openai_few_shot_rag_balanced_80x4.sql --etype exec
+  SPIDER_TEST_SPLIT=balanced_80x4 python run_eval.py --pred baseline/results/openai_few_shot_hybrid_rag_balanced_80x4.sql --etype exec
 """
 
 import argparse
@@ -43,6 +45,7 @@ from config import (
     TRAIN_SPIDER_JSON,
     RETRIEVER_TOP_K_TABLES,
     RETRIEVER_TOP_N_COLUMNS,
+    VECTOR_INDEX_PATH,
     select_test_questions,
 )
 from few_shot_examples import (
@@ -55,6 +58,7 @@ from prompt_utils import load_prompt
 from retriever import retrieve_schema
 from schema_loader import load_tables
 from sqlgen_parse import parse_sql_after_chain_of_thought, parse_sql_response
+from vector_store import load_index
 
 
 def call_openai(client, prompt, max_tokens=None, max_attempts=5):
@@ -78,6 +82,17 @@ def call_openai(client, prompt, max_tokens=None, max_attempts=5):
             else:
                 raise
     raise RuntimeError("OpenAI: rate limit retries exhausted")
+
+
+def load_vector_index_or_exit():
+    """Load the persistent ChromaDB index with a clear hybrid-mode error."""
+    try:
+        return load_index(VECTOR_INDEX_PATH)
+    except Exception as exc:
+        sys.exit(
+            f"Failed to load vector store from {VECTOR_INDEX_PATH}: {exc}\n"
+            "Rebuild it with `python build_vector_index.py` before running hybrid mode.",
+        )
 
 
 def main():
@@ -109,6 +124,12 @@ def main():
         default=RETRIEVER_TOP_N_COLUMNS,
         help=f"Max columns per table (default: {RETRIEVER_TOP_N_COLUMNS})",
     )
+    parser.add_argument(
+        "--mode",
+        choices=["lexical", "hybrid"],
+        default="lexical",
+        help="Retrieval mode: lexical (keyword only) or hybrid (lexical + vector reranking)",
+    )
     args = parser.parse_args()
     if BALANCED_INDICES is not None and args.num_questions is not None:
         print(
@@ -120,23 +141,32 @@ def main():
         sys.exit("Set OPENAI_API_KEY in .env")
 
     strategy = args.strategy
+    rag_suffix = "hybrid_rag" if args.mode == "hybrid" else "rag"
     if strategy == "zero_shot":
         template_name = "zero_shot.txt"
-        out_name = balanced_pred_filename("openai_zero_shot_rag")
+        out_name = balanced_pred_filename(f"openai_zero_shot_{rag_suffix}")
         parse_fn = parse_sql_response
         max_tok = OPENAI_MAX_TOKENS
     elif strategy == "chain_of_thought":
         template_name = "chain_of_thought.txt"
-        out_name = balanced_pred_filename("openai_chain_of_thought_rag")
+        out_name = balanced_pred_filename(f"openai_chain_of_thought_{rag_suffix}")
         parse_fn = parse_sql_after_chain_of_thought
         max_tok = OPENAI_MAX_TOKENS_COT
     else:
         template_name = "few_shot.txt"
-        out_name = balanced_pred_filename("openai_few_shot_rag")
+        out_name = balanced_pred_filename(f"openai_few_shot_{rag_suffix}")
         parse_fn = parse_sql_response
         max_tok = OPENAI_MAX_TOKENS
 
+    # Same client for generation and embeddings (both OpenAI)
     client = OpenAI(api_key=OPENAI_API_KEY, base_url=OPENAI_BASE_URL)
+
+    # Load vector index for hybrid mode
+    embed_client = client if args.mode == "hybrid" else None
+    vector_index = None
+    if args.mode == "hybrid":
+        print(f"Loading vector index from {VECTOR_INDEX_PATH}...")
+        vector_index = load_vector_index_or_exit()
 
     with open(QUESTIONS_JSON, encoding="utf-8") as f:
         all_q = json.load(f)
@@ -157,7 +187,7 @@ def main():
 
     label = strategy.replace("_", " ")
     print(
-        f"Running OpenAI ({OPENAI_MODEL}) {label} + RAG "
+        f"Running OpenAI ({OPENAI_MODEL}) {label} + {args.mode} RAG "
         f"(top_k={args.top_k_tables}, top_n={args.top_n_columns}) "
         f"on {len(questions)} questions (test split)..."
     )
@@ -171,6 +201,9 @@ def main():
                 question, db_id, tables_data,
                 top_k_tables=args.top_k_tables,
                 top_n_columns=args.top_n_columns,
+                mode=args.mode,
+                openai_client=embed_client,
+                vector_index=vector_index,
             )
 
             if strategy == "few_shot":

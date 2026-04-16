@@ -1,0 +1,4718 @@
+{
+  "config": {
+    "mode": "hybrid",
+    "top_k_tables": 3,
+    "sweep_top_k": [
+      3
+    ],
+    "top_n_columns": 8,
+    "per_hardness": 20,
+    "max_examples": 80,
+    "seed": 42
+  },
+  "runs": {
+    "3": {
+      "summary": {
+        "easy": {
+          "count": 20,
+          "recall": 1.0,
+          "precision": 0.5058333333333334,
+          "srr": 1.0,
+          "column_recall": 0.95,
+          "avg_tables_returned": 2.45
+        },
+        "medium": {
+          "count": 20,
+          "recall": 1.0,
+          "precision": 0.575,
+          "srr": 1.0,
+          "column_recall": 1.0,
+          "avg_tables_returned": 2.65
+        },
+        "hard": {
+          "count": 20,
+          "recall": 0.975,
+          "precision": 0.61,
+          "srr": 0.95,
+          "column_recall": 0.9875,
+          "avg_tables_returned": 2.85
+        },
+        "extra": {
+          "count": 20,
+          "recall": 0.9333333333333333,
+          "precision": 0.7019444444444444,
+          "srr": 0.85,
+          "column_recall": 0.95,
+          "avg_tables_returned": 3.2
+        },
+        "all": {
+          "count": 80,
+          "recall": 0.9770833333333334,
+          "precision": 0.5981944444444445,
+          "srr": 0.95,
+          "column_recall": 0.971875,
+          "avg_tables_returned": 2.7875
+        }
+      },
+      "results": [
+        {
+          "index": 203,
+          "db_id": "flight_2",
+          "question": "How many flights depart from 'APG'?",
+          "gold_sql": "SELECT count(*) FROM FLIGHTS WHERE SourceAirport  =  \"APG\"",
+          "hardness": "easy",
+          "gold_tables": [
+            2
+          ],
+          "gold_table_names": [
+            "flights"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2
+          ],
+          "retrieved_table_names": [
+            "airlines",
+            "airports",
+            "flights"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "airlines",
+            "airports"
+          ],
+          "gold_columns": [
+            12
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.3333333333333333,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 1,
+          "question_token_count": 6,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 325,
+          "db_id": "cre_Doc_Template_Mgt",
+          "question": "How many templates have template type code CV?",
+          "gold_sql": "SELECT count(*) FROM Templates WHERE template_type_code  =  \"CV\"",
+          "hardness": "easy",
+          "gold_tables": [
+            1
+          ],
+          "gold_table_names": [
+            "Templates"
+          ],
+          "retrieved_tables": [
+            0,
+            1
+          ],
+          "retrieved_table_names": [
+            "Ref_Template_Types",
+            "Templates"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "Ref_Template_Types"
+          ],
+          "gold_columns": [
+            5
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.5,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 2,
+          "gold_table_count": 1,
+          "question_token_count": 8,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 677,
+          "db_id": "poker_player",
+          "question": "What are the nationalities that are shared by at least two people?",
+          "gold_sql": "SELECT Nationality FROM people GROUP BY Nationality HAVING COUNT(*)  >=  2",
+          "hardness": "easy",
+          "gold_tables": [
+            1
+          ],
+          "gold_table_names": [
+            "people"
+          ],
+          "retrieved_tables": [
+            0,
+            1
+          ],
+          "retrieved_table_names": [
+            "poker_player",
+            "people"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "poker_player"
+          ],
+          "gold_columns": [
+            8
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.5,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 2,
+          "gold_table_count": 1,
+          "question_token_count": 12,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 514,
+          "db_id": "student_transcripts_tracking",
+          "question": "What is the zip code for Port Chelsea?",
+          "gold_sql": "SELECT zip_postcode FROM Addresses WHERE city  =  'Port Chelsea'",
+          "hardness": "easy",
+          "gold_tables": [
+            0
+          ],
+          "gold_table_names": [
+            "Addresses"
+          ],
+          "retrieved_tables": [
+            0
+          ],
+          "retrieved_table_names": [
+            "Addresses"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [],
+          "gold_columns": [
+            5,
+            6
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 1.0,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 1,
+          "gold_table_count": 1,
+          "question_token_count": 8,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": false
+        },
+        {
+          "index": 512,
+          "db_id": "student_transcripts_tracking",
+          "question": "What are the descriptions for all the math courses?",
+          "gold_sql": "SELECT course_description FROM Courses WHERE course_name  =  'math'",
+          "hardness": "easy",
+          "gold_tables": [
+            1
+          ],
+          "gold_table_names": [
+            "Courses"
+          ],
+          "retrieved_tables": [
+            1,
+            3,
+            5,
+            7,
+            8
+          ],
+          "retrieved_table_names": [
+            "Courses",
+            "Degree_Programs",
+            "Semesters",
+            "Student_Enrolment",
+            "Student_Enrolment_Courses"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "Degree_Programs",
+            "Semesters",
+            "Student_Enrolment",
+            "Student_Enrolment_Courses"
+          ],
+          "gold_columns": [
+            11,
+            12
+          ],
+          "retrieved_columns": [
+            10,
+            11,
+            12,
+            13,
+            18,
+            19,
+            20,
+            21,
+            22,
+            28,
+            29,
+            30,
+            31,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.2,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 5,
+          "gold_table_count": 1,
+          "question_token_count": 9,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 702,
+          "db_id": "world_1",
+          "question": "What are the names of all the countries that became independent after 1950?",
+          "gold_sql": "SELECT Name FROM country WHERE IndepYear  >  1950",
+          "hardness": "easy",
+          "gold_tables": [
+            2
+          ],
+          "gold_table_names": [
+            "country"
+          ],
+          "retrieved_tables": [
+            0,
+            2,
+            3
+          ],
+          "retrieved_table_names": [
+            "city",
+            "country",
+            "countrylanguage"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "city",
+            "countrylanguage"
+          ],
+          "gold_columns": [
+            9,
+            13
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            18,
+            23,
+            24,
+            25,
+            26
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.3333333333333333,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 1,
+          "question_token_count": 13,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": false
+        },
+        {
+          "index": 88,
+          "db_id": "car_1",
+          "question": "What is the number of continents?",
+          "gold_sql": "SELECT count(*) FROM CONTINENTS;",
+          "hardness": "easy",
+          "gold_tables": [
+            0
+          ],
+          "gold_table_names": [
+            "continents"
+          ],
+          "retrieved_tables": [
+            0,
+            1
+          ],
+          "retrieved_table_names": [
+            "continents",
+            "countries"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "countries"
+          ],
+          "gold_columns": [],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.5,
+          "column_recall": 0.0,
+          "srr": 1.0,
+          "retrieved_table_count": 2,
+          "gold_table_count": 1,
+          "question_token_count": 6,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 620,
+          "db_id": "tvshow",
+          "question": "When did the episode \"A Love of a Lifetime\" air?",
+          "gold_sql": "SELECT Air_Date FROM TV_series WHERE Episode = \"A Love of a Lifetime\";",
+          "hardness": "easy",
+          "gold_tables": [
+            1
+          ],
+          "gold_table_names": [
+            "TV_series"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2
+          ],
+          "retrieved_table_names": [
+            "TV_Channel",
+            "TV_series",
+            "Cartoon"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "TV_Channel",
+            "Cartoon"
+          ],
+          "gold_columns": [
+            11,
+            12
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.3333333333333333,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 1,
+          "question_token_count": 10,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": false
+        },
+        {
+          "index": 781,
+          "db_id": "world_1",
+          "question": "Give the country codes for countries in which people speak langauges that are not English.",
+          "gold_sql": "SELECT DISTINCT CountryCode FROM countrylanguage WHERE LANGUAGE != \"English\"",
+          "hardness": "easy",
+          "gold_tables": [
+            3
+          ],
+          "gold_table_names": [
+            "countrylanguage"
+          ],
+          "retrieved_tables": [
+            0,
+            2,
+            3
+          ],
+          "retrieved_table_names": [
+            "city",
+            "country",
+            "countrylanguage"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "city",
+            "country"
+          ],
+          "gold_columns": [
+            23,
+            24
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            22,
+            23,
+            24,
+            25,
+            26
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.3333333333333333,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 1,
+          "question_token_count": 15,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 477,
+          "db_id": "wta_1",
+          "question": "Find the codes of countries that have more than 50 players.",
+          "gold_sql": "SELECT country_code FROM players GROUP BY country_code HAVING count(*)  >  50",
+          "hardness": "easy",
+          "gold_tables": [
+            0
+          ],
+          "gold_table_names": [
+            "players"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2
+          ],
+          "retrieved_table_names": [
+            "players",
+            "matches",
+            "rankings"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "matches",
+            "rankings"
+          ],
+          "gold_columns": [
+            6
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.3333333333333333,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 1,
+          "question_token_count": 11,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 9,
+          "db_id": "concert_singer",
+          "question": "What are  the different countries with singers above age 20?",
+          "gold_sql": "SELECT DISTINCT country FROM singer WHERE age  >  20",
+          "hardness": "easy",
+          "gold_tables": [
+            1
+          ],
+          "gold_table_names": [
+            "singer"
+          ],
+          "retrieved_tables": [
+            1,
+            3
+          ],
+          "retrieved_table_names": [
+            "singer",
+            "singer_in_concert"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "singer_in_concert"
+          ],
+          "gold_columns": [
+            10,
+            13
+          ],
+          "retrieved_columns": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            20,
+            21
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.5,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 2,
+          "gold_table_count": 1,
+          "question_token_count": 10,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 250,
+          "db_id": "flight_2",
+          "question": "Give the flight numbers of flights landing at APG.",
+          "gold_sql": "SELECT FlightNo FROM FLIGHTS WHERE DestAirport  =  \"APG\"",
+          "hardness": "easy",
+          "gold_tables": [
+            2
+          ],
+          "gold_table_names": [
+            "flights"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2
+          ],
+          "retrieved_table_names": [
+            "airlines",
+            "airports",
+            "flights"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "airlines",
+            "airports"
+          ],
+          "gold_columns": [
+            11,
+            13
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.3333333333333333,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 1,
+          "question_token_count": 9,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 326,
+          "db_id": "cre_Doc_Template_Mgt",
+          "question": "Count the number of templates of the type CV.",
+          "gold_sql": "SELECT count(*) FROM Templates WHERE template_type_code  =  \"CV\"",
+          "hardness": "easy",
+          "gold_tables": [
+            1
+          ],
+          "gold_table_names": [
+            "Templates"
+          ],
+          "retrieved_tables": [
+            0,
+            1
+          ],
+          "retrieved_table_names": [
+            "Ref_Template_Types",
+            "Templates"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "Ref_Template_Types"
+          ],
+          "gold_columns": [
+            5
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.5,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 2,
+          "gold_table_count": 1,
+          "question_token_count": 9,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 732,
+          "db_id": "world_1",
+          "question": "How many unique languages are spoken in the world?",
+          "gold_sql": "SELECT count(DISTINCT LANGUAGE) FROM countrylanguage",
+          "hardness": "easy",
+          "gold_tables": [
+            3
+          ],
+          "gold_table_names": [
+            "countrylanguage"
+          ],
+          "retrieved_tables": [
+            3
+          ],
+          "retrieved_table_names": [
+            "countrylanguage"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [],
+          "gold_columns": [
+            24
+          ],
+          "retrieved_columns": [
+            23,
+            24,
+            25,
+            26
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 1.0,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 1,
+          "gold_table_count": 1,
+          "question_token_count": 9,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": false
+        },
+        {
+          "index": 828,
+          "db_id": "orchestra",
+          "question": "What are the record companies of orchestras in descending order of years in which they were founded?",
+          "gold_sql": "SELECT Record_Company FROM orchestra ORDER BY Year_of_Founded DESC",
+          "hardness": "easy",
+          "gold_tables": [
+            1
+          ],
+          "gold_table_names": [
+            "orchestra"
+          ],
+          "retrieved_tables": [
+            1
+          ],
+          "retrieved_table_names": [
+            "orchestra"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [],
+          "gold_columns": [
+            9,
+            10
+          ],
+          "retrieved_columns": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 1.0,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 1,
+          "gold_table_count": 1,
+          "question_token_count": 17,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 377,
+          "db_id": "cre_Doc_Template_Mgt",
+          "question": "What is the document id with 1 to 2 paragraphs?",
+          "gold_sql": "SELECT document_id FROM Paragraphs GROUP BY document_id HAVING count(*) BETWEEN 1 AND 2",
+          "hardness": "easy",
+          "gold_tables": [
+            3
+          ],
+          "gold_table_names": [
+            "Paragraphs"
+          ],
+          "retrieved_tables": [
+            2,
+            3
+          ],
+          "retrieved_table_names": [
+            "Documents",
+            "Paragraphs"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "Documents"
+          ],
+          "gold_columns": [
+            15
+          ],
+          "retrieved_columns": [
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.5,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 2,
+          "gold_table_count": 1,
+          "question_token_count": 10,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 826,
+          "db_id": "orchestra",
+          "question": "What are the names of conductors whose nationalities are not \"USA\"?",
+          "gold_sql": "SELECT Name FROM conductor WHERE Nationality != 'USA'",
+          "hardness": "easy",
+          "gold_tables": [
+            0
+          ],
+          "gold_table_names": [
+            "conductor"
+          ],
+          "retrieved_tables": [
+            0
+          ],
+          "retrieved_table_names": [
+            "conductor"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [],
+          "gold_columns": [
+            2,
+            4
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 1.0,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 1,
+          "gold_table_count": 1,
+          "question_token_count": 11,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 146,
+          "db_id": "car_1",
+          "question": "In 1980, how many cars were made?",
+          "gold_sql": "SELECT count(*) FROM CARS_DATA WHERE YEAR  =  1980;",
+          "hardness": "easy",
+          "gold_tables": [
+            5
+          ],
+          "gold_table_names": [
+            "cars_data"
+          ],
+          "retrieved_tables": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "retrieved_table_names": [
+            "car_makers",
+            "model_list",
+            "car_names",
+            "cars_data"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "car_makers",
+            "model_list",
+            "car_names"
+          ],
+          "gold_columns": [
+            23
+          ],
+          "retrieved_columns": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.25,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 4,
+          "gold_table_count": 1,
+          "question_token_count": 7,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": false
+        },
+        {
+          "index": 491,
+          "db_id": "battle_death",
+          "question": "How many ships ended up being 'Captured'?",
+          "gold_sql": "SELECT count(*) FROM ship WHERE disposition_of_ship  =  'Captured'",
+          "hardness": "easy",
+          "gold_tables": [
+            1
+          ],
+          "gold_table_names": [
+            "ship"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2
+          ],
+          "retrieved_table_names": [
+            "battle",
+            "ship",
+            "death"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "battle",
+            "death"
+          ],
+          "gold_columns": [
+            13
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.3333333333333333,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 1,
+          "question_token_count": 7,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 439,
+          "db_id": "wta_1",
+          "question": "Find the highest rank of losers in all matches.",
+          "gold_sql": "SELECT min(loser_rank) FROM matches",
+          "hardness": "easy",
+          "gold_tables": [
+            1
+          ],
+          "gold_table_names": [
+            "matches"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2
+          ],
+          "retrieved_table_names": [
+            "players",
+            "matches",
+            "rankings"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "players",
+            "rankings"
+          ],
+          "gold_columns": [
+            16
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.3333333333333333,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 1,
+          "question_token_count": 9,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 233,
+          "db_id": "flight_2",
+          "question": "What are airlines that have some flight departing from airport 'AHD'?",
+          "gold_sql": "SELECT T1.Airline FROM AIRLINES AS T1 JOIN FLIGHTS AS T2 ON T1.uid  =  T2.Airline WHERE T2.SourceAirport  =  \"AHD\"",
+          "hardness": "medium",
+          "gold_tables": [
+            0,
+            2
+          ],
+          "gold_table_names": [
+            "airlines",
+            "flights"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2
+          ],
+          "retrieved_table_names": [
+            "airlines",
+            "airports",
+            "flights"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "airports"
+          ],
+          "gold_columns": [
+            1,
+            2,
+            12
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.6666666666666666,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 2,
+          "question_token_count": 11,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 630,
+          "db_id": "tvshow",
+          "question": "What is the produdction code and channel of the most recent cartoon ?",
+          "gold_sql": "select production_code ,  channel from cartoon order by original_air_date desc limit 1",
+          "hardness": "medium",
+          "gold_tables": [
+            2
+          ],
+          "gold_table_names": [
+            "Cartoon"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2
+          ],
+          "retrieved_table_names": [
+            "TV_Channel",
+            "TV_series",
+            "Cartoon"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "TV_Channel",
+            "TV_series"
+          ],
+          "gold_columns": [
+            23,
+            24,
+            25
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.3333333333333333,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 1,
+          "question_token_count": 12,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 848,
+          "db_id": "orchestra",
+          "question": "Please show the different record companies and the corresponding number of orchestras.",
+          "gold_sql": "SELECT Record_Company ,  COUNT(*) FROM orchestra GROUP BY Record_Company",
+          "hardness": "medium",
+          "gold_tables": [
+            1
+          ],
+          "gold_table_names": [
+            "orchestra"
+          ],
+          "retrieved_tables": [
+            1
+          ],
+          "retrieved_table_names": [
+            "orchestra"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [],
+          "gold_columns": [
+            9
+          ],
+          "retrieved_columns": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 1.0,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 1,
+          "gold_table_count": 1,
+          "question_token_count": 12,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 1017,
+          "db_id": "singer",
+          "question": "For each citizenship, what is the maximum net worth?",
+          "gold_sql": "SELECT Citizenship ,  max(Net_Worth_Millions) FROM singer GROUP BY Citizenship",
+          "hardness": "medium",
+          "gold_tables": [
+            0
+          ],
+          "gold_table_names": [
+            "singer"
+          ],
+          "retrieved_tables": [
+            0,
+            1
+          ],
+          "retrieved_table_names": [
+            "singer",
+            "song"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "song"
+          ],
+          "gold_columns": [
+            4,
+            5
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.5,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 2,
+          "gold_table_count": 1,
+          "question_token_count": 9,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": false
+        },
+        {
+          "index": 73,
+          "db_id": "pets_1",
+          "question": "Find the average weight for each pet type.",
+          "gold_sql": "SELECT avg(weight) ,  pettype FROM pets GROUP BY pettype",
+          "hardness": "medium",
+          "gold_tables": [
+            2
+          ],
+          "gold_table_names": [
+            "Pets"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2
+          ],
+          "retrieved_table_names": [
+            "Student",
+            "Has_Pet",
+            "Pets"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "Student",
+            "Has_Pet"
+          ],
+          "gold_columns": [
+            12,
+            14
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.3333333333333333,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 1,
+          "question_token_count": 8,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": false
+        },
+        {
+          "index": 663,
+          "db_id": "poker_player",
+          "question": "List the names of poker players ordered by the final tables made in ascending order.",
+          "gold_sql": "SELECT T1.Name FROM people AS T1 JOIN poker_player AS T2 ON T1.People_ID  =  T2.People_ID ORDER BY T2.Final_Table_Made",
+          "hardness": "medium",
+          "gold_tables": [
+            0,
+            1
+          ],
+          "gold_table_names": [
+            "poker_player",
+            "people"
+          ],
+          "retrieved_tables": [
+            0,
+            1
+          ],
+          "retrieved_table_names": [
+            "poker_player",
+            "people"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [],
+          "gold_columns": [
+            3,
+            7,
+            9
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 1.0,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 2,
+          "gold_table_count": 2,
+          "question_token_count": 15,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 594,
+          "db_id": "tvshow",
+          "question": "What are the titles of all cartoons directed by Ben Jones or Brandon Vietti?",
+          "gold_sql": "SELECT Title FROM Cartoon WHERE Directed_by = \"Ben Jones\" OR Directed_by = \"Brandon Vietti\";",
+          "hardness": "medium",
+          "gold_tables": [
+            2
+          ],
+          "gold_table_names": [
+            "Cartoon"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2
+          ],
+          "retrieved_table_names": [
+            "TV_Channel",
+            "TV_series",
+            "Cartoon"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "TV_Channel",
+            "TV_series"
+          ],
+          "gold_columns": [
+            20,
+            21
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.3333333333333333,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 1,
+          "question_token_count": 14,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 310,
+          "db_id": "cre_Doc_Template_Mgt",
+          "question": "What are all different template ids used for documents, and how many times were each of them used?",
+          "gold_sql": "SELECT template_id ,  count(*) FROM Documents GROUP BY template_id",
+          "hardness": "medium",
+          "gold_tables": [
+            2
+          ],
+          "gold_table_names": [
+            "Documents"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "retrieved_table_names": [
+            "Ref_Template_Types",
+            "Templates",
+            "Documents",
+            "Paragraphs"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "Ref_Template_Types",
+            "Templates",
+            "Paragraphs"
+          ],
+          "gold_columns": [
+            10
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.25,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 4,
+          "gold_table_count": 1,
+          "question_token_count": 18,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 4,
+          "db_id": "concert_singer",
+          "question": "What is the average, minimum, and maximum age of all singers from France?",
+          "gold_sql": "SELECT avg(age) ,  min(age) ,  max(age) FROM singer WHERE country  =  'France'",
+          "hardness": "medium",
+          "gold_tables": [
+            1
+          ],
+          "gold_table_names": [
+            "singer"
+          ],
+          "retrieved_tables": [
+            1,
+            3
+          ],
+          "retrieved_table_names": [
+            "singer",
+            "singer_in_concert"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "singer_in_concert"
+          ],
+          "gold_columns": [
+            10,
+            13
+          ],
+          "retrieved_columns": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            20,
+            21
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.5,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 2,
+          "gold_table_count": 1,
+          "question_token_count": 13,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 22,
+          "db_id": "concert_singer",
+          "question": "Show the stadium name and the number of concerts in each stadium.",
+          "gold_sql": "SELECT T2.name ,  count(*) FROM concert AS T1 JOIN stadium AS T2 ON T1.stadium_id  =  T2.stadium_id GROUP BY T1.stadium_id",
+          "hardness": "medium",
+          "gold_tables": [
+            0,
+            2
+          ],
+          "gold_table_names": [
+            "stadium",
+            "concert"
+          ],
+          "retrieved_tables": [
+            0,
+            2,
+            3
+          ],
+          "retrieved_table_names": [
+            "stadium",
+            "concert",
+            "singer_in_concert"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "singer_in_concert"
+          ],
+          "gold_columns": [
+            3,
+            18
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.6666666666666666,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 2,
+          "question_token_count": 12,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 267,
+          "db_id": "employee_hire_evaluation",
+          "question": "Find the number of shops in each location.",
+          "gold_sql": "SELECT count(*) ,  LOCATION FROM shop GROUP BY LOCATION",
+          "hardness": "medium",
+          "gold_tables": [
+            1
+          ],
+          "gold_table_names": [
+            "shop"
+          ],
+          "retrieved_tables": [
+            1
+          ],
+          "retrieved_table_names": [
+            "shop"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [],
+          "gold_columns": [
+            7
+          ],
+          "retrieved_columns": [
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 1.0,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 1,
+          "gold_table_count": 1,
+          "question_token_count": 8,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 16,
+          "db_id": "concert_singer",
+          "question": "What is the maximum capacity and the average of all stadiums ?",
+          "gold_sql": "select max(capacity), average from stadium",
+          "hardness": "medium",
+          "gold_tables": [
+            0
+          ],
+          "gold_table_names": [
+            "stadium"
+          ],
+          "retrieved_tables": [
+            0
+          ],
+          "retrieved_table_names": [
+            "stadium"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [],
+          "gold_columns": [
+            4,
+            7
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 1.0,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 1,
+          "gold_table_count": 1,
+          "question_token_count": 11,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 186,
+          "db_id": "flight_2",
+          "question": "Give the airport code and airport name corresonding to the city Anthony.",
+          "gold_sql": "SELECT AirportCode ,  AirportName FROM AIRPORTS WHERE city  =  \"Anthony\"",
+          "hardness": "medium",
+          "gold_tables": [
+            1
+          ],
+          "gold_table_names": [
+            "airports"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2
+          ],
+          "retrieved_table_names": [
+            "airlines",
+            "airports",
+            "flights"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "airlines",
+            "flights"
+          ],
+          "gold_columns": [
+            5,
+            6,
+            7
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.3333333333333333,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 1,
+          "question_token_count": 12,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": false
+        },
+        {
+          "index": 215,
+          "db_id": "flight_2",
+          "question": "How many 'United Airlines' flights go to Airport 'ASY'?",
+          "gold_sql": "SELECT count(*) FROM AIRLINES AS T1 JOIN FLIGHTS AS T2 ON T2.Airline  =  T1.uid WHERE T1.Airline  =  \"United Airlines\" AND T2.DestAirport  =  \"ASY\"",
+          "hardness": "medium",
+          "gold_tables": [
+            0,
+            2
+          ],
+          "gold_table_names": [
+            "airlines",
+            "flights"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2
+          ],
+          "retrieved_table_names": [
+            "airlines",
+            "airports",
+            "flights"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "airports"
+          ],
+          "gold_columns": [
+            2,
+            10,
+            13
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.6666666666666666,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 2,
+          "question_token_count": 9,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 148,
+          "db_id": "car_1",
+          "question": "What is the number of car models created by the car maker American Motor Company?",
+          "gold_sql": "SELECT count(*) FROM CAR_MAKERS AS T1 JOIN MODEL_LIST AS T2 ON T1.Id  =  T2.Maker WHERE T1.FullName  =  'American Motor Company';",
+          "hardness": "medium",
+          "gold_tables": [
+            2,
+            3
+          ],
+          "gold_table_names": [
+            "car_makers",
+            "model_list"
+          ],
+          "retrieved_tables": [
+            2,
+            3,
+            4
+          ],
+          "retrieved_table_names": [
+            "car_makers",
+            "model_list",
+            "car_names"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "car_names"
+          ],
+          "gold_columns": [
+            6,
+            8
+          ],
+          "retrieved_columns": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.6666666666666666,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 2,
+          "question_token_count": 15,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": false
+        },
+        {
+          "index": 79,
+          "db_id": "pets_1",
+          "question": "Find the number of pets for each student who has any pet and student id.",
+          "gold_sql": "SELECT count(*) ,  T1.stuid FROM student AS T1 JOIN has_pet AS T2 ON T1.stuid  =  T2.stuid GROUP BY T1.stuid",
+          "hardness": "medium",
+          "gold_tables": [
+            0,
+            1
+          ],
+          "gold_table_names": [
+            "Student",
+            "Has_Pet"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2
+          ],
+          "retrieved_table_names": [
+            "Student",
+            "Has_Pet",
+            "Pets"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "Pets"
+          ],
+          "gold_columns": [
+            1
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.6666666666666666,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 2,
+          "question_token_count": 15,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 301,
+          "db_id": "cre_Doc_Template_Mgt",
+          "question": "What is the document name and template id for document with description with the letter 'w' in it?",
+          "gold_sql": "SELECT document_name ,  template_id FROM Documents WHERE Document_Description LIKE \"%w%\"",
+          "hardness": "medium",
+          "gold_tables": [
+            2
+          ],
+          "gold_table_names": [
+            "Documents"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "retrieved_table_names": [
+            "Ref_Template_Types",
+            "Templates",
+            "Documents",
+            "Paragraphs"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "Ref_Template_Types",
+            "Templates",
+            "Paragraphs"
+          ],
+          "gold_columns": [
+            10,
+            11,
+            12
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.25,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 4,
+          "gold_table_count": 1,
+          "question_token_count": 18,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": false
+        },
+        {
+          "index": 393,
+          "db_id": "course_teach",
+          "question": "Show different hometown of teachers and the number of teachers from each hometown.",
+          "gold_sql": "SELECT Hometown ,  COUNT(*) FROM teacher GROUP BY Hometown",
+          "hardness": "medium",
+          "gold_tables": [
+            1
+          ],
+          "gold_table_names": [
+            "teacher"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2
+          ],
+          "retrieved_table_names": [
+            "course",
+            "teacher",
+            "course_arrange"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "course",
+            "course_arrange"
+          ],
+          "gold_columns": [
+            7
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.3333333333333333,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 1,
+          "question_token_count": 13,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 253,
+          "db_id": "flight_2",
+          "question": "What are flight numbers of flights arriving at City \"Aberdeen\"?",
+          "gold_sql": "SELECT T1.FlightNo FROM FLIGHTS AS T1 JOIN AIRPORTS AS T2 ON T1.DestAirport   =  T2.AirportCode WHERE T2.City  =  \"Aberdeen\"",
+          "hardness": "medium",
+          "gold_tables": [
+            1,
+            2
+          ],
+          "gold_table_names": [
+            "airports",
+            "flights"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2
+          ],
+          "retrieved_table_names": [
+            "airlines",
+            "airports",
+            "flights"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "airlines"
+          ],
+          "gold_columns": [
+            5,
+            11,
+            13
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.6666666666666666,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 2,
+          "question_token_count": 10,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 385,
+          "db_id": "course_teach",
+          "question": "What are the age and hometown of teachers?",
+          "gold_sql": "SELECT Age ,  Hometown FROM teacher",
+          "hardness": "medium",
+          "gold_tables": [
+            1
+          ],
+          "gold_table_names": [
+            "teacher"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2
+          ],
+          "retrieved_table_names": [
+            "course",
+            "teacher",
+            "course_arrange"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "course",
+            "course_arrange"
+          ],
+          "gold_columns": [
+            6,
+            7
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.3333333333333333,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 1,
+          "question_token_count": 8,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 583,
+          "db_id": "student_transcripts_tracking",
+          "question": "Find the first name of the students who permanently live in the country Haiti or have the cell phone number 09700166582 .",
+          "gold_sql": "select t1.first_name from students as t1 join addresses as t2 on t1.permanent_address_id  =  t2.address_id where t2.country  =  'haiti' or t1.cell_mobile_number  =  '09700166582'",
+          "hardness": "hard",
+          "gold_tables": [
+            0,
+            6
+          ],
+          "gold_table_names": [
+            "Addresses",
+            "Students"
+          ],
+          "retrieved_tables": [
+            6,
+            7,
+            8
+          ],
+          "retrieved_table_names": [
+            "Students",
+            "Student_Enrolment",
+            "Student_Enrolment_Courses"
+          ],
+          "missing_table_names": [
+            "Addresses"
+          ],
+          "extra_table_names": [
+            "Student_Enrolment",
+            "Student_Enrolment_Courses"
+          ],
+          "gold_columns": [
+            8,
+            34,
+            35,
+            38
+          ],
+          "retrieved_columns": [
+            32,
+            33,
+            34,
+            35,
+            36,
+            38,
+            41,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51
+          ],
+          "missing_columns": [
+            8
+          ],
+          "table_recall": 0.5,
+          "table_precision": 0.3333333333333333,
+          "column_recall": 0.75,
+          "srr": 0.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 2,
+          "question_token_count": 21,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 212,
+          "db_id": "flight_2",
+          "question": "How many flights fly from Aberdeen to Ashley?",
+          "gold_sql": "SELECT count(*) FROM FLIGHTS AS T1 JOIN AIRPORTS AS T2 ON T1.DestAirport  =  T2.AirportCode JOIN AIRPORTS AS T3 ON T1.SourceAirport  =  T3.AirportCode WHERE T2.City  =  \"Ashley\" AND T3.City  =  \"Aberdeen\"",
+          "hardness": "hard",
+          "gold_tables": [
+            1,
+            2
+          ],
+          "gold_table_names": [
+            "airports",
+            "flights"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2
+          ],
+          "retrieved_table_names": [
+            "airlines",
+            "airports",
+            "flights"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "airlines"
+          ],
+          "gold_columns": [
+            5,
+            12,
+            13
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.6666666666666666,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 2,
+          "question_token_count": 8,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 376,
+          "db_id": "cre_Doc_Template_Mgt",
+          "question": "Return the id of the document with the fewest paragraphs.",
+          "gold_sql": "SELECT document_id FROM Paragraphs GROUP BY document_id ORDER BY count(*) ASC LIMIT 1",
+          "hardness": "hard",
+          "gold_tables": [
+            3
+          ],
+          "gold_table_names": [
+            "Paragraphs"
+          ],
+          "retrieved_tables": [
+            2,
+            3
+          ],
+          "retrieved_table_names": [
+            "Documents",
+            "Paragraphs"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "Documents"
+          ],
+          "gold_columns": [
+            15
+          ],
+          "retrieved_columns": [
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.5,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 2,
+          "gold_table_count": 1,
+          "question_token_count": 10,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 811,
+          "db_id": "world_1",
+          "question": "Give the total population and average surface area corresponding to countries in North America that have a surface area greater than 3000 .",
+          "gold_sql": "select sum(population) ,  avg(surfacearea) from country where continent  =  \"north america\" and surfacearea  >  3000",
+          "hardness": "hard",
+          "gold_tables": [
+            2
+          ],
+          "gold_table_names": [
+            "country"
+          ],
+          "retrieved_tables": [
+            0,
+            2,
+            3
+          ],
+          "retrieved_table_names": [
+            "city",
+            "country",
+            "countrylanguage"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "city",
+            "countrylanguage"
+          ],
+          "gold_columns": [
+            10,
+            12,
+            14
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            23,
+            24,
+            25,
+            26
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.3333333333333333,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 1,
+          "question_token_count": 22,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": false
+        },
+        {
+          "index": 814,
+          "db_id": "world_1",
+          "question": "Which language is spoken by the largest number of countries?",
+          "gold_sql": "SELECT LANGUAGE FROM countrylanguage GROUP BY LANGUAGE ORDER BY count(*) DESC LIMIT 1",
+          "hardness": "hard",
+          "gold_tables": [
+            3
+          ],
+          "gold_table_names": [
+            "countrylanguage"
+          ],
+          "retrieved_tables": [
+            2,
+            3
+          ],
+          "retrieved_table_names": [
+            "country",
+            "countrylanguage"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "country"
+          ],
+          "gold_columns": [
+            24
+          ],
+          "retrieved_columns": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            23,
+            24,
+            25,
+            26
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.5,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 2,
+          "gold_table_count": 1,
+          "question_token_count": 10,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": false
+        },
+        {
+          "index": 783,
+          "db_id": "world_1",
+          "question": "Return the codes of countries that do not speak English and do not have Republics for governments.",
+          "gold_sql": "SELECT Code FROM country WHERE GovernmentForm != \"Republic\" EXCEPT SELECT CountryCode FROM countrylanguage WHERE LANGUAGE  =  \"English\"",
+          "hardness": "hard",
+          "gold_tables": [
+            2,
+            3
+          ],
+          "gold_table_names": [
+            "country",
+            "countrylanguage"
+          ],
+          "retrieved_tables": [
+            2,
+            3
+          ],
+          "retrieved_table_names": [
+            "country",
+            "countrylanguage"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [],
+          "gold_columns": [
+            8,
+            19,
+            23,
+            24
+          ],
+          "retrieved_columns": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            19,
+            22,
+            23,
+            24,
+            25,
+            26
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 1.0,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 2,
+          "gold_table_count": 2,
+          "question_token_count": 17,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": false
+        },
+        {
+          "index": 106,
+          "db_id": "car_1",
+          "question": "What is the name of each continent and how many car makers are there in each one?",
+          "gold_sql": "SELECT T1.Continent ,  count(*) FROM CONTINENTS AS T1 JOIN COUNTRIES AS T2 ON T1.ContId  =  T2.continent JOIN car_makers AS T3 ON T2.CountryId  =  T3.Country GROUP BY T1.Continent;",
+          "hardness": "hard",
+          "gold_tables": [
+            0,
+            1,
+            2
+          ],
+          "gold_table_names": [
+            "continents",
+            "countries",
+            "car_makers"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "retrieved_table_names": [
+            "continents",
+            "countries",
+            "car_makers",
+            "model_list",
+            "car_names"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "model_list",
+            "car_names"
+          ],
+          "gold_columns": [
+            1,
+            2,
+            3
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.6,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 5,
+          "gold_table_count": 3,
+          "question_token_count": 17,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 26,
+          "db_id": "concert_singer",
+          "question": "Which year has most number of concerts?",
+          "gold_sql": "SELECT YEAR FROM concert GROUP BY YEAR ORDER BY count(*) DESC LIMIT 1",
+          "hardness": "hard",
+          "gold_tables": [
+            2
+          ],
+          "gold_table_names": [
+            "concert"
+          ],
+          "retrieved_tables": [
+            2,
+            3
+          ],
+          "retrieved_table_names": [
+            "concert",
+            "singer_in_concert"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "singer_in_concert"
+          ],
+          "gold_columns": [
+            19
+          ],
+          "retrieved_columns": [
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.5,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 2,
+          "gold_table_count": 1,
+          "question_token_count": 7,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 544,
+          "db_id": "student_transcripts_tracking",
+          "question": "What is the name of the semester with no students enrolled?",
+          "gold_sql": "SELECT semester_name FROM Semesters WHERE semester_id NOT IN( SELECT semester_id FROM Student_Enrolment )",
+          "hardness": "hard",
+          "gold_tables": [
+            5,
+            7
+          ],
+          "gold_table_names": [
+            "Semesters",
+            "Student_Enrolment"
+          ],
+          "retrieved_tables": [
+            5,
+            7,
+            8
+          ],
+          "retrieved_table_names": [
+            "Semesters",
+            "Student_Enrolment",
+            "Student_Enrolment_Courses"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "Student_Enrolment_Courses"
+          ],
+          "gold_columns": [
+            28,
+            29,
+            46
+          ],
+          "retrieved_columns": [
+            28,
+            29,
+            30,
+            31,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.6666666666666666,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 2,
+          "question_token_count": 11,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 779,
+          "db_id": "world_1",
+          "question": "Return the country codes for countries that do not speak English.",
+          "gold_sql": "SELECT CountryCode FROM countrylanguage EXCEPT SELECT CountryCode FROM countrylanguage WHERE LANGUAGE  =  \"English\"",
+          "hardness": "hard",
+          "gold_tables": [
+            3
+          ],
+          "gold_table_names": [
+            "countrylanguage"
+          ],
+          "retrieved_tables": [
+            0,
+            2,
+            3
+          ],
+          "retrieved_table_names": [
+            "city",
+            "country",
+            "countrylanguage"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "city",
+            "country"
+          ],
+          "gold_columns": [
+            23,
+            24
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            22,
+            23,
+            24,
+            25,
+            26
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.3333333333333333,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 1,
+          "question_token_count": 11,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 279,
+          "db_id": "employee_hire_evaluation",
+          "question": "Find the name of the employee who got the highest one time bonus.",
+          "gold_sql": "SELECT t1.name FROM employee AS t1 JOIN evaluation AS t2 ON t1.Employee_ID  =  t2.Employee_ID ORDER BY t2.bonus DESC LIMIT 1",
+          "hardness": "hard",
+          "gold_tables": [
+            0,
+            3
+          ],
+          "gold_table_names": [
+            "employee",
+            "evaluation"
+          ],
+          "retrieved_tables": [
+            0,
+            2,
+            3
+          ],
+          "retrieved_table_names": [
+            "employee",
+            "hiring",
+            "evaluation"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "hiring"
+          ],
+          "gold_columns": [
+            1,
+            2,
+            17
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.6666666666666666,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 2,
+          "question_token_count": 13,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 256,
+          "db_id": "flight_2",
+          "question": "How many flights land in Aberdeen or Abilene?",
+          "gold_sql": "SELECT count(*) FROM Flights AS T1 JOIN Airports AS T2 ON T1.DestAirport  =  T2.AirportCode WHERE T2.city  =  \"Aberdeen\" OR T2.city  =  \"Abilene\"",
+          "hardness": "hard",
+          "gold_tables": [
+            1,
+            2
+          ],
+          "gold_table_names": [
+            "airports",
+            "flights"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2
+          ],
+          "retrieved_table_names": [
+            "airlines",
+            "airports",
+            "flights"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "airlines"
+          ],
+          "gold_columns": [
+            5,
+            13
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.6666666666666666,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 2,
+          "question_token_count": 8,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 894,
+          "db_id": "network_1",
+          "question": "Show ids of all students who do not have any friends.",
+          "gold_sql": "SELECT id FROM Highschooler EXCEPT SELECT student_id FROM Friend",
+          "hardness": "hard",
+          "gold_tables": [
+            0,
+            1
+          ],
+          "gold_table_names": [
+            "Highschooler",
+            "Friend"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2
+          ],
+          "retrieved_table_names": [
+            "Highschooler",
+            "Friend",
+            "Likes"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "Likes"
+          ],
+          "gold_columns": [
+            1,
+            4
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.6666666666666666,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 2,
+          "question_token_count": 11,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 447,
+          "db_id": "wta_1",
+          "question": "List the names of all winners who played in both 2013 and 2016.",
+          "gold_sql": "SELECT winner_name FROM matches WHERE YEAR  =  2013 INTERSECT SELECT winner_name FROM matches WHERE YEAR  =  2016",
+          "hardness": "hard",
+          "gold_tables": [
+            1
+          ],
+          "gold_table_names": [
+            "matches"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2
+          ],
+          "retrieved_table_names": [
+            "players",
+            "matches",
+            "rankings"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "players",
+            "rankings"
+          ],
+          "gold_columns": [
+            34,
+            38
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.3333333333333333,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 1,
+          "question_token_count": 13,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": false
+        },
+        {
+          "index": 910,
+          "db_id": "network_1",
+          "question": "Show the names of students who have a grade higher than 5 and have at least 2 friends.",
+          "gold_sql": "SELECT T2.name FROM Friend AS T1 JOIN Highschooler AS T2 ON T1.student_id  =  T2.id WHERE T2.grade  >  5 GROUP BY T1.student_id HAVING count(*)  >=  2",
+          "hardness": "hard",
+          "gold_tables": [
+            0,
+            1
+          ],
+          "gold_table_names": [
+            "Highschooler",
+            "Friend"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2
+          ],
+          "retrieved_table_names": [
+            "Highschooler",
+            "Friend",
+            "Likes"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "Likes"
+          ],
+          "gold_columns": [
+            2,
+            3,
+            4
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.6666666666666666,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 2,
+          "question_token_count": 18,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 815,
+          "db_id": "world_1",
+          "question": "Give the language that is spoken in the most countries.",
+          "gold_sql": "SELECT LANGUAGE FROM countrylanguage GROUP BY LANGUAGE ORDER BY count(*) DESC LIMIT 1",
+          "hardness": "hard",
+          "gold_tables": [
+            3
+          ],
+          "gold_table_names": [
+            "countrylanguage"
+          ],
+          "retrieved_tables": [
+            2,
+            3
+          ],
+          "retrieved_table_names": [
+            "country",
+            "countrylanguage"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "country"
+          ],
+          "gold_columns": [
+            24
+          ],
+          "retrieved_columns": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            23,
+            24,
+            25,
+            26
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.5,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 2,
+          "gold_table_count": 1,
+          "question_token_count": 10,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": false
+        },
+        {
+          "index": 857,
+          "db_id": "orchestra",
+          "question": "What are the record companies that are used by both orchestras founded before 2003 and those founded after 2003?",
+          "gold_sql": "SELECT Record_Company FROM orchestra WHERE Year_of_Founded  <  2003 INTERSECT SELECT Record_Company FROM orchestra WHERE Year_of_Founded  >  2003",
+          "hardness": "hard",
+          "gold_tables": [
+            1
+          ],
+          "gold_table_names": [
+            "orchestra"
+          ],
+          "retrieved_tables": [
+            1
+          ],
+          "retrieved_table_names": [
+            "orchestra"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [],
+          "gold_columns": [
+            9,
+            10
+          ],
+          "retrieved_columns": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 1.0,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 1,
+          "gold_table_count": 1,
+          "question_token_count": 19,
+          "is_single_table_gold": true,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 786,
+          "db_id": "world_1",
+          "question": "Which unique cities are in Asian countries where Chinese is the official language ?",
+          "gold_sql": "select distinct t3.name from country as t1 join countrylanguage as t2 on t1.code  =  t2.countrycode join city as t3 on t1.code  =  t3.countrycode where t2.isofficial  =  't' and t2.language  =  'chinese' and t1.continent  =  \"asia\"",
+          "hardness": "hard",
+          "gold_tables": [
+            0,
+            2,
+            3
+          ],
+          "gold_table_names": [
+            "city",
+            "country",
+            "countrylanguage"
+          ],
+          "retrieved_tables": [
+            0,
+            2,
+            3
+          ],
+          "retrieved_table_names": [
+            "city",
+            "country",
+            "countrylanguage"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [],
+          "gold_columns": [
+            2,
+            8,
+            10,
+            24,
+            25
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            23,
+            24,
+            25,
+            26
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 1.0,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 3,
+          "question_token_count": 13,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": false
+        },
+        {
+          "index": 896,
+          "db_id": "network_1",
+          "question": "Show names of all high school students who do not have any friends.",
+          "gold_sql": "SELECT name FROM Highschooler EXCEPT SELECT T2.name FROM Friend AS T1 JOIN Highschooler AS T2 ON T1.student_id  =  T2.id",
+          "hardness": "hard",
+          "gold_tables": [
+            0,
+            1
+          ],
+          "gold_table_names": [
+            "Highschooler",
+            "Friend"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2
+          ],
+          "retrieved_table_names": [
+            "Highschooler",
+            "Friend",
+            "Likes"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "Likes"
+          ],
+          "gold_columns": [
+            2,
+            4
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.6666666666666666,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 2,
+          "question_token_count": 13,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 105,
+          "db_id": "car_1",
+          "question": "How many car makers are there in each continents? List the continent name and the count.",
+          "gold_sql": "SELECT T1.Continent ,  count(*) FROM CONTINENTS AS T1 JOIN COUNTRIES AS T2 ON T1.ContId  =  T2.continent JOIN car_makers AS T3 ON T2.CountryId  =  T3.Country GROUP BY T1.Continent;",
+          "hardness": "hard",
+          "gold_tables": [
+            0,
+            1,
+            2
+          ],
+          "gold_table_names": [
+            "continents",
+            "countries",
+            "car_makers"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "retrieved_table_names": [
+            "continents",
+            "countries",
+            "car_makers",
+            "model_list",
+            "car_names"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "model_list",
+            "car_names"
+          ],
+          "gold_columns": [
+            1,
+            2,
+            3
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.6,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 5,
+          "gold_table_count": 3,
+          "question_token_count": 16,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 130,
+          "db_id": "car_1",
+          "question": "What are the names of all European countries with at least 3 manufacturers?",
+          "gold_sql": "SELECT T1.CountryName FROM COUNTRIES AS T1 JOIN CONTINENTS AS T2 ON T1.Continent  =  T2.ContId JOIN CAR_MAKERS AS T3 ON T1.CountryId  =  T3.Country WHERE T2.Continent  =  'europe' GROUP BY T1.CountryName HAVING count(*)  >=  3;",
+          "hardness": "extra",
+          "gold_tables": [
+            0,
+            1,
+            2
+          ],
+          "gold_table_names": [
+            "continents",
+            "countries",
+            "car_makers"
+          ],
+          "retrieved_tables": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "retrieved_table_names": [
+            "countries",
+            "car_makers",
+            "model_list",
+            "car_names"
+          ],
+          "missing_table_names": [
+            "continents"
+          ],
+          "extra_table_names": [
+            "model_list",
+            "car_names"
+          ],
+          "gold_columns": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "retrieved_columns": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "missing_columns": [
+            2
+          ],
+          "table_recall": 0.6666666666666666,
+          "table_precision": 0.5,
+          "column_recall": 0.75,
+          "srr": 0.0,
+          "retrieved_table_count": 4,
+          "gold_table_count": 3,
+          "question_token_count": 13,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 538,
+          "db_id": "student_transcripts_tracking",
+          "question": "What is the degree summary name that has the most number of students enrolled?",
+          "gold_sql": "SELECT T1.degree_summary_name FROM Degree_Programs AS T1 JOIN Student_Enrolment AS T2 ON T1.degree_program_id  =  T2.degree_program_id GROUP BY T1.degree_summary_name ORDER BY count(*) DESC LIMIT 1",
+          "hardness": "extra",
+          "gold_tables": [
+            3,
+            7
+          ],
+          "gold_table_names": [
+            "Degree_Programs",
+            "Student_Enrolment"
+          ],
+          "retrieved_tables": [
+            3,
+            5,
+            6,
+            7,
+            8
+          ],
+          "retrieved_table_names": [
+            "Degree_Programs",
+            "Semesters",
+            "Students",
+            "Student_Enrolment",
+            "Student_Enrolment_Courses"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "Semesters",
+            "Students",
+            "Student_Enrolment_Courses"
+          ],
+          "gold_columns": [
+            18,
+            20
+          ],
+          "retrieved_columns": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.4,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 5,
+          "gold_table_count": 2,
+          "question_token_count": 14,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 760,
+          "db_id": "world_1",
+          "question": "Find the city with the largest population that uses English.",
+          "gold_sql": "SELECT T1.Name ,  T1.Population FROM city AS T1 JOIN countrylanguage AS T2 ON T1.CountryCode  =  T2.CountryCode WHERE T2.Language  =  \"English\" ORDER BY T1.Population DESC LIMIT 1",
+          "hardness": "extra",
+          "gold_tables": [
+            0,
+            3
+          ],
+          "gold_table_names": [
+            "city",
+            "countrylanguage"
+          ],
+          "retrieved_tables": [
+            0,
+            2
+          ],
+          "retrieved_table_names": [
+            "city",
+            "country"
+          ],
+          "missing_table_names": [
+            "countrylanguage"
+          ],
+          "extra_table_names": [
+            "country"
+          ],
+          "gold_columns": [
+            2,
+            3,
+            5,
+            24
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "missing_columns": [
+            24
+          ],
+          "table_recall": 0.5,
+          "table_precision": 0.5,
+          "column_recall": 0.75,
+          "srr": 0.0,
+          "retrieved_table_count": 2,
+          "gold_table_count": 2,
+          "question_token_count": 10,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 940,
+          "db_id": "dog_kennels",
+          "question": "Which owner has paid the largest amount of money in total for their dogs? Show the owner id and zip code.",
+          "gold_sql": "SELECT T1.owner_id ,  T1.zip_code FROM Owners AS T1 JOIN Dogs AS T2 ON T1.owner_id  =  T2.owner_id JOIN Treatments AS T3 ON T2.dog_id  =  T3.dog_id GROUP BY T1.owner_id ORDER BY sum(T3.cost_of_treatment) DESC LIMIT 1",
+          "hardness": "extra",
+          "gold_tables": [
+            4,
+            5,
+            7
+          ],
+          "gold_table_names": [
+            "Owners",
+            "Dogs",
+            "Treatments"
+          ],
+          "retrieved_tables": [
+            0,
+            4,
+            5,
+            7
+          ],
+          "retrieved_table_names": [
+            "Breeds",
+            "Owners",
+            "Dogs",
+            "Treatments"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "Breeds"
+          ],
+          "gold_columns": [
+            10,
+            16,
+            20,
+            49
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.75,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 4,
+          "gold_table_count": 3,
+          "question_token_count": 21,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 935,
+          "db_id": "dog_kennels",
+          "question": "Which breed do the most dogs have? Give me the breed name.",
+          "gold_sql": "SELECT T1.breed_name FROM Breeds AS T1 JOIN Dogs AS T2 ON T1.breed_code  =  T2.breed_code GROUP BY T1.breed_name ORDER BY count(*) DESC LIMIT 1",
+          "hardness": "extra",
+          "gold_tables": [
+            0,
+            5
+          ],
+          "gold_table_names": [
+            "Breeds",
+            "Dogs"
+          ],
+          "retrieved_tables": [
+            0,
+            5
+          ],
+          "retrieved_table_names": [
+            "Breeds",
+            "Dogs"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [],
+          "gold_columns": [
+            1,
+            2
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 1.0,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 2,
+          "gold_table_count": 2,
+          "question_token_count": 12,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 374,
+          "db_id": "cre_Doc_Template_Mgt",
+          "question": "Return the id and name of the document with the most paragraphs.",
+          "gold_sql": "SELECT T1.document_id ,  T2.document_name FROM Paragraphs AS T1 JOIN Documents AS T2 ON T1.document_id  =  T2.document_id GROUP BY T1.document_id ORDER BY count(*) DESC LIMIT 1",
+          "hardness": "extra",
+          "gold_tables": [
+            2,
+            3
+          ],
+          "gold_table_names": [
+            "Documents",
+            "Paragraphs"
+          ],
+          "retrieved_tables": [
+            2,
+            3
+          ],
+          "retrieved_table_names": [
+            "Documents",
+            "Paragraphs"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [],
+          "gold_columns": [
+            11,
+            15
+          ],
+          "retrieved_columns": [
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 1.0,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 2,
+          "gold_table_count": 2,
+          "question_token_count": 12,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 765,
+          "db_id": "world_1",
+          "question": "Give the mean life expectancy of countries in which English is not the official language.",
+          "gold_sql": "SELECT avg(LifeExpectancy) FROM country WHERE Name NOT IN (SELECT T1.Name FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code  =  T2.CountryCode WHERE T2.Language  =  \"English\" AND T2.IsOfficial  =  \"T\")",
+          "hardness": "extra",
+          "gold_tables": [
+            2,
+            3
+          ],
+          "gold_table_names": [
+            "country",
+            "countrylanguage"
+          ],
+          "retrieved_tables": [
+            2,
+            3
+          ],
+          "retrieved_table_names": [
+            "country",
+            "countrylanguage"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [],
+          "gold_columns": [
+            8,
+            9,
+            15,
+            24,
+            25
+          ],
+          "retrieved_columns": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            23,
+            24,
+            25,
+            26
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 1.0,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 2,
+          "gold_table_count": 2,
+          "question_token_count": 15,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": false
+        },
+        {
+          "index": 742,
+          "db_id": "world_1",
+          "question": "Which continent has the most diverse languages?",
+          "gold_sql": "SELECT T1.Continent FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code  =  T2.CountryCode GROUP BY T1.Continent ORDER BY COUNT(*) DESC LIMIT 1",
+          "hardness": "extra",
+          "gold_tables": [
+            2,
+            3
+          ],
+          "gold_table_names": [
+            "country",
+            "countrylanguage"
+          ],
+          "retrieved_tables": [
+            2,
+            3
+          ],
+          "retrieved_table_names": [
+            "country",
+            "countrylanguage"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [],
+          "gold_columns": [
+            8,
+            10
+          ],
+          "retrieved_columns": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            23,
+            24,
+            25,
+            26
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 1.0,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 2,
+          "gold_table_count": 2,
+          "question_token_count": 7,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": false
+        },
+        {
+          "index": 59,
+          "db_id": "pets_1",
+          "question": "Find the first name of students who have both cat and dog pets .",
+          "gold_sql": "select t1.fname from student as t1 join has_pet as t2 on t1.stuid  =  t2.stuid join pets as t3 on t3.petid  =  t2.petid where t3.pettype  =  'cat' intersect select t1.fname from student as t1 join has_pet as t2 on t1.stuid  =  t2.stuid join pets as t3 on t3.petid  =  t2.petid where t3.pettype  =  'dog'",
+          "hardness": "extra",
+          "gold_tables": [
+            0,
+            1,
+            2
+          ],
+          "gold_table_names": [
+            "Student",
+            "Has_Pet",
+            "Pets"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2
+          ],
+          "retrieved_table_names": [
+            "Student",
+            "Has_Pet",
+            "Pets"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [],
+          "gold_columns": [
+            1,
+            3,
+            11,
+            12
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 1.0,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 3,
+          "question_token_count": 13,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 284,
+          "db_id": "employee_hire_evaluation",
+          "question": "Which shop has the most employees? Give me the shop name.",
+          "gold_sql": "SELECT t2.name FROM hiring AS t1 JOIN shop AS t2 ON t1.shop_id  =  t2.shop_id GROUP BY t1.shop_id ORDER BY count(*) DESC LIMIT 1",
+          "hardness": "extra",
+          "gold_tables": [
+            1,
+            2
+          ],
+          "gold_table_names": [
+            "shop",
+            "hiring"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2
+          ],
+          "retrieved_table_names": [
+            "employee",
+            "shop",
+            "hiring"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "employee"
+          ],
+          "gold_columns": [
+            6,
+            11
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.6666666666666666,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 2,
+          "question_token_count": 11,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 344,
+          "db_id": "cre_Doc_Template_Mgt",
+          "question": "Return the code of the template type that is most commonly used in documents.",
+          "gold_sql": "SELECT T1.template_type_code FROM Templates AS T1 JOIN Documents AS T2 ON T1.template_id  =  T2.template_id GROUP BY T1.template_type_code ORDER BY count(*) DESC LIMIT 1",
+          "hardness": "extra",
+          "gold_tables": [
+            1,
+            2
+          ],
+          "gold_table_names": [
+            "Templates",
+            "Documents"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2
+          ],
+          "retrieved_table_names": [
+            "Ref_Template_Types",
+            "Templates",
+            "Documents"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "Ref_Template_Types"
+          ],
+          "gold_columns": [
+            3,
+            5
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.6666666666666666,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 2,
+          "question_token_count": 14,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 939,
+          "db_id": "dog_kennels",
+          "question": "Give me the description of the treatment type whose total cost is the lowest.",
+          "gold_sql": "SELECT T1.treatment_type_description FROM Treatment_types AS T1 JOIN Treatments AS T2 ON T1.treatment_type_code  =  T2.treatment_type_code GROUP BY T1.treatment_type_code ORDER BY sum(cost_of_treatment) ASC LIMIT 1",
+          "hardness": "extra",
+          "gold_tables": [
+            3,
+            7
+          ],
+          "gold_table_names": [
+            "Treatment_Types",
+            "Treatments"
+          ],
+          "retrieved_tables": [
+            3,
+            7
+          ],
+          "retrieved_table_names": [
+            "Treatment_Types",
+            "Treatments"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [],
+          "gold_columns": [
+            8,
+            9,
+            49
+          ],
+          "retrieved_columns": [
+            8,
+            9,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 1.0,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 2,
+          "gold_table_count": 2,
+          "question_token_count": 14,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": false
+        },
+        {
+          "index": 886,
+          "db_id": "network_1",
+          "question": "What is the name of the high schooler who has the greatest number of friends?",
+          "gold_sql": "SELECT T2.name FROM Friend AS T1 JOIN Highschooler AS T2 ON T1.student_id  =  T2.id GROUP BY T1.student_id ORDER BY count(*) DESC LIMIT 1",
+          "hardness": "extra",
+          "gold_tables": [
+            0,
+            1
+          ],
+          "gold_table_names": [
+            "Highschooler",
+            "Friend"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2
+          ],
+          "retrieved_table_names": [
+            "Highschooler",
+            "Friend",
+            "Likes"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "Likes"
+          ],
+          "gold_columns": [
+            2,
+            4
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.6666666666666666,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 2,
+          "question_token_count": 15,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 907,
+          "db_id": "network_1",
+          "question": "Give the name of the student with the most likes.",
+          "gold_sql": "SELECT T2.name FROM Likes AS T1 JOIN Highschooler AS T2 ON T1.student_id  =  T2.id GROUP BY T1.student_id ORDER BY count(*) DESC LIMIT 1",
+          "hardness": "extra",
+          "gold_tables": [
+            0,
+            2
+          ],
+          "gold_table_names": [
+            "Highschooler",
+            "Likes"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2
+          ],
+          "retrieved_table_names": [
+            "Highschooler",
+            "Friend",
+            "Likes"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "Friend"
+          ],
+          "gold_columns": [
+            2,
+            6
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.6666666666666666,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 2,
+          "question_token_count": 10,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 562,
+          "db_id": "student_transcripts_tracking",
+          "question": "What is the id, line 1, and line 2 of the address with the most students?",
+          "gold_sql": "SELECT T1.address_id ,  T1.line_1 ,  T1.line_2 FROM Addresses AS T1 JOIN Students AS T2 ON T1.address_id  =  T2.current_address_id GROUP BY T1.address_id ORDER BY count(*) DESC LIMIT 1",
+          "hardness": "extra",
+          "gold_tables": [
+            0,
+            6
+          ],
+          "gold_table_names": [
+            "Addresses",
+            "Students"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            10
+          ],
+          "retrieved_table_names": [
+            "Addresses",
+            "Courses",
+            "Degree_Programs",
+            "Sections",
+            "Semesters",
+            "Students",
+            "Student_Enrolment",
+            "Student_Enrolment_Courses",
+            "Transcript_Contents"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "Courses",
+            "Degree_Programs",
+            "Sections",
+            "Semesters",
+            "Student_Enrolment",
+            "Student_Enrolment_Courses",
+            "Transcript_Contents"
+          ],
+          "gold_columns": [
+            1,
+            2,
+            3
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            9,
+            10,
+            11,
+            12,
+            13,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            39,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            55,
+            56
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.2222222222222222,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 9,
+          "gold_table_count": 2,
+          "question_token_count": 16,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 982,
+          "db_id": "dog_kennels",
+          "question": "How many professionals did not operate any treatment on dogs?",
+          "gold_sql": "SELECT count(*) FROM Professionals WHERE professional_id NOT IN ( SELECT professional_id FROM Treatments )",
+          "hardness": "extra",
+          "gold_tables": [
+            6,
+            7
+          ],
+          "gold_table_names": [
+            "Professionals",
+            "Treatments"
+          ],
+          "retrieved_tables": [
+            3,
+            5,
+            7
+          ],
+          "retrieved_table_names": [
+            "Treatment_Types",
+            "Dogs",
+            "Treatments"
+          ],
+          "missing_table_names": [
+            "Professionals"
+          ],
+          "extra_table_names": [
+            "Treatment_Types",
+            "Dogs"
+          ],
+          "gold_columns": [
+            33,
+            46
+          ],
+          "retrieved_columns": [
+            8,
+            9,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49
+          ],
+          "missing_columns": [
+            33
+          ],
+          "table_recall": 0.5,
+          "table_precision": 0.3333333333333333,
+          "column_recall": 0.5,
+          "srr": 0.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 2,
+          "question_token_count": 10,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 944,
+          "db_id": "dog_kennels",
+          "question": "What are the first name and last name of the professionals who have done treatment with cost below average?",
+          "gold_sql": "SELECT DISTINCT T1.first_name ,  T1.last_name FROM Professionals AS T1 JOIN Treatments AS T2 WHERE cost_of_treatment  <  ( SELECT avg(cost_of_treatment) FROM Treatments )",
+          "hardness": "extra",
+          "gold_tables": [
+            6,
+            7
+          ],
+          "gold_table_names": [
+            "Professionals",
+            "Treatments"
+          ],
+          "retrieved_tables": [
+            3,
+            6,
+            7
+          ],
+          "retrieved_table_names": [
+            "Treatment_Types",
+            "Professionals",
+            "Treatments"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "Treatment_Types"
+          ],
+          "gold_columns": [
+            35,
+            40,
+            49
+          ],
+          "retrieved_columns": [
+            8,
+            9,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.6666666666666666,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 2,
+          "question_token_count": 19,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 232,
+          "db_id": "flight_2",
+          "question": "What is the abbreviation of the airilne has the fewest flights and what country is it in?",
+          "gold_sql": "SELECT T1.Abbreviation ,  T1.Country FROM AIRLINES AS T1 JOIN FLIGHTS AS T2 ON T1.uid  =  T2.Airline GROUP BY T1.Airline ORDER BY count(*) LIMIT 1",
+          "hardness": "extra",
+          "gold_tables": [
+            0,
+            2
+          ],
+          "gold_table_names": [
+            "airlines",
+            "flights"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2
+          ],
+          "retrieved_table_names": [
+            "airlines",
+            "airports",
+            "flights"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "airports"
+          ],
+          "gold_columns": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.6666666666666666,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 2,
+          "question_token_count": 17,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 978,
+          "db_id": "dog_kennels",
+          "question": "How many dogs have not gone through any treatment?",
+          "gold_sql": "SELECT count(*) FROM Dogs WHERE dog_id NOT IN ( SELECT dog_id FROM Treatments )",
+          "hardness": "extra",
+          "gold_tables": [
+            5,
+            7
+          ],
+          "gold_table_names": [
+            "Dogs",
+            "Treatments"
+          ],
+          "retrieved_tables": [
+            3,
+            5,
+            7
+          ],
+          "retrieved_table_names": [
+            "Treatment_Types",
+            "Dogs",
+            "Treatments"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "Treatment_Types"
+          ],
+          "gold_columns": [
+            20,
+            45
+          ],
+          "retrieved_columns": [
+            8,
+            9,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.6666666666666666,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 2,
+          "question_token_count": 9,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        },
+        {
+          "index": 221,
+          "db_id": "flight_2",
+          "question": "Which city has most number of arriving flights?",
+          "gold_sql": "SELECT T1.City FROM AIRPORTS AS T1 JOIN FLIGHTS AS T2 ON T1.AirportCode  =  T2.DestAirport GROUP BY T1.City ORDER BY count(*) DESC LIMIT 1",
+          "hardness": "extra",
+          "gold_tables": [
+            1,
+            2
+          ],
+          "gold_table_names": [
+            "airports",
+            "flights"
+          ],
+          "retrieved_tables": [
+            0,
+            1,
+            2
+          ],
+          "retrieved_table_names": [
+            "airlines",
+            "airports",
+            "flights"
+          ],
+          "missing_table_names": [],
+          "extra_table_names": [
+            "airlines"
+          ],
+          "gold_columns": [
+            5,
+            6
+          ],
+          "retrieved_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13
+          ],
+          "missing_columns": [],
+          "table_recall": 1.0,
+          "table_precision": 0.6666666666666666,
+          "column_recall": 1.0,
+          "srr": 1.0,
+          "retrieved_table_count": 3,
+          "gold_table_count": 2,
+          "question_token_count": 8,
+          "is_single_table_gold": false,
+          "has_obvious_table_name": true
+        }
+      ]
+    }
+  }
+}

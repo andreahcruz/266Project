@@ -1,0 +1,1938 @@
+{
+  "config": {
+    "limit": 80,
+    "seed": 42,
+    "top_k_tables": 3,
+    "top_n_columns": 8,
+    "broader_top_k": 4,
+    "with_self_correction": false,
+    "model": "llama3.1-8b"
+  },
+  "summary": {
+    "current_rag": 0.525,
+    "broader_rag": 0.5625,
+    "full_schema": 0.6
+  },
+  "results": [
+    {
+      "local_idx": 240,
+      "global_idx": 40,
+      "question": "List the id, first name and last name of the customers who both have placed more than 2 orders and have bought at least 3 items.",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT T1.customer_id ,  T1.customer_first_name ,  T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id  =  T2.customer_id GROUP BY T1.customer_id HAVING count(*)  >  2 INTERSECT SELECT T1.customer_id ,  T1.customer_first_name ,  T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id  =  T2.customer_id JOIN Order_items AS T3 ON T2.order_id  =  T3.order_id GROUP BY T1.customer_id HAVING count(*)  >= 3\te_commerce",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.customer_id , T1.customer_first_name , T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id = T2.customer_id JOIN Order_Items AS T3 ON T2.order_id = T3.order_id GROUP BY T1.customer_id HAVING COUNT(T2.order_id) > 2 AND COUNT(T3.order_item_id) > 3",
+          "exec_ok": true,
+          "schema_chars": 596
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.customer_id , T1.customer_first_name , T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id = T2.customer_id JOIN Order_Items AS T3 ON T2.order_id = T3.order_id GROUP BY T1.customer_id HAVING COUNT(T2.order_id) > 2 AND COUNT(T3.order_item_id) > 3",
+          "exec_ok": true,
+          "schema_chars": 996
+        },
+        "full_schema": {
+          "sql": "SELECT T1.customer_id , T1.customer_first_name , T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id = T2.customer_id JOIN Order_Items AS T3 ON T2.order_id = T3.order_id GROUP BY T1.customer_id HAVING COUNT(T3.order_id) > 2 AND COUNT(T3.order_item_id) > 3",
+          "exec_ok": true,
+          "schema_chars": 1658
+        }
+      }
+    },
+    {
+      "local_idx": 241,
+      "global_idx": 41,
+      "question": "What are the ids, first and last names of the customers who have ordered more than twice and have bought at least 3 items?",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT T1.customer_id ,  T1.customer_first_name ,  T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id  =  T2.customer_id GROUP BY T1.customer_id HAVING count(*)  >  2 INTERSECT SELECT T1.customer_id ,  T1.customer_first_name ,  T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id  =  T2.customer_id JOIN Order_items AS T3 ON T2.order_id  =  T3.order_id GROUP BY T1.customer_id HAVING count(*)  >= 3\te_commerce",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.customer_id, T1.customer_first_name, T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id = T2.customer_id GROUP BY T1.customer_id HAVING COUNT(T2.order_id) > 2 AND COUNT(T3.order_item_id) >= 3 JOIN Order_Items AS T3 ON T2.order_id = T3.order_id",
+          "exec_ok": false,
+          "schema_chars": 596
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.customer_id, T1.customer_first_name, T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id = T2.customer_id JOIN Order_Items AS T3 ON T2.order_id = T3.order_id GROUP BY T1.customer_id HAVING COUNT(T3.order_item_id) > 2 AND COUNT(DISTINCT T3.order_item_id) >= 3",
+          "exec_ok": false,
+          "schema_chars": 996
+        },
+        "full_schema": {
+          "sql": "SELECT T1.customer_id, T1.customer_first_name, T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id = T2.customer_id JOIN Order_Items AS T3 ON T2.order_id = T3.order_id GROUP BY T1.customer_id HAVING COUNT(T3.order_item_id) > 2 AND COUNT(DISTINCT T3.order_item_id) >= 3",
+          "exec_ok": false,
+          "schema_chars": 1658
+        }
+      }
+    },
+    {
+      "local_idx": 242,
+      "global_idx": 46,
+      "question": "Which customers did not make any orders? List the first name, middle initial and last name.",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT customer_first_name ,  customer_middle_initial ,  customer_last_name FROM Customers EXCEPT SELECT T1.customer_first_name ,  T1.customer_middle_initial ,  T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id  =  T2.customer_id\te_commerce",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT customer_first_name , customer_middle_initial , customer_last_name FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Orders)",
+          "exec_ok": true,
+          "schema_chars": 419
+        },
+        "broader_rag": {
+          "sql": "SELECT customer_first_name , customer_middle_initial , customer_last_name FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Orders)",
+          "exec_ok": true,
+          "schema_chars": 750
+        },
+        "full_schema": {
+          "sql": "SELECT customer_first_name , customer_middle_initial , customer_last_name FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Orders)",
+          "exec_ok": true,
+          "schema_chars": 1658
+        }
+      }
+    },
+    {
+      "local_idx": 243,
+      "global_idx": 47,
+      "question": "WHat are the first and last names, and middle initials of all customers who did not make any orders?",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT customer_first_name ,  customer_middle_initial ,  customer_last_name FROM Customers EXCEPT SELECT T1.customer_first_name ,  T1.customer_middle_initial ,  T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id  =  T2.customer_id\te_commerce",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT customer_first_name , customer_last_name , customer_middle_initial FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Orders)",
+          "exec_ok": false,
+          "schema_chars": 419
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.customer_first_name , T1.customer_middle_initial , T1.customer_last_name FROM Customers AS T1 WHERE T1.customer_id NOT IN (SELECT T2.customer_id FROM Orders AS T2)",
+          "exec_ok": true,
+          "schema_chars": 750
+        },
+        "full_schema": {
+          "sql": "SELECT customer_first_name , customer_middle_initial , customer_last_name FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Orders)",
+          "exec_ok": true,
+          "schema_chars": 1658
+        }
+      }
+    },
+    {
+      "local_idx": 244,
+      "global_idx": 48,
+      "question": "What are the id, name, price and color of the products which have not been ordered for at least twice?",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT product_id ,  product_name ,  product_price ,  product_color FROM Products EXCEPT SELECT T1.product_id ,  T1.product_name ,  T1.product_price ,  T1.product_color FROM Products AS T1 JOIN Order_items AS T2 ON T1.product_id  =  T2.product_id JOIN Orders AS T3 ON T2.order_id  =  T3.order_id GROUP BY T1.product_id HAVING count(*)  >=  2\te_commerce",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.product_id , T1.product_name , T1.product_price , T1.product_color FROM Products AS T1 WHERE T1.product_id NOT IN (SELECT T2.product_id FROM Order_Items AS T2 GROUP BY T2.product_id HAVING count(*) >= 2)",
+          "exec_ok": true,
+          "schema_chars": 569
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.product_id , T1.product_name , T1.product_price , T1.product_color FROM Products AS T1 LEFT JOIN Order_Items AS T2 ON T1.product_id = T2.product_id GROUP BY T1.product_id HAVING count(T2.order_id) < 2",
+          "exec_ok": true,
+          "schema_chars": 969
+        },
+        "full_schema": {
+          "sql": "SELECT T1.product_id , T1.product_name , T1.product_price , T1.product_color FROM Products AS T1 LEFT JOIN Order_Items AS T2 ON T1.product_id = T2.product_id GROUP BY T1.product_id HAVING count(*) < 2",
+          "exec_ok": true,
+          "schema_chars": 1658
+        }
+      }
+    },
+    {
+      "local_idx": 245,
+      "global_idx": 52,
+      "question": "Which product are listed in orders most frequently? List the id, product name and price.",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT T1.product_id ,  T1.product_name ,  T1.product_price FROM Products AS T1 JOIN Order_items AS T2 ON T1.product_id  =  T2.product_id GROUP BY T1.product_id ORDER BY count(*) DESC LIMIT 1\te_commerce",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.product_id, T1.product_name, T1.product_price FROM Products AS T1 JOIN Order_Items AS T2 ON T1.product_id = T2.product_id GROUP BY T1.product_id ORDER BY COUNT(T2.order_id) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 569
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.product_id, T1.product_name, T1.product_price FROM Products AS T1 JOIN Order_Items AS T2 ON T1.product_id = T2.product_id GROUP BY T1.product_id ORDER BY COUNT(T2.order_id) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 969
+        },
+        "full_schema": {
+          "sql": "SELECT T1.product_id, T1.product_name, T1.product_price FROM Products AS T1 JOIN Order_Items AS T2 ON T1.product_id = T2.product_id GROUP BY T1.product_id ORDER BY COUNT(T2.order_id) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 1658
+        }
+      }
+    },
+    {
+      "local_idx": 246,
+      "global_idx": 53,
+      "question": "What are the ids, names, and prices of all products that are ordered most frequently?",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT T1.product_id ,  T1.product_name ,  T1.product_price FROM Products AS T1 JOIN Order_items AS T2 ON T1.product_id  =  T2.product_id GROUP BY T1.product_id ORDER BY count(*) DESC LIMIT 1\te_commerce",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.product_id , T1.product_name , T1.product_price FROM Products AS T1",
+          "exec_ok": false,
+          "schema_chars": 203
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.product_id , T1.product_name , T1.product_price FROM Products AS T1 JOIN Order_Items AS T2 ON T1.product_id = T2.product_id GROUP BY T1.product_id ORDER BY COUNT(T2.order_item_id) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 846
+        },
+        "full_schema": {
+          "sql": "SELECT T1.product_id , T1.product_name , T1.product_price FROM Products AS T1 JOIN Order_Items AS T2 ON T1.product_id = T2.product_id GROUP BY T1.product_id ORDER BY COUNT(T2.order_item_id) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 1658
+        }
+      }
+    },
+    {
+      "local_idx": 247,
+      "global_idx": 54,
+      "question": "Which order have the least sum of the product prices. List the order id and sum.",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT T1.order_id ,  sum(T2.product_price) FROM Order_items AS T1 JOIN Products AS T2 ON T1.product_id  =  T2.product_id GROUP BY T1.order_id ORDER BY sum(T2.product_price) ASC LIMIT 1\te_commerce",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.order_id , SUM(T2.product_price) FROM Orders AS T1 JOIN Order_Items AS T2 ON T1.order_id = T2.order_id GROUP BY T1.order_id ORDER BY SUM(T2.product_price) ASC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 569
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.order_id , SUM(T3.product_price) FROM Orders AS T1 JOIN Order_Items AS T2 ON T1.order_id = T2.order_id JOIN Products AS T3 ON T2.product_id = T3.product_id GROUP BY T1.order_id ORDER BY SUM(T3.product_price) ASC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 969
+        },
+        "full_schema": {
+          "sql": "SELECT T1.order_id , SUM(T3.product_price) FROM Orders AS T1 JOIN Order_Items AS T2 ON T1.order_id = T2.order_id JOIN Products AS T3 ON T2.product_id = T3.product_id GROUP BY T1.order_id ORDER BY SUM(T3.product_price) ASC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 1658
+        }
+      }
+    },
+    {
+      "local_idx": 248,
+      "global_idx": 55,
+      "question": "What is the order that total cost the least , and how much is the total cost ?",
+      "db_id": "e_commerce",
+      "gold_sql": "select t1.order_id ,  sum(t2.product_price) from order_items as t1 join products as t2 on t1.product_id  =  t2.product_id group by t1.order_id order by sum(t2.product_price) asc limit 1\te_commerce",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.order_id, SUM(T2.order_item_status_code = 'active') * 10 + SUM(T2.order_item_status_code = 'shipped') * 20 AS total_cost FROM Orders AS T1 JOIN Order_Items AS T2 ON T1.order_id = T2.order_id GROUP BY T1.order_id ORDER BY total_cost ASC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 319
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.order_id, SUM(T2.product_price) FROM Orders AS T1 JOIN Order_Items AS T2 ON T1.order_id = T2.order_id GROUP BY T1.order_id ORDER BY SUM(T2.product_price) ASC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 719
+        },
+        "full_schema": {
+          "sql": "SELECT T1.order_id, SUM(T2.product_price) FROM Orders AS T1 JOIN Order_Items AS T2 ON T1.order_id = T2.order_id GROUP BY T1.order_id ORDER BY SUM(T2.product_price) ASC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 1658
+        }
+      }
+    },
+    {
+      "local_idx": 249,
+      "global_idx": 72,
+      "question": "List all the distinct product names, price and descriptions which are bought by female customers.",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT DISTINCT T1.product_name ,  T1.product_price ,  T1.product_description FROM Products AS T1 JOIN Order_items AS T2 ON T1.product_id  =  T2.product_id JOIN Orders AS T3 ON T2.order_id  =  T3.order_id JOIN Customers AS T4 ON T3.customer_id  =  T4.customer_id WHERE T4.gender_code  =  'Female'\te_commerce",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT DISTINCT T1.product_name, T1.product_price, T1.product_description FROM Products AS T1 JOIN Customers AS T2 ON T2.customer_id = T1.parent_product_id",
+          "exec_ok": false,
+          "schema_chars": 436
+        },
+        "broader_rag": {
+          "sql": "SELECT DISTINCT T1.product_name, T1.product_price, T1.product_description FROM Products AS T1 JOIN Order_Items AS T2 ON T1.product_id = T2.product_id JOIN Orders AS T3 ON T2.order_id = T3.order_id JOIN Customers AS T4 ON T3.customer_id = T4.customer_id WHERE T4.gender_code = 'F'",
+          "exec_ok": false,
+          "schema_chars": 1000
+        },
+        "full_schema": {
+          "sql": "SELECT DISTINCT T1.product_name, T1.product_price, T1.product_description FROM Products AS T1 JOIN Order_Items AS T2 ON T1.product_id = T2.product_id JOIN Orders AS T3 ON T2.order_id = T3.order_id JOIN Customers AS T4 ON T3.customer_id = T4.customer_id WHERE T4.gender_code = 'F'",
+          "exec_ok": false,
+          "schema_chars": 1658
+        }
+      }
+    },
+    {
+      "local_idx": 250,
+      "global_idx": 73,
+      "question": "What are the different names, prices, and descriptions for all products bought by female customers?",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT DISTINCT T1.product_name ,  T1.product_price ,  T1.product_description FROM Products AS T1 JOIN Order_items AS T2 ON T1.product_id  =  T2.product_id JOIN Orders AS T3 ON T2.order_id  =  T3.order_id JOIN Customers AS T4 ON T3.customer_id  =  T4.customer_id WHERE T4.gender_code  =  'Female'\te_commerce",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.product_name, T1.product_price, T1.product_description FROM Products AS T1 JOIN Customers AS T2 ON T1.product_id = T2.customer_id",
+          "exec_ok": false,
+          "schema_chars": 436
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.product_name, T1.product_price, T1.product_description FROM Products AS T1 JOIN Order_Items AS T2 ON T1.product_id = T2.product_id JOIN Orders AS T3 ON T2.order_id = T3.order_id JOIN Customers AS T4 ON T3.customer_id = T4.customer_id WHERE T4.gender_code = 'F'",
+          "exec_ok": false,
+          "schema_chars": 1000
+        },
+        "full_schema": {
+          "sql": "SELECT T1.product_name, T1.product_price, T1.product_description FROM Products AS T1 JOIN Order_Items AS T2 ON T1.product_id = T2.product_id JOIN Orders AS T3 ON T2.order_id = T3.order_id JOIN Customers AS T4 ON T3.customer_id = T4.customer_id WHERE T4.gender_code = 'F'",
+          "exec_ok": false,
+          "schema_chars": 1658
+        }
+      }
+    },
+    {
+      "local_idx": 251,
+      "global_idx": 88,
+      "question": "What are the product price and the product size of the products whose price is above average?",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT product_price ,  product_size FROM Products WHERE product_price  >  ( SELECT avg(product_price) FROM Products )\te_commerce",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.product_price, T1.product_size FROM Products T1 WHERE T1.product_price > ( SELECT AVG(product_price) FROM Products )",
+          "exec_ok": true,
+          "schema_chars": 203
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.product_price, T1.product_size FROM Products T1 WHERE T1.product_price > ( SELECT AVG(product_price) FROM Products )",
+          "exec_ok": true,
+          "schema_chars": 399
+        },
+        "full_schema": {
+          "sql": "SELECT T1.product_price, T1.product_size FROM Products T1 JOIN ( SELECT product_id, AVG(product_price) as avg_price FROM Products GROUP BY product_id ) T2 ON T1.product_id = T2.product_id WHERE T1.product_price > T2.avg_price",
+          "exec_ok": false,
+          "schema_chars": 1658
+        }
+      }
+    },
+    {
+      "local_idx": 252,
+      "global_idx": 89,
+      "question": "What are the prices and sizes of all products whose price is above the mean?",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT product_price ,  product_size FROM Products WHERE product_price  >  ( SELECT avg(product_price) FROM Products )\te_commerce",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT product_price , product_size FROM Products WHERE product_price > ( SELECT AVG(product_price) FROM Products )",
+          "exec_ok": true,
+          "schema_chars": 203
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.product_price , T1.product_size FROM Products AS T1 WHERE T1.product_price > ( SELECT AVG(product_price) FROM Products )",
+          "exec_ok": true,
+          "schema_chars": 399
+        },
+        "full_schema": {
+          "sql": "SELECT T1.product_price , T1.product_size FROM Products AS T1 WHERE T1.product_price > ( SELECT AVG(product_price) FROM Products )",
+          "exec_ok": true,
+          "schema_chars": 1658
+        }
+      }
+    },
+    {
+      "local_idx": 253,
+      "global_idx": 90,
+      "question": "How many kinds of products have not been sold?",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT count(*) FROM Products WHERE product_id NOT IN ( SELECT product_id FROM Order_items )\te_commerce",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT count(*) FROM Products WHERE product_id NOT IN (SELECT product_id FROM Products WHERE product_price > 0)",
+          "exec_ok": true,
+          "schema_chars": 203
+        },
+        "broader_rag": {
+          "sql": "SELECT count(*) FROM Products WHERE product_id NOT IN (SELECT product_id FROM Order_Items)",
+          "exec_ok": true,
+          "schema_chars": 399
+        },
+        "full_schema": {
+          "sql": "SELECT count(*) FROM Products WHERE product_id NOT IN (SELECT product_id FROM Order_Items)",
+          "exec_ok": true,
+          "schema_chars": 1658
+        }
+      }
+    },
+    {
+      "local_idx": 254,
+      "global_idx": 91,
+      "question": "What is the number of products that have not been ordered yet?",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT count(*) FROM Products WHERE product_id NOT IN ( SELECT product_id FROM Order_items )\te_commerce",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT COUNT(*) FROM Products WHERE product_id NOT IN (SELECT product_id FROM Order_Items)",
+          "exec_ok": true,
+          "schema_chars": 399
+        },
+        "broader_rag": {
+          "sql": "SELECT COUNT(*) FROM Products WHERE product_id NOT IN (SELECT product_id FROM Order_Items)",
+          "exec_ok": true,
+          "schema_chars": 969
+        },
+        "full_schema": {
+          "sql": "SELECT COUNT(*) FROM Products WHERE product_id NOT IN (SELECT product_id FROM Order_Items)",
+          "exec_ok": true,
+          "schema_chars": 1658
+        }
+      }
+    },
+    {
+      "local_idx": 255,
+      "global_idx": 92,
+      "question": "How many customers do not have any payment method?",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT count(*) FROM Customers WHERE customer_id NOT IN ( SELECT customer_id FROM Customer_Payment_Methods )\te_commerce",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT COUNT(*) FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Customer_Payment_Methods)",
+          "exec_ok": true,
+          "schema_chars": 399
+        },
+        "broader_rag": {
+          "sql": "SELECT COUNT(*) FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Customer_Payment_Methods)",
+          "exec_ok": true,
+          "schema_chars": 573
+        },
+        "full_schema": {
+          "sql": "SELECT COUNT(*) FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Customer_Payment_Methods)",
+          "exec_ok": true,
+          "schema_chars": 1658
+        }
+      }
+    },
+    {
+      "local_idx": 256,
+      "global_idx": 93,
+      "question": "How many customers do not have a listed payment method?",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT count(*) FROM Customers WHERE customer_id NOT IN ( SELECT customer_id FROM Customer_Payment_Methods )\te_commerce",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT COUNT(T1.customer_id) FROM Customers AS T1 LEFT JOIN Customer_Payment_Methods AS T2 ON T1.customer_id = T2.customer_id WHERE T2.customer_id IS NULL",
+          "exec_ok": true,
+          "schema_chars": 399
+        },
+        "broader_rag": {
+          "sql": "SELECT COUNT(T1.customer_id) FROM Customers AS T1 LEFT JOIN Customer_Payment_Methods AS T2 ON T1.customer_id = T2.customer_id WHERE T2.customer_id IS NULL",
+          "exec_ok": true,
+          "schema_chars": 573
+        },
+        "full_schema": {
+          "sql": "SELECT COUNT(T1.customer_id) FROM Customers AS T1 LEFT JOIN Customer_Payment_Methods AS T2 ON T1.customer_id = T2.customer_id WHERE T2.customer_id IS NULL",
+          "exec_ok": true,
+          "schema_chars": 1658
+        }
+      }
+    },
+    {
+      "local_idx": 257,
+      "global_idx": 106,
+      "question": "What are the email address, town and county of the customers who are of the least common gender?",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT email_address ,  town_city ,  county FROM Customers WHERE gender_code  =  ( SELECT gender_code FROM Customers GROUP BY gender_code ORDER BY count(*) ASC LIMIT 1 )\te_commerce",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT email_address, town_city, county FROM Customers GROUP BY gender_code ORDER BY COUNT(gender_code) LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 219
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.email_address, T1.town_city, T1.county FROM Customers AS T1 JOIN (SELECT gender_code, COUNT(*) as count FROM Customers GROUP BY gender_code) AS T2 ON T1.gender_code = T2.gender_code WHERE T2.count = (SELECT MIN(count) FROM (SELECT gender_code, COUNT(*) as count FROM Customers GROUP BY gender_code))",
+          "exec_ok": true,
+          "schema_chars": 560
+        },
+        "full_schema": {
+          "sql": "SELECT T1.email_address , T1.town_city , T1.county FROM Customers AS T1 JOIN Customers AS T2 ON T1.gender_code = T2.gender_code GROUP BY T1.gender_code ORDER BY count(*) ASC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 1658
+        }
+      }
+    },
+    {
+      "local_idx": 258,
+      "global_idx": 107,
+      "question": "What are the email addresses, cities, and counties listed for all cusomters who are from the gender that orders less often?",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT email_address ,  town_city ,  county FROM Customers WHERE gender_code  =  ( SELECT gender_code FROM Customers GROUP BY gender_code ORDER BY count(*) ASC LIMIT 1 )\te_commerce",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.email_address , T1.town_city , T1.county FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id = T2.customer_id GROUP BY T2.order_status_code ORDER BY COUNT(T2.order_id) ASC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 583
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.customer_first_name , T1.customer_middle_initial , T1.email_address , T1.town_city , T1.county FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id = T2.customer_id GROUP BY T2.order_status_code ORDER BY COUNT(T2.order_id) ASC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 983
+        },
+        "full_schema": {
+          "sql": "SELECT T1.email_address , T1.town_city , T1.county FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id = T2.customer_id GROUP BY T2.order_status_code ORDER BY COUNT(T2.order_id) LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 1658
+        }
+      }
+    },
+    {
+      "local_idx": 259,
+      "global_idx": 118,
+      "question": "What are the color, description and size of the products priced below the maximum price.",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT product_color ,  product_description ,  product_size FROM Products WHERE product_price  <  ( SELECT max(product_price) FROM products )\te_commerce",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT product_color , product_description , product_size FROM Products WHERE product_price < ( SELECT MAX(product_price) FROM Products )",
+          "exec_ok": true,
+          "schema_chars": 203
+        },
+        "broader_rag": {
+          "sql": "SELECT product_color , product_description , product_size FROM Products WHERE product_price < ( SELECT MAX(product_price) FROM Products )",
+          "exec_ok": true,
+          "schema_chars": 399
+        },
+        "full_schema": {
+          "sql": "SELECT T1.product_color , T1.product_description , T1.product_size FROM Products AS T1 INNER JOIN Products AS T2 ON T1.product_id = T2.parent_product_id WHERE T1.product_price < (SELECT MAX(product_price) FROM Products)",
+          "exec_ok": false,
+          "schema_chars": 1658
+        }
+      }
+    },
+    {
+      "local_idx": 260,
+      "global_idx": 119,
+      "question": "What are the colors , descriptions , and sizes for all products that are not at the maximum price ?",
+      "db_id": "e_commerce",
+      "gold_sql": "select product_color ,  product_description ,  product_size from products where product_price  !=  ( select max(product_price) from products )\te_commerce",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT product_color, product_description, product_size FROM Products WHERE product_price < (SELECT MAX(product_price) FROM Products)",
+          "exec_ok": true,
+          "schema_chars": 203
+        },
+        "broader_rag": {
+          "sql": "SELECT product_color, product_description, product_size FROM Products WHERE product_price < (SELECT MAX(product_price) FROM Products)",
+          "exec_ok": true,
+          "schema_chars": 399
+        },
+        "full_schema": {
+          "sql": "SELECT product_color, product_description, product_size FROM Products WHERE product_price < (SELECT MAX(product_price) FROM Products)",
+          "exec_ok": true,
+          "schema_chars": 1658
+        }
+      }
+    },
+    {
+      "local_idx": 261,
+      "global_idx": 125,
+      "question": "Which director is in charge of the most programs?",
+      "db_id": "bbc_channels",
+      "gold_sql": "SELECT t2.name FROM program AS t1 JOIN director AS t2 ON t1.director_id  =  t2.director_id GROUP BY t1.director_id ORDER BY count(*) DESC LIMIT 1\tbbc_channels",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.Name FROM director AS T1 JOIN program AS T2 ON T1.Director_ID = T2.Director_ID GROUP BY T1.Name ORDER BY COUNT(*) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 699
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.Name FROM director AS T1 JOIN program AS T2 ON T1.Director_ID = T2.Director_ID GROUP BY T1.Name ORDER BY COUNT(*) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 699
+        },
+        "full_schema": {
+          "sql": "SELECT T1.Name FROM director AS T1 JOIN program AS T2 ON T1.Director_ID = T2.Director_ID GROUP BY T1.Name ORDER BY COUNT(*) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 699
+        }
+      }
+    },
+    {
+      "local_idx": 262,
+      "global_idx": 126,
+      "question": "Find the name and age of the director who is in charge of the most programs?",
+      "db_id": "bbc_channels",
+      "gold_sql": "SELECT t2.name ,  t2.age FROM program AS t1 JOIN director AS t2 ON t1.director_id  =  t2.director_id GROUP BY t1.director_id ORDER BY count(*) DESC LIMIT 1\tbbc_channels",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.Name, T1.Age FROM director AS T1 JOIN program AS T2 ON T1.Director_ID = T2.Director_ID GROUP BY T1.Director_ID ORDER BY COUNT(*) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 699
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.Name, T1.Age FROM director AS T1 JOIN program AS T2 ON T1.Director_ID = T2.Director_ID GROUP BY T1.Director_ID ORDER BY COUNT(*) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 699
+        },
+        "full_schema": {
+          "sql": "SELECT T1.Name, T1.Age FROM director AS T1 JOIN program AS T2 ON T1.Director_ID = T2.Director_ID GROUP BY T1.Director_ID ORDER BY COUNT(*) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 699
+        }
+      }
+    },
+    {
+      "local_idx": 263,
+      "global_idx": 130,
+      "question": "Find the number of channels that do not run any program.",
+      "db_id": "bbc_channels",
+      "gold_sql": "SELECT count(*) FROM channel WHERE channel_id NOT IN (SELECT channel_id FROM program)\tbbc_channels",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT COUNT(*) FROM channel WHERE Channel_ID NOT IN (SELECT Channel_ID FROM program)",
+          "exec_ok": true,
+          "schema_chars": 352
+        },
+        "broader_rag": {
+          "sql": "SELECT COUNT(*) FROM channel WHERE Channel_ID NOT IN (SELECT Channel_ID FROM program)",
+          "exec_ok": true,
+          "schema_chars": 699
+        },
+        "full_schema": {
+          "sql": "SELECT COUNT(*) FROM channel WHERE Channel_ID NOT IN (SELECT Channel_ID FROM program)",
+          "exec_ok": true,
+          "schema_chars": 699
+        }
+      }
+    },
+    {
+      "local_idx": 264,
+      "global_idx": 132,
+      "question": "Find the name and internet web of the channel that is directed by the most directors.",
+      "db_id": "bbc_channels",
+      "gold_sql": "SELECT t1.name ,  t1.internet FROM channel AS t1 JOIN director_admin AS t2 ON t1.channel_id  =  t2.channel_id GROUP BY t1.channel_id ORDER BY count(*) DESC LIMIT 1\tbbc_channels",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.Name , T1.Internet FROM channel AS T1 JOIN director_admin AS T2 ON T1.Channel_ID = T2.Channel_ID GROUP BY T1.Channel_ID ORDER BY COUNT(T2.Director_ID) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 699
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.Name , T1.Internet FROM channel AS T1 JOIN director_admin AS T2 ON T1.Channel_ID = T2.Channel_ID GROUP BY T1.Channel_ID ORDER BY COUNT(T2.Director_ID) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 699
+        },
+        "full_schema": {
+          "sql": "SELECT T1.Name , T1.Internet FROM channel AS T1 JOIN director_admin AS T2 ON T1.Channel_ID = T2.Channel_ID GROUP BY T1.Channel_ID ORDER BY COUNT(T2.Director_ID) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 699
+        }
+      }
+    },
+    {
+      "local_idx": 265,
+      "global_idx": 134,
+      "question": "give me the name of channels that have both a director younger than 40 and a director older than 60.",
+      "db_id": "bbc_channels",
+      "gold_sql": "SELECT t1.name FROM channel AS t1 JOIN director_admin AS t2 ON t1.channel_id  =  t2.channel_id JOIN director AS t3 ON t2.director_id  =  t3.director_id WHERE t3.age  <  40 INTERSECT SELECT t1.name FROM channel AS t1 JOIN director_admin AS t2 ON t1.channel_id  =  t2.channel_id JOIN director AS t3 ON t2.director_id  =  t3.director_id WHERE t3.age  >  60\tbbc_channels",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.Name FROM channel AS T1 JOIN director_admin AS T2 ON T1.Channel_ID = T2.Channel_ID JOIN director AS T3 ON T2.Director_ID = T3.Director_ID WHERE T3.Age < 40 INTERSECT SELECT T1.Name FROM channel AS T1 JOIN director_admin AS T2 ON T1.Channel_ID = T2.Channel_ID JOIN director AS T3 ON T2.Director_ID = T3.Director_ID WHERE T3.Age > 60",
+          "exec_ok": true,
+          "schema_chars": 699
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.Name FROM channel AS T1 JOIN director_admin AS T2 ON T1.Channel_ID = T2.Channel_ID JOIN director AS T3 ON T2.Director_ID = T3.Director_ID WHERE T3.Age < 40 INTERSECT SELECT T1.Name FROM channel AS T1 JOIN director_admin AS T2 ON T1.Channel_ID = T2.Channel_ID JOIN director AS T3 ON T2.Director_ID = T3.Director_ID WHERE T3.Age > 60",
+          "exec_ok": true,
+          "schema_chars": 699
+        },
+        "full_schema": {
+          "sql": "SELECT T1.Name FROM channel AS T1 JOIN director_admin AS T2 ON T1.Channel_ID = T2.Channel_ID JOIN director AS T3 ON T2.Director_ID = T3.Director_ID WHERE T3.Age < 40 INTERSECT SELECT T1.Name FROM channel AS T1 JOIN director_admin AS T2 ON T1.Channel_ID = T2.Channel_ID JOIN director AS T3 ON T2.Director_ID = T3.Director_ID WHERE T3.Age > 60",
+          "exec_ok": true,
+          "schema_chars": 699
+        }
+      }
+    },
+    {
+      "local_idx": 266,
+      "global_idx": 181,
+      "question": "What are the vehicle ids and models which have been driven by more than 2 drivers or been driven by the driver named 'Jeff Gordon'?",
+      "db_id": "vehicle_driver",
+      "gold_sql": "SELECT T1.vehicle_id ,  T1.model FROM vehicle AS T1 JOIN vehicle_driver AS T2 ON T1.vehicle_id  =  T2.vehicle_id JOIN driver AS T3 ON T2.driver_id  =  T3.driver_id WHERE T3.name  =  'Jeff Gordon' UNION SELECT T1.vehicle_id ,  T1.model FROM vehicle AS T1 JOIN vehicle_driver AS T2 ON T1.vehicle_id  =  T2.vehicle_id GROUP BY T2.vehicle_id HAVING count(*)  >  2\tvehicle_driver",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.Vehicle_ID, T1.Model FROM vehicle AS T1 JOIN vehicle_driver AS T2 ON T1.Vehicle_ID = T2.Vehicle_ID JOIN driver AS T3 ON T2.Driver_ID = T3.Driver_ID WHERE T3.Name = 'Jeff Gordon' OR T2.Driver_ID IN (SELECT Driver_ID FROM vehicle_driver GROUP BY Driver_ID HAVING COUNT(Driver_ID) > 2)",
+          "exec_ok": false,
+          "schema_chars": 472
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.Vehicle_ID, T1.Model FROM vehicle AS T1 JOIN vehicle_driver AS T2 ON T1.Vehicle_ID = T2.Vehicle_ID JOIN driver AS T3 ON T2.Driver_ID = T3.Driver_ID WHERE T3.Name = 'Jeff Gordon' OR T2.Driver_ID IN (SELECT Driver_ID FROM vehicle_driver GROUP BY Driver_ID HAVING COUNT(Driver_ID) > 2)",
+          "exec_ok": false,
+          "schema_chars": 472
+        },
+        "full_schema": {
+          "sql": "SELECT T1.Vehicle_ID, T1.Model FROM vehicle AS T1 JOIN vehicle_driver AS T2 ON T1.Vehicle_ID = T2.Vehicle_ID JOIN driver AS T3 ON T2.Driver_ID = T3.Driver_ID WHERE T3.Name = 'Jeff Gordon' OR T2.Driver_ID IN (SELECT Driver_ID FROM vehicle_driver GROUP BY Driver_ID HAVING COUNT(Driver_ID) > 2)",
+          "exec_ok": false,
+          "schema_chars": 472
+        }
+      }
+    },
+    {
+      "local_idx": 267,
+      "global_idx": 182,
+      "question": "Return the ids and models of vehicles that have been driven by more than 2 drivers or been driven by the Jeff Gordon.",
+      "db_id": "vehicle_driver",
+      "gold_sql": "SELECT T1.vehicle_id ,  T1.model FROM vehicle AS T1 JOIN vehicle_driver AS T2 ON T1.vehicle_id  =  T2.vehicle_id JOIN driver AS T3 ON T2.driver_id  =  T3.driver_id WHERE T3.name  =  'Jeff Gordon' UNION SELECT T1.vehicle_id ,  T1.model FROM vehicle AS T1 JOIN vehicle_driver AS T2 ON T1.vehicle_id  =  T2.vehicle_id GROUP BY T2.vehicle_id HAVING count(*)  >  2\tvehicle_driver",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.Vehicle_ID, T1.Model FROM vehicle AS T1 JOIN vehicle_driver AS T2 ON T1.Vehicle_ID = T2.Vehicle_ID JOIN driver AS T3 ON T2.Driver_ID = T3.Driver_ID WHERE T3.Name = \"Jeff Gordon\" OR T2.Driver_ID IN (SELECT Driver_ID FROM vehicle_driver GROUP BY Driver_ID HAVING count(*) > 2)",
+          "exec_ok": false,
+          "schema_chars": 472
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.Vehicle_ID, T1.Model FROM vehicle AS T1 JOIN vehicle_driver AS T2 ON T1.Vehicle_ID = T2.Vehicle_ID JOIN driver AS T3 ON T2.Driver_ID = T3.Driver_ID WHERE T3.Name = \"Jeff Gordon\" OR T2.Driver_ID IN (SELECT Driver_ID FROM vehicle_driver GROUP BY Driver_ID HAVING count(*) > 2)",
+          "exec_ok": false,
+          "schema_chars": 472
+        },
+        "full_schema": {
+          "sql": "SELECT T1.Vehicle_ID, T1.Model FROM vehicle AS T1 JOIN vehicle_driver AS T2 ON T1.Vehicle_ID = T2.Vehicle_ID JOIN driver AS T3 ON T2.Driver_ID = T3.Driver_ID WHERE T3.Name = \"Jeff Gordon\" OR T2.Driver_ID IN (SELECT Driver_ID FROM vehicle_driver GROUP BY Driver_ID HAVING count(*) > 2)",
+          "exec_ok": false,
+          "schema_chars": 472
+        }
+      }
+    },
+    {
+      "local_idx": 268,
+      "global_idx": 191,
+      "question": "How many drivers have not driven any cars?",
+      "db_id": "vehicle_driver",
+      "gold_sql": "SELECT count(*) FROM driver WHERE driver_id NOT IN ( SELECT driver_id FROM vehicle_driver )\tvehicle_driver",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT COUNT(Driver_ID) FROM driver WHERE Driver_ID NOT IN (SELECT Driver_ID FROM vehicle_driver)",
+          "exec_ok": true,
+          "schema_chars": 472
+        },
+        "broader_rag": {
+          "sql": "SELECT COUNT(Driver_ID) FROM driver WHERE Driver_ID NOT IN (SELECT Driver_ID FROM vehicle_driver)",
+          "exec_ok": true,
+          "schema_chars": 472
+        },
+        "full_schema": {
+          "sql": "SELECT COUNT(Driver_ID) FROM driver WHERE Driver_ID NOT IN (SELECT Driver_ID FROM vehicle_driver)",
+          "exec_ok": true,
+          "schema_chars": 472
+        }
+      }
+    },
+    {
+      "local_idx": 269,
+      "global_idx": 192,
+      "question": "Count the number of drivers who have not driven any vehicles.",
+      "db_id": "vehicle_driver",
+      "gold_sql": "SELECT count(*) FROM driver WHERE driver_id NOT IN ( SELECT driver_id FROM vehicle_driver )\tvehicle_driver",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT COUNT(DISTINCT Driver_ID) FROM driver WHERE Driver_ID NOT IN (SELECT Driver_ID FROM vehicle_driver)",
+          "exec_ok": true,
+          "schema_chars": 472
+        },
+        "broader_rag": {
+          "sql": "SELECT COUNT(DISTINCT Driver_ID) FROM driver WHERE Driver_ID NOT IN (SELECT Driver_ID FROM vehicle_driver)",
+          "exec_ok": true,
+          "schema_chars": 472
+        },
+        "full_schema": {
+          "sql": "SELECT COUNT(DISTINCT Driver_ID) FROM driver WHERE Driver_ID NOT IN (SELECT Driver_ID FROM vehicle_driver)",
+          "exec_ok": true,
+          "schema_chars": 472
+        }
+      }
+    },
+    {
+      "local_idx": 270,
+      "global_idx": 251,
+      "question": "Show all hardware product names with price higher than the average price of hardware type products.",
+      "db_id": "customers_and_orders",
+      "gold_sql": "SELECT product_name FROM Products WHERE product_type_code  =  \"Hardware\" AND product_price  >  (SELECT avg(product_price) FROM Products WHERE product_type_code  =  \"Hardware\")\tcustomers_and_orders",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT product_name FROM Products WHERE product_price > (SELECT AVG(product_price) FROM Products WHERE product_type_code = 'hardware')",
+          "exec_ok": false,
+          "schema_chars": 130
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.product_name FROM Products AS T1 JOIN Order_Items AS T2 ON T1.product_id = T2.product_id WHERE T1.product_type_code = 'Hardware' AND T1.product_price > (SELECT AVG(product_price) FROM Products WHERE product_type_code = 'Hardware')",
+          "exec_ok": true,
+          "schema_chars": 767
+        },
+        "full_schema": {
+          "sql": "SELECT T1.product_name FROM Products AS T1 JOIN Order_Items AS T2 ON T1.product_id = T2.product_id WHERE T1.product_type_code = 'Hardware' AND T1.product_price > (SELECT AVG(product_price) FROM Products WHERE product_type_code = 'Hardware')",
+          "exec_ok": true,
+          "schema_chars": 852
+        }
+      }
+    },
+    {
+      "local_idx": 271,
+      "global_idx": 252,
+      "question": "What are the names of Hardware product with prices above the average price of Hardware products.",
+      "db_id": "customers_and_orders",
+      "gold_sql": "SELECT product_name FROM Products WHERE product_type_code  =  \"Hardware\" AND product_price  >  (SELECT avg(product_price) FROM Products WHERE product_type_code  =  \"Hardware\")\tcustomers_and_orders",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.product_name FROM Products AS T1 WHERE T1.product_type_code = 'Hardware' AND T1.product_price > ( SELECT avg(product_price) FROM Products WHERE product_type_code = 'Hardware' )",
+          "exec_ok": true,
+          "schema_chars": 130
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.product_name FROM Products AS T1 JOIN Products AS T2 ON T1.product_type_code = T2.product_type_code WHERE T1.product_price > ( SELECT avg(T3.product_price) FROM Products AS T3 WHERE T3.product_type_code = T1.product_type_code )",
+          "exec_ok": false,
+          "schema_chars": 767
+        },
+        "full_schema": {
+          "sql": "SELECT T1.product_name FROM Products AS T1 JOIN Products AS T2 ON T1.product_type_code = T2.product_type_code WHERE T1.product_price > ( SELECT avg(T3.product_price) FROM Products AS T3 WHERE T3.product_type_code = T1.product_type_code )",
+          "exec_ok": false,
+          "schema_chars": 852
+        }
+      }
+    },
+    {
+      "local_idx": 272,
+      "global_idx": 295,
+      "question": "What is the customer id, name, phone, and email for the customer with most orders?",
+      "db_id": "customers_and_orders",
+      "gold_sql": "SELECT T1.customer_id ,  T2.customer_name ,  T2.customer_phone ,  T2.customer_email FROM Customer_orders AS T1 JOIN Customers AS T2 ON T1.customer_id  =  T2.customer_id GROUP BY T1.customer_id ORDER BY count(*) DESC LIMIT 1\tcustomers_and_orders",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.customer_id , T1.customer_name , T1.customer_phone , T1.customer_email FROM Customers AS T1 JOIN Customer_Orders AS T2 ON T1.customer_id = T2.customer_id GROUP BY T1.customer_id ORDER BY COUNT(T2.order_id) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 590
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.customer_id , T1.customer_name , T1.customer_phone , T1.customer_email FROM Customers AS T1 JOIN Customer_Orders AS T2 ON T1.customer_id = T2.customer_id GROUP BY T1.customer_id ORDER BY COUNT(T2.order_id) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 767
+        },
+        "full_schema": {
+          "sql": "SELECT T1.customer_id , T1.customer_name , T1.customer_phone , T1.customer_email FROM Customers AS T1 JOIN Customer_Orders AS T2 ON T1.customer_id = T2.customer_id GROUP BY T1.customer_id ORDER BY count(*) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 852
+        }
+      }
+    },
+    {
+      "local_idx": 273,
+      "global_idx": 296,
+      "question": "Give the id, name, phone, and email corresponding to the customer who made the most orders.",
+      "db_id": "customers_and_orders",
+      "gold_sql": "SELECT T1.customer_id ,  T2.customer_name ,  T2.customer_phone ,  T2.customer_email FROM Customer_orders AS T1 JOIN Customers AS T2 ON T1.customer_id  =  T2.customer_id GROUP BY T1.customer_id ORDER BY count(*) DESC LIMIT 1\tcustomers_and_orders",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.customer_id, T1.customer_name, T1.customer_phone, T1.customer_email FROM Customers AS T1 JOIN Customer_Orders AS T2 ON T1.customer_id = T2.customer_id GROUP BY T1.customer_id ORDER BY COUNT(T2.order_id) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 590
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.customer_id, T1.customer_name, T1.customer_phone, T1.customer_email FROM Customers AS T1 JOIN Customer_Orders AS T2 ON T1.customer_id = T2.customer_id GROUP BY T1.customer_id ORDER BY COUNT(T2.order_id) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 767
+        },
+        "full_schema": {
+          "sql": "SELECT T1.customer_id, T1.customer_name, T1.customer_phone, T1.customer_email FROM Customers AS T1 JOIN Customer_Orders AS T2 ON T1.customer_id = T2.customer_id GROUP BY T1.customer_id ORDER BY COUNT(T2.order_id) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 852
+        }
+      }
+    },
+    {
+      "local_idx": 274,
+      "global_idx": 301,
+      "question": "How many customers do not have an order?",
+      "db_id": "customers_and_orders",
+      "gold_sql": "SELECT count(*) FROM Customers WHERE customer_id NOT IN  ( SELECT customer_id FROM Customer_orders)\tcustomers_and_orders",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT count(*) FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Customer_Orders)",
+          "exec_ok": true,
+          "schema_chars": 590
+        },
+        "broader_rag": {
+          "sql": "SELECT count(*) FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Customer_Orders)",
+          "exec_ok": true,
+          "schema_chars": 590
+        },
+        "full_schema": {
+          "sql": "SELECT count(*) FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Customer_Orders)",
+          "exec_ok": true,
+          "schema_chars": 852
+        }
+      }
+    },
+    {
+      "local_idx": 275,
+      "global_idx": 302,
+      "question": "Count the number of customers who have not made an order.",
+      "db_id": "customers_and_orders",
+      "gold_sql": "SELECT count(*) FROM Customers WHERE customer_id NOT IN  ( SELECT customer_id FROM Customer_orders)\tcustomers_and_orders",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT count(*) FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Customer_Orders)",
+          "exec_ok": true,
+          "schema_chars": 590
+        },
+        "broader_rag": {
+          "sql": "SELECT count(*) FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Customer_Orders)",
+          "exec_ok": true,
+          "schema_chars": 590
+        },
+        "full_schema": {
+          "sql": "SELECT count(*) FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Customer_Orders)",
+          "exec_ok": true,
+          "schema_chars": 852
+        }
+      }
+    },
+    {
+      "local_idx": 276,
+      "global_idx": 313,
+      "question": "Show all the order dates and ids of the orders with quantity of any product larger than 6 or with more than 3 products.",
+      "db_id": "customers_and_orders",
+      "gold_sql": "SELECT T1.order_date ,  T1.order_id FROM Customer_Orders AS T1 JOIN Order_items AS T2 ON T1.order_id  =  T2.order_id WHERE T2.order_quantity  >  6 UNION SELECT T1.order_date ,  T1.order_id FROM Customer_Orders AS T1 JOIN Order_items AS T2 ON T1.order_id  =  T2.order_id GROUP BY T1.order_id HAVING count(*)  >  3;\tcustomers_and_orders",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.order_date , T1.order_id FROM Customer_Orders AS T1 JOIN Order_Items AS T2 ON T1.order_id = T2.order_id WHERE T2.order_quantity > 6 OR T2.order_quantity > 3",
+          "exec_ok": false,
+          "schema_chars": 486
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.order_date , T1.order_id FROM Customer_Orders AS T1 JOIN Order_Items AS T2 ON T1.order_id = T2.order_id WHERE T2.order_quantity > 6 OR T2.order_quantity > 3",
+          "exec_ok": false,
+          "schema_chars": 486
+        },
+        "full_schema": {
+          "sql": "SELECT T2.order_date , T1.order_id FROM Customer_Orders AS T1 JOIN Order_Items AS T2 ON T1.order_id = T2.order_id WHERE T2.order_quantity > 6 OR T2.order_quantity > 3",
+          "exec_ok": false,
+          "schema_chars": 852
+        }
+      }
+    },
+    {
+      "local_idx": 277,
+      "global_idx": 314,
+      "question": "What are the order ids and corresponding order dates for orders with a quantity greater than 6 or consisting of more than 3 products?",
+      "db_id": "customers_and_orders",
+      "gold_sql": "SELECT T1.order_date ,  T1.order_id FROM Customer_Orders AS T1 JOIN Order_items AS T2 ON T1.order_id  =  T2.order_id WHERE T2.order_quantity  >  6 UNION SELECT T1.order_date ,  T1.order_id FROM Customer_Orders AS T1 JOIN Order_items AS T2 ON T1.order_id  =  T2.order_id GROUP BY T1.order_id HAVING count(*)  >  3;\tcustomers_and_orders",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.order_id, T1.order_date FROM Customer_Orders AS T1 JOIN Order_Items AS T2 ON T1.order_id = T2.order_id WHERE T2.order_quantity > '6' OR T2.order_quantity = '3'",
+          "exec_ok": false,
+          "schema_chars": 486
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.order_id, T1.order_date FROM Customer_Orders AS T1 JOIN Order_Items AS T2 ON T1.order_id = T2.order_id WHERE T2.order_quantity > '6' OR T2.order_quantity = '3'",
+          "exec_ok": false,
+          "schema_chars": 486
+        },
+        "full_schema": {
+          "sql": "SELECT T1.order_id , T1.order_date FROM Customer_Orders AS T1 JOIN Order_Items AS T2 ON T1.order_id = T2.order_id WHERE T2.order_quantity > 6 OR T2.order_item_id > 3",
+          "exec_ok": false,
+          "schema_chars": 852
+        }
+      }
+    },
+    {
+      "local_idx": 278,
+      "global_idx": 337,
+      "question": "Show the capital of the region that has the most buildings.",
+      "db_id": "region_building",
+      "gold_sql": "SELECT T2.capital FROM building AS T1 JOIN region AS T2 ON T1.Region_ID  =  T2.Region_ID GROUP BY T1.Region_ID ORDER BY COUNT(*) DESC LIMIT 1\tregion_building",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T2.Capital FROM region AS T1 JOIN building AS T2 ON T1.Region_ID = T2.Region_ID GROUP BY T2.Region_ID ORDER BY COUNT(T2.Building_ID) DESC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 336
+        },
+        "broader_rag": {
+          "sql": "SELECT T2.Capital FROM region AS T1 JOIN building AS T2 ON T1.Region_ID = T2.Region_ID GROUP BY T2.Region_ID ORDER BY COUNT(T2.Building_ID) DESC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 336
+        },
+        "full_schema": {
+          "sql": "SELECT T2.Capital FROM region AS T1 JOIN building AS T2 ON T1.Region_ID = T2.Region_ID GROUP BY T2.Region_ID ORDER BY COUNT(T2.Building_ID) DESC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 336
+        }
+      }
+    },
+    {
+      "local_idx": 279,
+      "global_idx": 338,
+      "question": "Which region has the largest number of buildings? Show me the capital of the region.",
+      "db_id": "region_building",
+      "gold_sql": "SELECT T2.capital FROM building AS T1 JOIN region AS T2 ON T1.Region_ID  =  T2.Region_ID GROUP BY T1.Region_ID ORDER BY COUNT(*) DESC LIMIT 1\tregion_building",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T2.Name, T2.Capital FROM building AS T1 JOIN region AS T2 ON T1.Region_ID = T2.Region_ID GROUP BY T2.Name ORDER BY COUNT(T1.Building_ID) DESC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 336
+        },
+        "broader_rag": {
+          "sql": "SELECT T2.Name, T2.Capital FROM building AS T1 JOIN region AS T2 ON T1.Region_ID = T2.Region_ID GROUP BY T2.Name ORDER BY COUNT(T1.Building_ID) DESC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 336
+        },
+        "full_schema": {
+          "sql": "SELECT T2.Name, T2.Capital FROM building AS T1 JOIN region AS T2 ON T1.Region_ID = T2.Region_ID GROUP BY T2.Name ORDER BY COUNT(T1.Building_ID) DESC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 336
+        }
+      }
+    },
+    {
+      "local_idx": 280,
+      "global_idx": 365,
+      "question": "Find the details of the customer who has used services the most times.",
+      "db_id": "government_shift",
+      "gold_sql": "SELECT t1.customer_details FROM customers AS t1 JOIN customers_and_services AS t2 ON t1.customer_id  =  t2.customer_id GROUP BY t1.customer_details ORDER BY count(*) DESC LIMIT 1\tgovernment_shift",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.Customer_Details FROM Customers AS T1 INNER JOIN Customers_and_Services AS T2 ON T1.Customer_ID = T2.Customer_ID GROUP BY T1.Customer_ID ORDER BY COUNT(T2.Customers_and_Services_ID) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 794
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.Customer_Details FROM Customers AS T1 INNER JOIN Customers_and_Services AS T2 ON T1.Customer_ID = T2.Customer_ID GROUP BY T1.Customer_ID ORDER BY COUNT(T2.Customers_and_Services_ID) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 794
+        },
+        "full_schema": {
+          "sql": "SELECT T1.Customer_Details FROM Customers AS T1 INNER JOIN Customers_and_Services AS T2 ON T1.Customer_ID = T2.Customer_ID GROUP BY T1.Customer_ID ORDER BY COUNT(T2.Customers_and_Services_ID) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 1447
+        }
+      }
+    },
+    {
+      "local_idx": 281,
+      "global_idx": 366,
+      "question": "return the details of the customer with largest count of used services.",
+      "db_id": "government_shift",
+      "gold_sql": "select t1.customer_details from customers as t1 join customers_and_services as t2 on t1.customer_id  =  t2.customer_id group by t1.customer_details order by count(*) desc limit 1\tgovernment_shift",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.Customer_Details FROM Customers AS T1 JOIN Customers_and_Services AS T2 ON T1.Customer_ID = T2.Customer_ID GROUP BY T1.Customer_ID ORDER BY COUNT(T2.Customers_and_Services_ID) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 794
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.Customer_Details FROM Customers AS T1 JOIN Customers_and_Services AS T2 ON T1.Customer_ID = T2.Customer_ID GROUP BY T1.Customer_ID ORDER BY COUNT(T2.Customers_and_Services_ID) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 794
+        },
+        "full_schema": {
+          "sql": "SELECT T1.Customer_Details FROM Customers AS T1 JOIN Customers_and_Services AS T2 ON T1.Customer_ID = T2.Customer_ID GROUP BY T1.Customer_ID ORDER BY COUNT(T2.Customers_and_Services_ID) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 1447
+        }
+      }
+    },
+    {
+      "local_idx": 282,
+      "global_idx": 367,
+      "question": "Find the name of the customer who has used the most types of services .",
+      "db_id": "government_shift",
+      "gold_sql": "select t1.customer_details from customers as t1 join customers_and_services as t2 on t1.customer_id  =  t2.customer_id group by t1.customer_details order by count(*) desc limit 1\tgovernment_shift",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.Customer_Details FROM Customers AS T1 JOIN Customers_and_Services AS T2 ON T1.Customer_ID = T2.Customer_ID GROUP BY T1.Customer_ID ORDER BY COUNT(T2.Service_ID) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 794
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.Customer_Details FROM Customers AS T1 JOIN Customers_and_Services AS T2 ON T1.Customer_ID = T2.Customer_ID GROUP BY T1.Customer_ID ORDER BY COUNT(T2.Service_ID) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 794
+        },
+        "full_schema": {
+          "sql": "SELECT T1.Customer_Details FROM Customers AS T1 JOIN Customers_and_Services AS T2 ON T1.Customer_ID = T2.Customer_ID GROUP BY T1.Customer_ID ORDER BY COUNT(T2.Service_ID) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 1447
+        }
+      }
+    },
+    {
+      "local_idx": 283,
+      "global_idx": 368,
+      "question": "Which customer has used the most types of services ? Give me the customer details .",
+      "db_id": "government_shift",
+      "gold_sql": "select t1.customer_details from customers as t1 join customers_and_services as t2 on t1.customer_id  =  t2.customer_id group by t1.customer_details order by count(*) desc limit 1\tgovernment_shift",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.Customer_Details FROM Customers AS T1 JOIN Customers_and_Services AS T2 ON T1.Customer_ID = T2.Customer_ID GROUP BY T2.Customer_ID ORDER BY COUNT(DISTINCT T2.Service_ID) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 794
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.Customer_Details FROM Customers AS T1 JOIN Customers_and_Services AS T2 ON T1.Customer_ID = T2.Customer_ID GROUP BY T2.Customer_ID ORDER BY COUNT(DISTINCT T2.Service_ID) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 794
+        },
+        "full_schema": {
+          "sql": "SELECT T1.Customer_Details FROM Customers AS T1 JOIN Customers_and_Services AS T2 ON T1.Customer_ID = T2.Customer_ID GROUP BY T2.Customer_ID ORDER BY COUNT(DISTINCT T2.Service_ID) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 1447
+        }
+      }
+    },
+    {
+      "local_idx": 284,
+      "global_idx": 371,
+      "question": "Find the details of the customers who have used the least-used service .",
+      "db_id": "government_shift",
+      "gold_sql": "select distinct t1.customer_details from customers as t1 join customers_and_services as t2 on t1.customer_id  =  t2.customer_id where t2.service_id  =  (select service_id from services group by service_id order by count(*) asc limit 1)\tgovernment_shift",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.Customer_Details FROM Customers AS T1 JOIN Customers_and_Services AS T2 ON T1.Customer_ID = T2.Customer_ID JOIN Services AS T3 ON T2.Service_ID = T3.Service_ID GROUP BY T2.Service_ID ORDER BY COUNT(T2.Service_ID) ASC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 794
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.Customer_Details FROM Customers AS T1 JOIN Customers_and_Services AS T2 ON T1.Customer_ID = T2.Customer_ID JOIN Services AS T3 ON T2.Service_ID = T3.Service_ID GROUP BY T2.Service_ID ORDER BY COUNT(T2.Service_ID) ASC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 794
+        },
+        "full_schema": {
+          "sql": "SELECT T1.Customer_Details FROM Customers AS T1 JOIN Customers_and_Services AS T2 ON T1.Customer_ID = T2.Customer_ID JOIN Services AS T3 ON T2.Service_ID = T3.Service_ID GROUP BY T2.Service_ID ORDER BY COUNT(T2.Service_ID) ASC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 1447
+        }
+      }
+    },
+    {
+      "local_idx": 285,
+      "global_idx": 372,
+      "question": "Which customers used the least commonly-used service ? Give me the distinct customer details .",
+      "db_id": "government_shift",
+      "gold_sql": "select distinct t1.customer_details from customers as t1 join customers_and_services as t2 on t1.customer_id  =  t2.customer_id where t2.service_id  =  (select service_id from services group by service_id order by count(*) asc limit 1)\tgovernment_shift",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T2.Customer_Details FROM Customers_and_Services AS T1 JOIN Customers AS T2 ON T1.Customer_ID = T2.Customer_ID JOIN Services AS T3 ON T1.Service_ID = T3.Service_ID GROUP BY T2.Customer_ID ORDER BY COUNT(T1.Customers_and_Services_ID) ASC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 794
+        },
+        "broader_rag": {
+          "sql": "SELECT T2.Customer_Details FROM Customers_and_Services AS T1 JOIN Customers AS T2 ON T1.Customer_ID = T2.Customer_ID JOIN Services AS T3 ON T1.Service_ID = T3.Service_ID GROUP BY T2.Customer_ID ORDER BY COUNT(T1.Customers_and_Services_ID) ASC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 794
+        },
+        "full_schema": {
+          "sql": "SELECT DISTINCT T2.Customer_Details FROM Customers_and_Services AS T1 JOIN Customers AS T2 ON T1.Customer_ID = T2.Customer_ID JOIN Services AS T3 ON T1.Service_ID = T3.Service_ID JOIN ( SELECT Service_ID, COUNT(*) as count FROM Customers_and_Services GROUP BY Service_ID ) AS T4 ON T1.Service_ID = T4.Service_ID WHERE T4.count = ( SELECT MIN(count) FROM ( SELECT Service_ID, COUNT(*) as count FROM Customers_and_Services GROUP BY Service_ID ) )",
+          "exec_ok": false,
+          "schema_chars": 1447
+        }
+      }
+    },
+    {
+      "local_idx": 286,
+      "global_idx": 377,
+      "question": "Find the name of all the services which either have been used by customer \"Hardy Kutch\" or have been rated as \"good\" in one of the customer interactions.",
+      "db_id": "government_shift",
+      "gold_sql": "SELECT DISTINCT t3.service_details FROM customers AS t1 JOIN customers_and_services AS t2 ON t1.customer_id  =  t2.customer_id JOIN services AS t3 ON t2.service_id  =  t3.service_id JOIN customer_interactions AS t4 ON t3.service_id  =  t4.service_id WHERE t1.customer_details  =  \"Hardy Kutch\" OR t4.services_and_channels_details  =  \"good\"\tgovernment_shift",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.Service_Details FROM Services AS T1 JOIN Customers_and_Services AS T2 ON T1.Service_ID = T2.Service_ID JOIN Customers AS T3 ON T2.Customer_ID = T3.Customer_ID WHERE T3.Customer_Details = 'Hardy Kutch' UNION SELECT T1.Service_Details FROM Services AS T1 JOIN Customer_Interactions AS T2 ON T1.Service_ID = T2.Service_ID WHERE T2.Status_Code = 'good'",
+          "exec_ok": false,
+          "schema_chars": 794
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.Service_Details FROM Services AS T1 JOIN Customers_and_Services AS T2 ON T1.Service_ID = T2.Service_ID JOIN Customers AS T3 ON T2.Customer_ID = T3.Customer_ID WHERE T3.Customer_Details = 'Hardy Kutch' UNION SELECT T1.Service_Details FROM Services AS T1 JOIN Customer_Interactions AS T2 ON T1.Service_ID = T2.Service_ID WHERE T2.Status_Code = 'good'",
+          "exec_ok": false,
+          "schema_chars": 794
+        },
+        "full_schema": {
+          "sql": "SELECT T1.Service_Details FROM Services AS T1 JOIN Customers_and_Services AS T2 ON T1.Service_ID = T2.Service_ID JOIN Customers AS T3 ON T2.Customer_ID = T3.Customer_ID WHERE T3.Customer_Details = 'Hardy Kutch' UNION SELECT T1.Service_Details FROM Services AS T1 JOIN Customer_Interactions AS T2 ON T1.Service_ID = T2.Service_ID WHERE T2.Status_Code = 'good'",
+          "exec_ok": false,
+          "schema_chars": 1447
+        }
+      }
+    },
+    {
+      "local_idx": 287,
+      "global_idx": 378,
+      "question": "Which services are used by the customer \"Hardy Kutch\" or are rated as \"good\" in a customer interaction? Give me the service details.",
+      "db_id": "government_shift",
+      "gold_sql": "SELECT DISTINCT t3.service_details FROM customers AS t1 JOIN customers_and_services AS t2 ON t1.customer_id  =  t2.customer_id JOIN services AS t3 ON t2.service_id  =  t3.service_id JOIN customer_interactions AS t4 ON t3.service_id  =  t4.service_id WHERE t1.customer_details  =  \"Hardy Kutch\" OR t4.services_and_channels_details  =  \"good\"\tgovernment_shift",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.Service_Details FROM Services AS T1 JOIN Customers_and_Services AS T2 ON T1.Service_ID = T2.Service_ID JOIN Customers AS T3 ON T2.Customer_ID = T3.Customer_ID WHERE T3.Customer_Details = 'Hardy Kutch' OR T2.Customers_and_Services_ID IN (SELECT Customer_Interaction_ID FROM Customer_Interactions WHERE Status_Code = 'good')",
+          "exec_ok": false,
+          "schema_chars": 794
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.Service_Details FROM Services AS T1 JOIN Customers_and_Services AS T2 ON T1.Service_ID = T2.Service_ID JOIN Customers AS T3 ON T2.Customer_ID = T3.Customer_ID WHERE T3.Customer_Details = 'Hardy Kutch' OR T2.Customers_and_Services_ID IN (SELECT Customer_Interaction_ID FROM Customer_Interactions WHERE Status_Code = 'good')",
+          "exec_ok": false,
+          "schema_chars": 794
+        },
+        "full_schema": {
+          "sql": "SELECT T1.Service_Details FROM Services AS T1 JOIN Customers_and_Services AS T2 ON T1.Service_ID = T2.Service_ID JOIN Customers AS T3 ON T2.Customer_ID = T3.Customer_ID WHERE T3.Customer_Details = 'Hardy Kutch' OR EXISTS (SELECT 1 FROM Customer_Interactions AS T4 JOIN Services AS T5 ON T4.Service_ID = T5.Service_ID WHERE T4.Status_Code = 'good' AND T5.Service_ID = T2.Service_ID)",
+          "exec_ok": false,
+          "schema_chars": 1447
+        }
+      }
+    },
+    {
+      "local_idx": 288,
+      "global_idx": 379,
+      "question": "Find the names of all the services which both have been used by customer \"Hardy Kutch\" and have been rated \"bad\" in one of the customer interactions.",
+      "db_id": "government_shift",
+      "gold_sql": "SELECT DISTINCT t3.service_details FROM customers AS t1 JOIN customers_and_services AS t2 ON t1.customer_id  =  t2.customer_id JOIN services AS t3 ON t2.service_id  =  t3.service_id JOIN customer_interactions AS t4 ON t3.service_id  =  t4.service_id WHERE t1.customer_details  =  \"Hardy Kutch\" AND t4.services_and_channels_details  =  \"bad\"\tgovernment_shift",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.Service_ID, T1.Service_Details FROM Services AS T1 JOIN Customers_and_Services AS T2 ON T1.Service_ID = T2.Service_ID JOIN Customer_Interactions AS T3 ON T1.Service_ID = T3.Service_ID JOIN Customers AS T4 ON T2.Customer_ID = T4.Customer_ID WHERE T4.Customer_Details = \"Hardy Kutch\" AND T3.Status_Code = \"bad\"",
+          "exec_ok": false,
+          "schema_chars": 794
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.Service_ID, T1.Service_Details FROM Services AS T1 JOIN Customers_and_Services AS T2 ON T1.Service_ID = T2.Service_ID JOIN Customer_Interactions AS T3 ON T1.Service_ID = T3.Service_ID JOIN Customers AS T4 ON T2.Customer_ID = T4.Customer_ID WHERE T4.Customer_Details = \"Hardy Kutch\" AND T3.Status_Code = \"bad\"",
+          "exec_ok": false,
+          "schema_chars": 794
+        },
+        "full_schema": {
+          "sql": "SELECT T1.Service_ID, T1.Service_Details FROM Services AS T1 JOIN Customers_and_Services AS T2 ON T1.Service_ID = T2.Service_ID JOIN Customer_Interactions AS T3 ON T2.Customer_ID = T3.Customer_ID AND T1.Service_ID = T3.Service_ID WHERE T3.Status_Code = \"bad\" AND T2.Customer_ID IN (SELECT Customer_ID FROM Customers WHERE Customer_Details = \"Hardy Kutch\")",
+          "exec_ok": false,
+          "schema_chars": 1447
+        }
+      }
+    },
+    {
+      "local_idx": 289,
+      "global_idx": 380,
+      "question": "Which services are both used by the customer \"Hardy Kutch\" and are rated as \"bad\" in a customer interaction? Give me the service details.",
+      "db_id": "government_shift",
+      "gold_sql": "SELECT DISTINCT t3.service_details FROM customers AS t1 JOIN customers_and_services AS t2 ON t1.customer_id  =  t2.customer_id JOIN services AS t3 ON t2.service_id  =  t3.service_id JOIN customer_interactions AS t4 ON t3.service_id  =  t4.service_id WHERE t1.customer_details  =  \"Hardy Kutch\" AND t4.services_and_channels_details  =  \"bad\"\tgovernment_shift",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.Service_Details FROM Services AS T1 JOIN Customers_and_Services AS T2 ON T1.Service_ID = T2.Service_ID JOIN Customer_Interactions AS T3 ON T2.Customer_ID = T3.Customer_ID WHERE T3.Status_Code = \"bad\" AND T2.Customer_ID = ( SELECT Customer_ID FROM Customers WHERE Customer_Details = \"Hardy Kutch\" )",
+          "exec_ok": false,
+          "schema_chars": 794
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.Service_Details FROM Services AS T1 JOIN Customers_and_Services AS T2 ON T1.Service_ID = T2.Service_ID JOIN Customer_Interactions AS T3 ON T2.Customer_ID = T3.Customer_ID WHERE T3.Status_Code = \"bad\" AND T2.Customer_ID = ( SELECT Customer_ID FROM Customers WHERE Customer_Details = \"Hardy Kutch\" )",
+          "exec_ok": false,
+          "schema_chars": 794
+        },
+        "full_schema": {
+          "sql": "SELECT T1.Service_Details FROM Services AS T1 JOIN Customers_and_Services AS T2 ON T1.Service_ID = T2.Service_ID JOIN Customers AS T3 ON T2.Customer_ID = T3.Customer_ID JOIN Customer_Interactions AS T4 ON T3.Customer_ID = T4.Customer_ID WHERE T3.Customer_Details = \"Hardy Kutch\" AND T4.Status_Code = \"bad\"",
+          "exec_ok": false,
+          "schema_chars": 1447
+        }
+      }
+    },
+    {
+      "local_idx": 290,
+      "global_idx": 401,
+      "question": "Show name, type of powertrain, and annual fuel cost for all vehicles with model year 2013 or 2014.",
+      "db_id": "vehicle_rent",
+      "gold_sql": "SELECT name ,  type_of_powertrain ,  annual_fuel_cost FROM vehicles WHERE model_year  =  2013 OR model_year  =  2014\tvehicle_rent",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT name , Type_of_powertrain , Annual_fuel_cost FROM Vehicles WHERE Model_year = 2013 OR Model_year = 2014",
+          "exec_ok": true,
+          "schema_chars": 245
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.name , T1.Type_of_powertrain , T1.Annual_fuel_cost FROM Vehicles AS T1 WHERE T1.Model_year = 2013 OR T1.Model_year = 2014",
+          "exec_ok": true,
+          "schema_chars": 778
+        },
+        "full_schema": {
+          "sql": "SELECT T1.name , T1.Type_of_powertrain , T1.Annual_fuel_cost FROM Vehicles AS T1 WHERE T1.Model_year = 2013 OR T1.Model_year = 2014",
+          "exec_ok": true,
+          "schema_chars": 778
+        }
+      }
+    },
+    {
+      "local_idx": 291,
+      "global_idx": 402,
+      "question": "What are the names, types of powertrains, and yearly fuel costs for vehicles with model years in either 2013 2014?",
+      "db_id": "vehicle_rent",
+      "gold_sql": "SELECT name ,  type_of_powertrain ,  annual_fuel_cost FROM vehicles WHERE model_year  =  2013 OR model_year  =  2014\tvehicle_rent",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT Type_of_powertrain, Annual_fuel_cost FROM Vehicles WHERE Model_year = 2013 OR Model_year = 2014",
+          "exec_ok": false,
+          "schema_chars": 260
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.name, T1.Type_of_powertrain, T1.Annual_fuel_cost FROM Vehicles AS T1 WHERE T1.Model_year = 2013 OR T1.Model_year = 2014",
+          "exec_ok": true,
+          "schema_chars": 778
+        },
+        "full_schema": {
+          "sql": "SELECT T1.name, T1.Type_of_powertrain, T1.Annual_fuel_cost FROM Vehicles AS T1 WHERE T1.Model_year = 2013 OR T1.Model_year = 2014",
+          "exec_ok": true,
+          "schema_chars": 778
+        }
+      }
+    },
+    {
+      "local_idx": 292,
+      "global_idx": 429,
+      "question": "Show the name and model year of the vehicle with most number of renting history records.",
+      "db_id": "vehicle_rent",
+      "gold_sql": "SELECT T2.name ,  T2.model_year FROM renting_history AS T1 JOIN vehicles AS T2 ON T1.vehicles_id  =  T2.id GROUP BY T2.id ORDER BY count(*) DESC LIMIT 1\tvehicle_rent",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.name, T1.Model_year FROM Vehicles AS T1 JOIN Renting_history AS T2 ON T1.id = T2.vehicles_id GROUP BY T1.id ORDER BY COUNT(T2.id) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 449
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.name, T1.Model_year FROM Vehicles AS T1 JOIN Renting_history AS T2 ON T1.id = T2.vehicles_id GROUP BY T1.id ORDER BY COUNT(T2.id) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 778
+        },
+        "full_schema": {
+          "sql": "SELECT T1.name, T1.Model_year FROM Vehicles AS T1 JOIN Renting_history AS T2 ON T1.id = T2.vehicles_id GROUP BY T1.id ORDER BY COUNT(T2.id) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 778
+        }
+      }
+    },
+    {
+      "local_idx": 293,
+      "global_idx": 430,
+      "question": "What is the name and model year of the vehicle which has been rented the most times?",
+      "db_id": "vehicle_rent",
+      "gold_sql": "SELECT T2.name ,  T2.model_year FROM renting_history AS T1 JOIN vehicles AS T2 ON T1.vehicles_id  =  T2.id GROUP BY T2.id ORDER BY count(*) DESC LIMIT 1\tvehicle_rent",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.name, T1.Model_year FROM Vehicles AS T1 JOIN Renting_history AS T2 ON T1.id = T2.vehicles_id GROUP BY T1.id ORDER BY COUNT(T2.id) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 449
+        },
+        "broader_rag": {
+          "sql": "SELECT T2.name, T2.Model_year FROM Renting_history AS T1 JOIN Vehicles AS T2 ON T1.vehicles_id = T2.id GROUP BY T2.id ORDER BY COUNT(T1.id) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 778
+        },
+        "full_schema": {
+          "sql": "SELECT T2.name, T2.Model_year FROM Renting_history AS T1 JOIN Vehicles AS T2 ON T1.vehicles_id = T2.id GROUP BY T2.id ORDER BY COUNT(T1.id) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 778
+        }
+      }
+    },
+    {
+      "local_idx": 294,
+      "global_idx": 433,
+      "question": "What is the discount name with most number of renting history records?",
+      "db_id": "vehicle_rent",
+      "gold_sql": "SELECT T2.name FROM renting_history AS T1 JOIN discount AS T2 ON T1.discount_id  =  T2.id GROUP BY T2.id ORDER BY count(*) DESC LIMIT 1\tvehicle_rent",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.name FROM Discount AS T1 JOIN Renting_history AS T2 ON T1.id = T2.discount_id GROUP BY T1.name ORDER BY COUNT(T2.id) DESC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 295
+        },
+        "broader_rag": {
+          "sql": "SELECT T2.name FROM Renting_history AS T1 JOIN Discount AS T2 ON T1.discount_id = T2.id GROUP BY T2.name ORDER BY COUNT(T1.id) DESC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 778
+        },
+        "full_schema": {
+          "sql": "SELECT T2.name FROM Renting_history AS T1 JOIN Discount AS T2 ON T1.discount_id = T2.id GROUP BY T2.name ORDER BY COUNT(T1.id) DESC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 778
+        }
+      }
+    },
+    {
+      "local_idx": 295,
+      "global_idx": 434,
+      "question": "Return the name of the discount that corresponds to the most rental history records.",
+      "db_id": "vehicle_rent",
+      "gold_sql": "SELECT T2.name FROM renting_history AS T1 JOIN discount AS T2 ON T1.discount_id  =  T2.id GROUP BY T2.id ORDER BY count(*) DESC LIMIT 1\tvehicle_rent",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.name FROM Discount AS T1 JOIN Renting_history AS T2 ON T1.id = T2.discount_id GROUP BY T1.id ORDER BY COUNT(T2.id) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 295
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.name FROM Discount AS T1 JOIN Renting_history AS T2 ON T1.id = T2.discount_id GROUP BY T1.id ORDER BY COUNT(T2.id) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 778
+        },
+        "full_schema": {
+          "sql": "SELECT T1.name FROM Discount AS T1 JOIN Renting_history AS T2 ON T1.id = T2.discount_id GROUP BY T1.id ORDER BY COUNT(T2.id) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 778
+        }
+      }
+    },
+    {
+      "local_idx": 296,
+      "global_idx": 441,
+      "question": "List the biographical data and student id for the students who take 2 or more classes and the students who have less than 2 detentions.",
+      "db_id": "cre_Students_Information_Systems",
+      "gold_sql": "SELECT T1.bio_data ,  T1.student_id FROM Students AS T1 JOIN Classes AS T2 ON T1.student_id  =  T2.student_id GROUP BY T1.student_id HAVING count(*)  >=  2 UNION SELECT T1.bio_data ,  T1.student_id FROM Students AS T1 JOIN Detention AS T2 ON T1.student_id  =  T2.student_id GROUP BY T1.student_id HAVING count(*)  <  2\tcre_Students_Information_Systems",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.bio_data , T1.student_id FROM Students AS T1 JOIN Classes AS T2 ON T1.student_id = T2.student_id GROUP BY T1.student_id HAVING count(*) >= 2 INTERSECT SELECT T1.bio_data , T1.student_id FROM Students AS T1 JOIN Detention AS T2 ON T1.student_id = T2.student_id GROUP BY T1.student_id HAVING count(*) < 2",
+          "exec_ok": false,
+          "schema_chars": 777
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.bio_data , T1.student_id FROM Students AS T1 JOIN Classes AS T2 ON T1.student_id = T2.student_id GROUP BY T1.student_id HAVING count(*) >= 2 INTERSECT SELECT T1.bio_data , T1.student_id FROM Students AS T1 JOIN Detention AS T2 ON T1.student_id = T2.student_id GROUP BY T1.student_id HAVING count(*) < 2",
+          "exec_ok": false,
+          "schema_chars": 777
+        },
+        "full_schema": {
+          "sql": "SELECT T1.bio_data , T1.student_id FROM Students AS T1 JOIN Classes AS T2 ON T1.student_id = T2.student_id GROUP BY T1.student_id HAVING COUNT(*) >= 2 INTERSECT SELECT T1.bio_data , T1.student_id FROM Students AS T1 JOIN Detention AS T2 ON T1.student_id = T2.student_id GROUP BY T1.student_id HAVING COUNT(*) < 2",
+          "exec_ok": false,
+          "schema_chars": 2807
+        }
+      }
+    },
+    {
+      "local_idx": 297,
+      "global_idx": 442,
+      "question": "What are the biographical data and student id of the students who either took two or more classes and or have less than two detentions?",
+      "db_id": "cre_Students_Information_Systems",
+      "gold_sql": "SELECT T1.bio_data ,  T1.student_id FROM Students AS T1 JOIN Classes AS T2 ON T1.student_id  =  T2.student_id GROUP BY T1.student_id HAVING count(*)  >=  2 UNION SELECT T1.bio_data ,  T1.student_id FROM Students AS T1 JOIN Detention AS T2 ON T1.student_id  =  T2.student_id GROUP BY T1.student_id HAVING count(*)  <  2\tcre_Students_Information_Systems",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.bio_data, T1.student_id FROM Students AS T1 JOIN Classes AS T2 ON T1.student_id = T2.student_id GROUP BY T1.student_id HAVING COUNT(T2.class_id) >= 2 INTERSECT SELECT T1.bio_data, T1.student_id FROM Students AS T1 JOIN Detention AS T2 ON T1.student_id = T2.student_id GROUP BY T1.student_id HAVING COUNT(T2.detention_id) < 2",
+          "exec_ok": false,
+          "schema_chars": 777
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.bio_data, T1.student_id FROM Students AS T1 JOIN Classes AS T2 ON T1.student_id = T2.student_id GROUP BY T1.student_id HAVING COUNT(T2.class_id) >= 2 INTERSECT SELECT T1.bio_data, T1.student_id FROM Students AS T1 JOIN Detention AS T2 ON T1.student_id = T2.student_id GROUP BY T1.student_id HAVING COUNT(T2.detention_id) < 2",
+          "exec_ok": false,
+          "schema_chars": 777
+        },
+        "full_schema": {
+          "sql": "SELECT T1.bio_data, T1.student_id FROM Students AS T1 JOIN Classes AS T2 ON T1.student_id = T2.student_id JOIN Detention AS T3 ON T1.student_id = T3.student_id WHERE T2.class_id IN (SELECT T2.class_id FROM Classes AS T2 GROUP BY T2.class_id HAVING count(*) >= 2) OR T3.detention_id IN (SELECT T3.detention_id FROM Detention AS T3 GROUP BY T3.detention_id HAVING count(*) < 2)",
+          "exec_ok": false,
+          "schema_chars": 2807
+        }
+      }
+    },
+    {
+      "local_idx": 298,
+      "global_idx": 443,
+      "question": "List the details of the teachers who teach some class whose detail has the substring 'data' but do not teach a class whose detail contains the prefix 'net'",
+      "db_id": "cre_Students_Information_Systems",
+      "gold_sql": "SELECT T1.teacher_details FROM Teachers AS T1 JOIN Classes AS T2 ON T1.teacher_id  =  T2.teacher_id WHERE T2.class_details LIKE '%data%' EXCEPT SELECT T1.teacher_details FROM Teachers AS T1 JOIN Classes AS T2 ON T1.teacher_id  =  T2.teacher_id WHERE T2.class_details LIKE 'net%'\tcre_Students_Information_Systems",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.teacher_details FROM Teachers AS T1 JOIN Classes AS T2 ON T1.teacher_id = T2.teacher_id WHERE T2.class_details LIKE \"%data%\" AND T2.class_details NOT LIKE \"net%\"",
+          "exec_ok": false,
+          "schema_chars": 402
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.teacher_details FROM Teachers AS T1 JOIN Classes AS T2 ON T1.teacher_id = T2.teacher_id WHERE T2.class_details LIKE \"%data%\" AND T2.class_details NOT LIKE \"net%\"",
+          "exec_ok": false,
+          "schema_chars": 643
+        },
+        "full_schema": {
+          "sql": "SELECT T1.teacher_details FROM Teachers AS T1 JOIN Classes AS T2 ON T1.teacher_id = T2.teacher_id WHERE T2.class_details LIKE \"%data%\" AND T2.class_details NOT LIKE \"net%\"",
+          "exec_ok": false,
+          "schema_chars": 2807
+        }
+      }
+    },
+    {
+      "local_idx": 299,
+      "global_idx": 444,
+      "question": "Which teachers teach a class that has the substring 'data' in its detail but do not teach a class that has prefix 'net' in its detail? Give me the teacher details.",
+      "db_id": "cre_Students_Information_Systems",
+      "gold_sql": "SELECT T1.teacher_details FROM Teachers AS T1 JOIN Classes AS T2 ON T1.teacher_id  =  T2.teacher_id WHERE T2.class_details LIKE '%data%' EXCEPT SELECT T1.teacher_details FROM Teachers AS T1 JOIN Classes AS T2 ON T1.teacher_id  =  T2.teacher_id WHERE T2.class_details LIKE 'net%'\tcre_Students_Information_Systems",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T2.teacher_details FROM Classes AS T1 JOIN Teachers AS T2 ON T1.teacher_id = T2.teacher_id WHERE T1.class_details LIKE '%data%' AND T1.class_details NOT LIKE 'net%'",
+          "exec_ok": false,
+          "schema_chars": 402
+        },
+        "broader_rag": {
+          "sql": "SELECT T2.teacher_details FROM Classes AS T1 JOIN Teachers AS T2 ON T1.teacher_id = T2.teacher_id JOIN Classes AS T3 ON T2.teacher_id = T3.teacher_id WHERE T1.class_details LIKE '%data%' AND T3.class_details NOT LIKE 'net%'",
+          "exec_ok": false,
+          "schema_chars": 643
+        },
+        "full_schema": {
+          "sql": "SELECT T2.teacher_details FROM Classes AS T1 JOIN Teachers AS T2 ON T1.teacher_id = T2.teacher_id JOIN Ref_Event_Types AS T3 ON T1.class_details LIKE '%data%' WHERE T1.teacher_id NOT IN (SELECT T1.teacher_id FROM Classes AS T1 JOIN Teachers AS T2 ON T1.teacher_id = T2.teacher_id WHERE T1.class_details LIKE 'net%')",
+          "exec_ok": true,
+          "schema_chars": 2807
+        }
+      }
+    },
+    {
+      "local_idx": 300,
+      "global_idx": 447,
+      "question": "What are the loan amounts and loan dates of the students who have at least 2 achievements?",
+      "db_id": "cre_Students_Information_Systems",
+      "gold_sql": "SELECT amount_of_loan ,  date_of_loan FROM Student_Loans WHERE student_id IN ( SELECT student_id FROM Achievements GROUP BY student_id HAVING count(*)  >=  2 )\tcre_Students_Information_Systems",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T2.amount_of_loan, T2.date_of_loan FROM Achievements AS T1 JOIN Student_Loans AS T2 ON T1.student_id = T2.student_id GROUP BY T1.student_id HAVING COUNT(T1.achievement_id) >= 2",
+          "exec_ok": false,
+          "schema_chars": 794
+        },
+        "broader_rag": {
+          "sql": "SELECT T2.amount_of_loan, T2.date_of_loan FROM Achievements AS T1 JOIN Student_Loans AS T2 ON T1.student_id = T2.student_id GROUP BY T1.student_id HAVING COUNT(T1.achievement_id) >= 2",
+          "exec_ok": false,
+          "schema_chars": 794
+        },
+        "full_schema": {
+          "sql": "SELECT T1.amount_of_loan, T1.date_of_loan FROM Student_Loans AS T1 JOIN Students AS T2 ON T1.student_id = T2.student_id JOIN Achievements AS T3 ON T2.student_id = T3.student_id GROUP BY T1.student_id HAVING COUNT(T3.achievement_id) >= 2",
+          "exec_ok": false,
+          "schema_chars": 2807
+        }
+      }
+    },
+    {
+      "local_idx": 301,
+      "global_idx": 448,
+      "question": "List the amount and date of loan for the students who have two or more achievements.",
+      "db_id": "cre_Students_Information_Systems",
+      "gold_sql": "SELECT amount_of_loan ,  date_of_loan FROM Student_Loans WHERE student_id IN ( SELECT student_id FROM Achievements GROUP BY student_id HAVING count(*)  >=  2 )\tcre_Students_Information_Systems",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.amount_of_loan, T1.date_of_loan FROM Student_Loans AS T1 JOIN Achievements AS T2 ON T1.student_id = T2.student_id GROUP BY T1.student_id HAVING COUNT(*) >= 2",
+          "exec_ok": false,
+          "schema_chars": 794
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.amount_of_loan, T1.date_of_loan FROM Student_Loans AS T1 JOIN Achievements AS T2 ON T1.student_id = T2.student_id GROUP BY T1.student_id HAVING COUNT(*) >= 2",
+          "exec_ok": false,
+          "schema_chars": 794
+        },
+        "full_schema": {
+          "sql": "SELECT T2.amount_of_loan, T2.date_of_loan FROM Students AS T1 JOIN Student_Loans AS T2 ON T1.student_id = T2.student_id JOIN Achievements AS T3 ON T1.student_id = T3.student_id GROUP BY T1.student_id HAVING COUNT(T3.achievement_id) >= 2",
+          "exec_ok": false,
+          "schema_chars": 2807
+        }
+      }
+    },
+    {
+      "local_idx": 302,
+      "global_idx": 449,
+      "question": "List the detail and id of the teacher who teaches the most courses.",
+      "db_id": "cre_Students_Information_Systems",
+      "gold_sql": "SELECT T1.teacher_details ,  T1.teacher_id FROM Teachers AS T1 JOIN Classes AS T2 ON T1.teacher_id  =  T2.teacher_id GROUP BY T1.teacher_id ORDER BY count(*) DESC LIMIT 1\tcre_Students_Information_Systems",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.teacher_details, T1.teacher_id FROM Teachers AS T1 JOIN Classes AS T2 ON T1.teacher_id = T2.teacher_id GROUP BY T1.teacher_id ORDER BY COUNT(T2.class_id) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 643
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.teacher_details, T1.teacher_id FROM Teachers AS T1 JOIN Classes AS T2 ON T1.teacher_id = T2.teacher_id GROUP BY T1.teacher_id ORDER BY COUNT(T2.class_id) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 830
+        },
+        "full_schema": {
+          "sql": "SELECT T1.teacher_details, T1.teacher_id FROM Teachers AS T1 JOIN Classes AS T2 ON T1.teacher_id = T2.teacher_id GROUP BY T1.teacher_id ORDER BY COUNT(*) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 2807
+        }
+      }
+    },
+    {
+      "local_idx": 303,
+      "global_idx": 450,
+      "question": "What are the detail and id of the teacher who teaches the largest number of courses?",
+      "db_id": "cre_Students_Information_Systems",
+      "gold_sql": "SELECT T1.teacher_details ,  T1.teacher_id FROM Teachers AS T1 JOIN Classes AS T2 ON T1.teacher_id  =  T2.teacher_id GROUP BY T1.teacher_id ORDER BY count(*) DESC LIMIT 1\tcre_Students_Information_Systems",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.teacher_id , T1.teacher_details FROM Teachers AS T1 JOIN Classes AS T2 ON T1.teacher_id = T2.teacher_id GROUP BY T1.teacher_id ORDER BY COUNT(T2.class_id) DESC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 643
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.teacher_id , T1.teacher_details FROM Teachers AS T1 JOIN Classes AS T2 ON T1.teacher_id = T2.teacher_id GROUP BY T1.teacher_id ORDER BY COUNT(T2.class_id) DESC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 830
+        },
+        "full_schema": {
+          "sql": "SELECT T1.teacher_id , T1.teacher_details FROM Teachers AS T1 JOIN Classes AS T2 ON T1.teacher_id = T2.teacher_id GROUP BY T2.teacher_id ORDER BY COUNT(T2.class_id) DESC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 2807
+        }
+      }
+    },
+    {
+      "local_idx": 304,
+      "global_idx": 461,
+      "question": "Which students not only got the most common result but also got a result obtained by 3 students in behaviour monitoring? List the student's biographical data and details.",
+      "db_id": "cre_Students_Information_Systems",
+      "gold_sql": "SELECT T1.bio_data ,  T1.student_details FROM Students AS T1 JOIN Behaviour_Monitoring AS T2 ON T1.student_id  =  T2.student_id WHERE T2.behaviour_monitoring_details IN ( SELECT behaviour_monitoring_details FROM Behaviour_Monitoring GROUP BY behaviour_monitoring_details ORDER BY count(*) DESC LIMIT 1 ) INTERSECT SELECT T1.bio_data ,  T1.student_details FROM Students AS T1 JOIN Behaviour_Monitoring AS T2 ON T1.student_id  =  T2.student_id WHERE T2.behaviour_monitoring_details IN ( SELECT behaviour_monitoring_details FROM Behaviour_Monitoring GROUP BY behaviour_monitoring_details HAVING count(*)  =  3 )\tcre_Students_Information_Systems",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.bio_data, T1.student_details FROM Students AS T1 JOIN Behaviour_Monitoring AS T2 ON T1.student_id = T2.student_id WHERE T2.behaviour_monitoring_details IN ( SELECT behaviour_monitoring_details FROM Behaviour_Monitoring GROUP BY behaviour_monitoring_details ORDER BY COUNT(*) DESC LIMIT 1 ) AND T2.behaviour_monitoring_details IN ( SELECT behaviour_monitoring_details FROM Behaviour_Monitoring GROUP BY behaviour_monitoring_details HAVING COUNT(*) = 3 )",
+          "exec_ok": false,
+          "schema_chars": 518
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.bio_data, T1.student_details FROM Students AS T1 JOIN Behaviour_Monitoring AS T2 ON T1.student_id = T2.student_id WHERE T2.behaviour_monitoring_details IN ( SELECT behaviour_monitoring_details FROM Behaviour_Monitoring GROUP BY behaviour_monitoring_details ORDER BY COUNT(*) DESC LIMIT 1 ) AND T2.behaviour_monitoring_details IN ( SELECT behaviour_monitoring_details FROM Behaviour_Monitoring GROUP BY behaviour_monitoring_details HAVING COUNT(*) = 3 )",
+          "exec_ok": false,
+          "schema_chars": 717
+        },
+        "full_schema": {
+          "sql": "SELECT T1.bio_data, T1.student_details FROM Students AS T1 JOIN Behaviour_Monitoring AS T2 ON T1.student_id = T2.student_id WHERE T2.behaviour_monitoring_details IN (SELECT behaviour_monitoring_details FROM Behaviour_Monitoring GROUP BY behaviour_monitoring_details ORDER BY COUNT(*) DESC LIMIT 1, 1)",
+          "exec_ok": false,
+          "schema_chars": 2807
+        }
+      }
+    },
+    {
+      "local_idx": 305,
+      "global_idx": 462,
+      "question": "Find the biographical data and details of students who got not only the most common result but also a result that is obtained by 3 students in behaviour monitoring.",
+      "db_id": "cre_Students_Information_Systems",
+      "gold_sql": "SELECT T1.bio_data ,  T1.student_details FROM Students AS T1 JOIN Behaviour_Monitoring AS T2 ON T1.student_id  =  T2.student_id WHERE T2.behaviour_monitoring_details IN ( SELECT behaviour_monitoring_details FROM Behaviour_Monitoring GROUP BY behaviour_monitoring_details ORDER BY count(*) DESC LIMIT 1 ) INTERSECT SELECT T1.bio_data ,  T1.student_details FROM Students AS T1 JOIN Behaviour_Monitoring AS T2 ON T1.student_id  =  T2.student_id WHERE T2.behaviour_monitoring_details IN ( SELECT behaviour_monitoring_details FROM Behaviour_Monitoring GROUP BY behaviour_monitoring_details HAVING count(*)  =  3 )\tcre_Students_Information_Systems",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.bio_data , T1.student_details FROM Students AS T1 JOIN Behaviour_Monitoring AS T2 ON T1.student_id = T2.student_id WHERE T2.behaviour_monitoring_details = (SELECT behaviour_monitoring_details FROM Behaviour_Monitoring GROUP BY behaviour_monitoring_details ORDER BY COUNT(*) DESC LIMIT 1 OFFSET 0) INTERSECT SELECT T1.bio_data , T1.student_details FROM Students AS T1 JOIN Behaviour_Monitoring AS T2 ON T1.student_id = T2.student_id WHERE T2.behaviour_monitoring_details = (SELECT behaviour_monitoring_details FROM Behaviour_Monitoring GROUP BY behaviour_monitoring_details ORDER BY COUNT(*) DESC LIMIT 1 OFFSET 2)",
+          "exec_ok": true,
+          "schema_chars": 518
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.bio_data , T1.student_details FROM Students AS T1 JOIN Behaviour_Monitoring AS T2 ON T1.student_id = T2.student_id WHERE T2.behaviour_monitoring_details = (SELECT behaviour_monitoring_details FROM Behaviour_Monitoring GROUP BY behaviour_monitoring_details ORDER BY COUNT(*) DESC LIMIT 1) AND T2.behaviour_monitoring_details IN (SELECT behaviour_monitoring_details FROM Behaviour_Monitoring GROUP BY behaviour_monitoring_details HAVING COUNT(*) = 3)",
+          "exec_ok": false,
+          "schema_chars": 717
+        },
+        "full_schema": {
+          "sql": "SELECT T1.bio_data , T1.student_details FROM Students AS T1 JOIN Behaviour_Monitoring AS T2 ON T1.student_id = T2.student_id GROUP BY T2.behaviour_monitoring_details ORDER BY COUNT(*) DESC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 2807
+        }
+      }
+    },
+    {
+      "local_idx": 306,
+      "global_idx": 463,
+      "question": "Which students only got the most common result for his or her all behaviour monitoring details? List the students' biographical information.",
+      "db_id": "cre_Students_Information_Systems",
+      "gold_sql": "SELECT T1.bio_data FROM Students AS T1 JOIN Behaviour_Monitoring AS T2 ON T1.student_id  =  T2.student_id WHERE T2.behaviour_monitoring_details IN ( SELECT behaviour_monitoring_details FROM Behaviour_Monitoring GROUP BY behaviour_monitoring_details ORDER BY count(*) DESC LIMIT 1 ) EXCEPT SELECT T1.bio_data FROM Students AS T1 JOIN Behaviour_Monitoring AS T2 ON T1.student_id  =  T2.student_id WHERE T2.behaviour_monitoring_details NOT IN ( SELECT behaviour_monitoring_details FROM Behaviour_Monitoring GROUP BY behaviour_monitoring_details ORDER BY count(*) DESC LIMIT 1 )\tcre_Students_Information_Systems",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.bio_data FROM Students AS T1 JOIN Behaviour_Monitoring AS T2 ON T1.student_id = T2.student_id GROUP BY T2.behaviour_monitoring_details ORDER BY COUNT(T2.behaviour_monitoring_details) DESC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 518
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.bio_data FROM Students AS T1 JOIN Behaviour_Monitoring AS T2 ON T1.student_id = T2.student_id GROUP BY T2.behaviour_monitoring_details ORDER BY COUNT(T2.behaviour_monitoring_details) DESC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 717
+        },
+        "full_schema": {
+          "sql": "SELECT T1.bio_data FROM Students AS T1 JOIN Behaviour_Monitoring AS T2 ON T1.student_id = T2.student_id GROUP BY T2.behaviour_monitoring_details ORDER BY COUNT(*) DESC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 2807
+        }
+      }
+    },
+    {
+      "local_idx": 307,
+      "global_idx": 464,
+      "question": "What is the biographical information of the students who got the most common result for their behaviour monitoring details ?",
+      "db_id": "cre_Students_Information_Systems",
+      "gold_sql": "select t1.bio_data from students as t1 join behaviour_monitoring as t2 on t1.student_id  =  t2.student_id where t2.behaviour_monitoring_details in ( select behaviour_monitoring_details from behaviour_monitoring group by behaviour_monitoring_details order by count(*) desc limit 1 ) except select t1.bio_data from students as t1 join behaviour_monitoring as t2 on t1.student_id  =  t2.student_id where t2.behaviour_monitoring_details not in ( select behaviour_monitoring_details from behaviour_monitoring group by behaviour_monitoring_details order by count(*) desc limit 1 )\tcre_Students_Information_Systems",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.bio_data FROM Students AS T1 JOIN Behaviour_Monitoring AS T2 ON T1.student_id = T2.student_id GROUP BY T2.behaviour_monitoring_details ORDER BY COUNT(T2.behaviour_monitoring_details) DESC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 518
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.bio_data FROM Students AS T1 JOIN Behaviour_Monitoring AS T2 ON T1.student_id = T2.student_id GROUP BY T2.behaviour_monitoring_details ORDER BY COUNT(T2.behaviour_monitoring_details) DESC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 717
+        },
+        "full_schema": {
+          "sql": "SELECT T1.bio_data FROM Students AS T1 JOIN Behaviour_Monitoring AS T2 ON T1.student_id = T2.student_id GROUP BY T2.behaviour_monitoring_details ORDER BY COUNT(*) DESC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 2807
+        }
+      }
+    },
+    {
+      "local_idx": 308,
+      "global_idx": 467,
+      "question": "How many students have joined in the most common type of event? List the number, the event type and description.",
+      "db_id": "cre_Students_Information_Systems",
+      "gold_sql": "SELECT count(*) ,  T2.event_type_code ,  T3.event_type_description FROM Students AS T1 JOIN Student_Events AS T2 ON T1.student_id  =  T2.student_id JOIN Ref_Event_Types AS T3 ON T2.event_type_code  =  T3.event_type_code GROUP BY T2.event_type_code ORDER BY count(*) DESC LIMIT 1\tcre_Students_Information_Systems",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT COUNT(T1.student_id) , T2.event_type_description , T2.event_type_code FROM Student_Events AS T1 JOIN Ref_Event_Types AS T2 ON T1.event_type_code = T2.event_type_code GROUP BY T2.event_type_code ORDER BY COUNT(T1.student_id) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 447
+        },
+        "broader_rag": {
+          "sql": "SELECT COUNT(T1.event_id), T2.event_type_description, T2.event_type_code FROM Student_Events AS T1 JOIN Ref_Event_Types AS T2 ON T1.event_type_code = T2.event_type_code GROUP BY T2.event_type_code ORDER BY COUNT(T1.event_id) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 559
+        },
+        "full_schema": {
+          "sql": "SELECT count(*) , T1.event_type_code , T2.event_type_description FROM Student_Events AS T1 JOIN Ref_Event_Types AS T2 ON T1.event_type_code = T2.event_type_code GROUP BY T1.event_type_code ORDER BY count(*) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 2807
+        }
+      }
+    },
+    {
+      "local_idx": 309,
+      "global_idx": 468,
+      "question": "What is the type of event the most students joined? Give me the number of students, and the event type code and description.",
+      "db_id": "cre_Students_Information_Systems",
+      "gold_sql": "SELECT count(*) ,  T2.event_type_code ,  T3.event_type_description FROM Students AS T1 JOIN Student_Events AS T2 ON T1.student_id  =  T2.student_id JOIN Ref_Event_Types AS T3 ON T2.event_type_code  =  T3.event_type_code GROUP BY T2.event_type_code ORDER BY count(*) DESC LIMIT 1\tcre_Students_Information_Systems",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.event_type_description , T1.event_type_code , COUNT(T2.student_id) FROM Ref_Event_Types AS T1 JOIN Student_Events AS T2 ON T1.event_type_code = T2.event_type_code GROUP BY T1.event_type_code ORDER BY COUNT(T2.student_id) DESC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 447
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.event_type_code , T1.event_type_description , COUNT(T2.student_id) FROM Ref_Event_Types AS T1 JOIN Student_Events AS T2 ON T1.event_type_code = T2.event_type_code GROUP BY T1.event_type_code ORDER BY COUNT(T2.student_id) DESC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 559
+        },
+        "full_schema": {
+          "sql": "SELECT T1.event_type_description , T1.event_type_code , count(*) FROM Ref_Event_Types AS T1 JOIN Student_Events AS T2 ON T1.event_type_code = T2.event_type_code GROUP BY T1.event_type_code ORDER BY count(*) DESC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 2807
+        }
+      }
+    },
+    {
+      "local_idx": 310,
+      "global_idx": 471,
+      "question": "How many teachers have taught a student who has not won any achievements?",
+      "db_id": "cre_Students_Information_Systems",
+      "gold_sql": "SELECT count(DISTINCT T1.teacher_id) FROM Teachers AS T1 JOIN Classes AS T2 ON T1.teacher_id  =  T2.teacher_id WHERE T2.student_id NOT IN ( SELECT student_id FROM Achievements )\tcre_Students_Information_Systems",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT count(*) FROM Students WHERE student_id NOT IN ( SELECT student_id FROM Achievements )",
+          "exec_ok": false,
+          "schema_chars": 561
+        },
+        "broader_rag": {
+          "sql": "SELECT count(*) FROM Students AS T1 JOIN Achievements AS T2 ON T1.student_id = T2.student_id WHERE T2.achievement_id IS NULL",
+          "exec_ok": false,
+          "schema_chars": 794
+        },
+        "full_schema": {
+          "sql": "SELECT count(*) FROM Teachers AS T1 JOIN Classes AS T2 ON T1.teacher_id = T2.teacher_id WHERE T2.student_id NOT IN ( SELECT student_id FROM Achievements )",
+          "exec_ok": true,
+          "schema_chars": 2807
+        }
+      }
+    },
+    {
+      "local_idx": 311,
+      "global_idx": 472,
+      "question": "Count the number of teachers who have taught students who have never won an achievement.",
+      "db_id": "cre_Students_Information_Systems",
+      "gold_sql": "SELECT count(DISTINCT T1.teacher_id) FROM Teachers AS T1 JOIN Classes AS T2 ON T1.teacher_id  =  T2.teacher_id WHERE T2.student_id NOT IN ( SELECT student_id FROM Achievements )\tcre_Students_Information_Systems",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT COUNT(*) FROM Students WHERE student_id NOT IN (SELECT student_id FROM Achievements)",
+          "exec_ok": false,
+          "schema_chars": 553
+        },
+        "broader_rag": {
+          "sql": "SELECT COUNT(DISTINCT T1.student_id) FROM Students AS T1 LEFT JOIN Achievements AS T2 ON T1.student_id = T2.student_id WHERE T2.achievement_id IS NULL",
+          "exec_ok": false,
+          "schema_chars": 760
+        },
+        "full_schema": {
+          "sql": "SELECT COUNT(DISTINCT T1.teacher_id) FROM Teachers AS T1 JOIN Classes AS T2 ON T1.teacher_id = T2.teacher_id JOIN Students AS T3 ON T2.student_id = T3.student_id WHERE T3.student_id NOT IN (SELECT student_id FROM Achievements)",
+          "exec_ok": true,
+          "schema_chars": 2807
+        }
+      }
+    },
+    {
+      "local_idx": 312,
+      "global_idx": 489,
+      "question": "What is the least common detention type? Show the type code and the description.",
+      "db_id": "cre_Students_Information_Systems",
+      "gold_sql": "SELECT T1.detention_type_code ,  T2.detention_type_description FROM Detention AS T1 JOIN Ref_Detention_Type AS T2 ON T1.detention_type_code  =  T2.detention_type_code GROUP BY T1.detention_type_code ORDER BY count(*) ASC LIMIT 1\tcre_Students_Information_Systems",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.detention_type_code, T2.detention_type_description FROM Ref_Detention_Type AS T1 JOIN Detention AS T2 ON T1.detention_type_code = T2.detention_type_code GROUP BY T1.detention_type_code ORDER BY COUNT(T1.detention_type_code) ASC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 538
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.detention_type_code, T2.detention_type_description FROM Ref_Detention_Type AS T1 JOIN Detention AS T3 ON T1.detention_type_code = T3.detention_type_code JOIN (SELECT detention_type_code, COUNT(*) as count FROM Detention GROUP BY detention_type_code) AS T4 ON T1.detention_type_code = T4.detention_type_code WHERE T4.count = (SELECT MIN(count) FROM (SELECT detention_type_code, COUNT(*) as count FROM Detention GROUP BY detention_type_code))",
+          "exec_ok": false,
+          "schema_chars": 639
+        },
+        "full_schema": {
+          "sql": "SELECT T1.detention_type_code , T1.detention_type_description FROM Ref_Detention_Type AS T1 JOIN (SELECT detention_type_code , COUNT(*) as count FROM Detention GROUP BY detention_type_code ORDER BY count LIMIT 1) AS T2 ON T1.detention_type_code = T2.detention_type_code",
+          "exec_ok": true,
+          "schema_chars": 2807
+        }
+      }
+    },
+    {
+      "local_idx": 313,
+      "global_idx": 490,
+      "question": "Give me the type code and description of the least common detention type.",
+      "db_id": "cre_Students_Information_Systems",
+      "gold_sql": "SELECT T1.detention_type_code ,  T2.detention_type_description FROM Detention AS T1 JOIN Ref_Detention_Type AS T2 ON T1.detention_type_code  =  T2.detention_type_code GROUP BY T1.detention_type_code ORDER BY count(*) ASC LIMIT 1\tcre_Students_Information_Systems",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.detention_type_code, T1.detention_type_description FROM Ref_Detention_Type AS T1 JOIN ( SELECT detention_type_code, COUNT(*) as count FROM Detention GROUP BY detention_type_code ) AS T2 ON T1.detention_type_code = T2.detention_type_code ORDER BY T2.count LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 538
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.detention_type_code, T1.detention_type_description FROM Ref_Detention_Type AS T1 JOIN (SELECT detention_type_code, COUNT(*) as count FROM Detention GROUP BY detention_type_code) AS T2 ON T1.detention_type_code = T2.detention_type_code ORDER BY T2.count LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 639
+        },
+        "full_schema": {
+          "sql": "SELECT T1.detention_type_code , T1.detention_type_description FROM Ref_Detention_Type AS T1 JOIN (SELECT detention_type_code , COUNT(*) as count FROM Detention GROUP BY detention_type_code ORDER BY count LIMIT 1) AS T2 ON T1.detention_type_code = T2.detention_type_code",
+          "exec_ok": true,
+          "schema_chars": 2807
+        }
+      }
+    },
+    {
+      "local_idx": 314,
+      "global_idx": 491,
+      "question": "Which students have a student loan more than the average amount? List the students' biographical data and the details.",
+      "db_id": "cre_Students_Information_Systems",
+      "gold_sql": "SELECT T1.bio_data ,  T1.student_details FROM Students AS T1 JOIN Student_Loans AS T2 ON T1.student_id  =  T2.student_id WHERE T2.amount_of_loan  >  ( SELECT avg(amount_of_loan) FROM Student_Loans )\tcre_Students_Information_Systems",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.bio_data , T1.student_details FROM Students AS T1 JOIN Student_Loans AS T2 ON T1.student_id = T2.student_id WHERE T2.amount_of_loan > (SELECT avg(amount_of_loan) FROM Student_Loans)",
+          "exec_ok": true,
+          "schema_chars": 320
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.bio_data , T1.student_details FROM Students AS T1 JOIN Student_Loans AS T2 ON T1.student_id = T2.student_id WHERE T2.amount_of_loan > ( SELECT avg(amount_of_loan) FROM Student_Loans )",
+          "exec_ok": true,
+          "schema_chars": 752
+        },
+        "full_schema": {
+          "sql": "SELECT T1.bio_data , T1.student_details FROM Students AS T1 JOIN Student_Loans AS T2 ON T1.student_id = T2.student_id WHERE T2.amount_of_loan > ( SELECT avg(amount_of_loan) FROM Student_Loans )",
+          "exec_ok": true,
+          "schema_chars": 2807
+        }
+      }
+    },
+    {
+      "local_idx": 315,
+      "global_idx": 492,
+      "question": "Find the biographical data and details for students whose student loan is above the average amount.",
+      "db_id": "cre_Students_Information_Systems",
+      "gold_sql": "SELECT T1.bio_data ,  T1.student_details FROM Students AS T1 JOIN Student_Loans AS T2 ON T1.student_id  =  T2.student_id WHERE T2.amount_of_loan  >  ( SELECT avg(amount_of_loan) FROM Student_Loans )\tcre_Students_Information_Systems",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.bio_data, T1.student_details FROM Students AS T1 JOIN Student_Loans AS T2 ON T1.student_id = T2.student_id WHERE T2.amount_of_loan > (SELECT AVG(amount_of_loan) FROM Student_Loans)",
+          "exec_ok": true,
+          "schema_chars": 320
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.bio_data, T1.student_details FROM Students AS T1 JOIN Student_Loans AS T2 ON T1.student_id = T2.student_id WHERE T2.amount_of_loan > ( SELECT AVG(amount_of_loan) FROM Student_Loans )",
+          "exec_ok": true,
+          "schema_chars": 752
+        },
+        "full_schema": {
+          "sql": "SELECT T1.bio_data, T1.student_details FROM Students AS T1 JOIN Student_Loans AS T2 ON T1.student_id = T2.student_id WHERE T2.amount_of_loan > ( SELECT AVG(amount_of_loan) FROM Student_Loans )",
+          "exec_ok": true,
+          "schema_chars": 2807
+        }
+      }
+    },
+    {
+      "local_idx": 316,
+      "global_idx": 499,
+      "question": "Which teachers have taught the student with the earliest transcript issuance? List the teacher details.",
+      "db_id": "cre_Students_Information_Systems",
+      "gold_sql": "SELECT T1.teacher_details FROM Teachers AS T1 JOIN Classes AS T2 ON T1.teacher_id  =  T2.teacher_id JOIN Transcripts AS T3 ON T2.student_id  =  T3.student_id ORDER BY T3.date_of_transcript ASC LIMIT 1\tcre_Students_Information_Systems",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T3.teacher_details FROM Transcripts AS T1 JOIN Classes AS T2 ON T1.student_id = T2.student_id JOIN Teachers AS T3 ON T2.teacher_id = T3.teacher_id WHERE T1.date_of_transcript = (SELECT MIN(date_of_transcript) FROM Transcripts)",
+          "exec_ok": true,
+          "schema_chars": 589
+        },
+        "broader_rag": {
+          "sql": "SELECT T3.teacher_details FROM Transcripts AS T1 JOIN Classes AS T2 ON T1.student_id = T2.student_id JOIN Teachers AS T3 ON T2.teacher_id = T3.teacher_id WHERE T1.date_of_transcript = (SELECT MIN(date_of_transcript) FROM Transcripts)",
+          "exec_ok": true,
+          "schema_chars": 796
+        },
+        "full_schema": {
+          "sql": "SELECT T3.teacher_details FROM Transcripts AS T1 JOIN Classes AS T2 ON T1.student_id = T2.student_id JOIN Teachers AS T3 ON T2.teacher_id = T3.teacher_id ORDER BY T1.date_of_transcript LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 2807
+        }
+      }
+    },
+    {
+      "local_idx": 317,
+      "global_idx": 500,
+      "question": "Find the details of the teachers who have taught the student with the earliest transcript issuance.",
+      "db_id": "cre_Students_Information_Systems",
+      "gold_sql": "SELECT T1.teacher_details FROM Teachers AS T1 JOIN Classes AS T2 ON T1.teacher_id  =  T2.teacher_id JOIN Transcripts AS T3 ON T2.student_id  =  T3.student_id ORDER BY T3.date_of_transcript ASC LIMIT 1\tcre_Students_Information_Systems",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.student_details FROM Students AS T1 INNER JOIN Transcripts AS T2 ON T1.student_id = T2.student_id ORDER BY T2.date_of_transcript ASC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 507
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.student_details FROM Students AS T1 INNER JOIN Transcripts AS T2 ON T1.student_id = T2.student_id ORDER BY T2.date_of_transcript ASC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 706
+        },
+        "full_schema": {
+          "sql": "SELECT T3.teacher_details FROM Transcripts AS T1 JOIN Classes AS T2 ON T1.student_id = T2.student_id JOIN Teachers AS T3 ON T2.teacher_id = T3.teacher_id ORDER BY T1.date_of_transcript ASC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 2807
+        }
+      }
+    },
+    {
+      "local_idx": 318,
+      "global_idx": 507,
+      "question": "What is the code and description of the most common student address type?",
+      "db_id": "cre_Students_Information_Systems",
+      "gold_sql": "SELECT T1.address_type_code ,  T2.address_type_description FROM Students_Addresses AS T1 JOIN Ref_Address_Types AS T2 WHERE T1.address_type_code  =  T2.address_type_code GROUP BY T1.address_type_code ORDER BY count(*) DESC LIMIT 1\tcre_Students_Information_Systems",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.address_type_code , T1.address_type_description FROM Ref_Address_Types AS T1 JOIN Students_Addresses AS T2 ON T1.address_type_code = T2.address_type_code GROUP BY T2.address_type_code ORDER BY COUNT(*) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 493
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.address_type_code , T1.address_type_description FROM Ref_Address_Types AS T1 JOIN Students_Addresses AS T2 ON T1.address_type_code = T2.address_type_code GROUP BY T2.address_type_code ORDER BY COUNT(*) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 605
+        },
+        "full_schema": {
+          "sql": "SELECT T1.address_type_code , T1.address_type_description FROM Ref_Address_Types AS T1 JOIN Students_Addresses AS T2 ON T1.address_type_code = T2.address_type_code GROUP BY T2.address_type_code ORDER BY count(*) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 2807
+        }
+      }
+    },
+    {
+      "local_idx": 319,
+      "global_idx": 508,
+      "question": "What is the most common student address type? Give me the code and description of the address type.",
+      "db_id": "cre_Students_Information_Systems",
+      "gold_sql": "SELECT T1.address_type_code ,  T2.address_type_description FROM Students_Addresses AS T1 JOIN Ref_Address_Types AS T2 WHERE T1.address_type_code  =  T2.address_type_code GROUP BY T1.address_type_code ORDER BY count(*) DESC LIMIT 1\tcre_Students_Information_Systems",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.address_type_code, T1.address_type_description FROM Ref_Address_Types AS T1 JOIN Students_Addresses AS T2 ON T1.address_type_code = T2.address_type_code GROUP BY T1.address_type_code ORDER BY COUNT(T2.student_id) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 493
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.address_type_code, T1.address_type_description FROM Ref_Address_Types AS T1 JOIN Students_Addresses AS T2 ON T1.address_type_code = T2.address_type_code GROUP BY T1.address_type_code ORDER BY COUNT(T2.student_id) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 605
+        },
+        "full_schema": {
+          "sql": "SELECT T1.address_type_code, T1.address_type_description FROM Ref_Address_Types AS T1 JOIN Students_Addresses AS T2 ON T1.address_type_code = T2.address_type_code GROUP BY T1.address_type_code ORDER BY COUNT(*) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 2807
+        }
+      }
+    }
+  ]
+}

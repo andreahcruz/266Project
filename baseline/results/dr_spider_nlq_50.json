@@ -1,0 +1,35 @@
+{
+  "config": {
+    "top_k": 3,
+    "top_n": 8
+  },
+  "results": [
+    {
+      "name": "NLQ_keyword_synonym",
+      "count": 50,
+      "pre_accuracy": 0.66,
+      "post_accuracy": 0.62,
+      "drop": 0.040000000000000036,
+      "pre_correct": 33,
+      "post_correct": 31
+    },
+    {
+      "name": "NLQ_column_synonym",
+      "count": 50,
+      "pre_accuracy": 0.68,
+      "post_accuracy": 0.46,
+      "drop": 0.22000000000000003,
+      "pre_correct": 34,
+      "post_correct": 23
+    },
+    {
+      "name": "NLQ_value_synonym",
+      "count": 50,
+      "pre_accuracy": 0.54,
+      "post_accuracy": 0.38,
+      "drop": 0.16000000000000003,
+      "pre_correct": 27,
+      "post_correct": 19
+    }
+  ]
+}

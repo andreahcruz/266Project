@@ -1,0 +1,26 @@
+{
+  "config": {
+    "top_k": 3,
+    "top_n": 8
+  },
+  "results": [
+    {
+      "name": "DB_schema_synonym",
+      "count": 50,
+      "pre_accuracy": 0.56,
+      "post_accuracy": 0.4,
+      "drop": 0.16000000000000003,
+      "pre_correct": 28,
+      "post_correct": 20
+    },
+    {
+      "name": "DB_schema_abbreviation",
+      "count": 50,
+      "pre_accuracy": 0.56,
+      "post_accuracy": 0.5,
+      "drop": 0.06000000000000005,
+      "pre_correct": 28,
+      "post_correct": 25
+    }
+  ]
+}

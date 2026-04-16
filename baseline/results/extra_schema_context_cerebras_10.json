@@ -1,0 +1,258 @@
+{
+  "config": {
+    "limit": 10,
+    "seed": 42,
+    "top_k_tables": 3,
+    "top_n_columns": 8,
+    "broader_top_k": 4,
+    "with_self_correction": false,
+    "model": "llama3.1-8b"
+  },
+  "summary": {
+    "current_rag": 0.4,
+    "broader_rag": 0.7,
+    "full_schema": 0.7
+  },
+  "results": [
+    {
+      "local_idx": 240,
+      "global_idx": 40,
+      "question": "List the id, first name and last name of the customers who both have placed more than 2 orders and have bought at least 3 items.",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT T1.customer_id ,  T1.customer_first_name ,  T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id  =  T2.customer_id GROUP BY T1.customer_id HAVING count(*)  >  2 INTERSECT SELECT T1.customer_id ,  T1.customer_first_name ,  T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id  =  T2.customer_id JOIN Order_items AS T3 ON T2.order_id  =  T3.order_id GROUP BY T1.customer_id HAVING count(*)  >= 3\te_commerce",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.customer_id , T1.customer_first_name , T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id = T2.customer_id JOIN Order_Items AS T3 ON T2.order_id = T3.order_id GROUP BY T1.customer_id HAVING COUNT(T2.order_id) > 2 AND COUNT(T3.order_item_id) > 3",
+          "exec_ok": true,
+          "schema_chars": 596
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.customer_id , T1.customer_first_name , T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id = T2.customer_id JOIN Order_Items AS T3 ON T2.order_id = T3.order_id GROUP BY T1.customer_id HAVING COUNT(T2.order_id) > 2 AND COUNT(T3.order_item_id) > 3",
+          "exec_ok": true,
+          "schema_chars": 996
+        },
+        "full_schema": {
+          "sql": "SELECT T1.customer_id , T1.customer_first_name , T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id = T2.customer_id JOIN Order_Items AS T3 ON T2.order_id = T3.order_id GROUP BY T1.customer_id HAVING COUNT(T3.order_id) > 2 AND COUNT(T3.order_item_id) > 3",
+          "exec_ok": true,
+          "schema_chars": 1658
+        }
+      }
+    },
+    {
+      "local_idx": 241,
+      "global_idx": 41,
+      "question": "What are the ids, first and last names of the customers who have ordered more than twice and have bought at least 3 items?",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT T1.customer_id ,  T1.customer_first_name ,  T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id  =  T2.customer_id GROUP BY T1.customer_id HAVING count(*)  >  2 INTERSECT SELECT T1.customer_id ,  T1.customer_first_name ,  T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id  =  T2.customer_id JOIN Order_items AS T3 ON T2.order_id  =  T3.order_id GROUP BY T1.customer_id HAVING count(*)  >= 3\te_commerce",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.customer_id, T1.customer_first_name, T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id = T2.customer_id GROUP BY T1.customer_id HAVING COUNT(T2.order_id) > 2 AND COUNT(T3.order_item_id) >= 3 JOIN Order_Items AS T3 ON T2.order_id = T3.order_id",
+          "exec_ok": false,
+          "schema_chars": 596
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.customer_id, T1.customer_first_name, T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id = T2.customer_id JOIN Order_Items AS T3 ON T2.order_id = T3.order_id GROUP BY T1.customer_id HAVING COUNT(T3.order_item_id) > 2 AND COUNT(DISTINCT T3.order_item_id) >= 3",
+          "exec_ok": false,
+          "schema_chars": 996
+        },
+        "full_schema": {
+          "sql": "SELECT T1.customer_id, T1.customer_first_name, T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id = T2.customer_id JOIN Order_Items AS T3 ON T2.order_id = T3.order_id GROUP BY T1.customer_id HAVING COUNT(T3.order_item_id) > 2 AND COUNT(DISTINCT T3.order_item_id) >= 3",
+          "exec_ok": false,
+          "schema_chars": 1658
+        }
+      }
+    },
+    {
+      "local_idx": 242,
+      "global_idx": 46,
+      "question": "Which customers did not make any orders? List the first name, middle initial and last name.",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT customer_first_name ,  customer_middle_initial ,  customer_last_name FROM Customers EXCEPT SELECT T1.customer_first_name ,  T1.customer_middle_initial ,  T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id  =  T2.customer_id\te_commerce",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT customer_first_name , customer_middle_initial , customer_last_name FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Orders)",
+          "exec_ok": true,
+          "schema_chars": 419
+        },
+        "broader_rag": {
+          "sql": "SELECT customer_first_name , customer_middle_initial , customer_last_name FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Orders)",
+          "exec_ok": true,
+          "schema_chars": 750
+        },
+        "full_schema": {
+          "sql": "SELECT customer_first_name , customer_middle_initial , customer_last_name FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Orders)",
+          "exec_ok": true,
+          "schema_chars": 1658
+        }
+      }
+    },
+    {
+      "local_idx": 243,
+      "global_idx": 47,
+      "question": "WHat are the first and last names, and middle initials of all customers who did not make any orders?",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT customer_first_name ,  customer_middle_initial ,  customer_last_name FROM Customers EXCEPT SELECT T1.customer_first_name ,  T1.customer_middle_initial ,  T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id  =  T2.customer_id\te_commerce",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT customer_first_name , customer_last_name , customer_middle_initial FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Orders)",
+          "exec_ok": false,
+          "schema_chars": 419
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.customer_first_name , T1.customer_middle_initial , T1.customer_last_name FROM Customers AS T1 WHERE T1.customer_id NOT IN (SELECT T2.customer_id FROM Orders AS T2)",
+          "exec_ok": true,
+          "schema_chars": 750
+        },
+        "full_schema": {
+          "sql": "SELECT customer_first_name , customer_middle_initial , customer_last_name FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Orders)",
+          "exec_ok": true,
+          "schema_chars": 1658
+        }
+      }
+    },
+    {
+      "local_idx": 244,
+      "global_idx": 48,
+      "question": "What are the id, name, price and color of the products which have not been ordered for at least twice?",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT product_id ,  product_name ,  product_price ,  product_color FROM Products EXCEPT SELECT T1.product_id ,  T1.product_name ,  T1.product_price ,  T1.product_color FROM Products AS T1 JOIN Order_items AS T2 ON T1.product_id  =  T2.product_id JOIN Orders AS T3 ON T2.order_id  =  T3.order_id GROUP BY T1.product_id HAVING count(*)  >=  2\te_commerce",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.product_id , T1.product_name , T1.product_price , T1.product_color FROM Products AS T1 WHERE T1.product_id NOT IN (SELECT T2.product_id FROM Order_Items AS T2 GROUP BY T2.product_id HAVING count(*) >= 2)",
+          "exec_ok": true,
+          "schema_chars": 569
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.product_id , T1.product_name , T1.product_price , T1.product_color FROM Products AS T1 LEFT JOIN Order_Items AS T2 ON T1.product_id = T2.product_id GROUP BY T1.product_id HAVING count(T2.order_id) < 2",
+          "exec_ok": true,
+          "schema_chars": 969
+        },
+        "full_schema": {
+          "sql": "SELECT T1.product_id , T1.product_name , T1.product_price , T1.product_color FROM Products AS T1 LEFT JOIN Order_Items AS T2 ON T1.product_id = T2.product_id GROUP BY T1.product_id HAVING count(*) < 2",
+          "exec_ok": true,
+          "schema_chars": 1658
+        }
+      }
+    },
+    {
+      "local_idx": 245,
+      "global_idx": 52,
+      "question": "Which product are listed in orders most frequently? List the id, product name and price.",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT T1.product_id ,  T1.product_name ,  T1.product_price FROM Products AS T1 JOIN Order_items AS T2 ON T1.product_id  =  T2.product_id GROUP BY T1.product_id ORDER BY count(*) DESC LIMIT 1\te_commerce",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.product_id, T1.product_name, T1.product_price FROM Products AS T1 JOIN Order_Items AS T2 ON T1.product_id = T2.product_id GROUP BY T1.product_id ORDER BY COUNT(T2.order_id) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 569
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.product_id, T1.product_name, T1.product_price FROM Products AS T1 JOIN Order_Items AS T2 ON T1.product_id = T2.product_id GROUP BY T1.product_id ORDER BY COUNT(T2.order_id) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 969
+        },
+        "full_schema": {
+          "sql": "SELECT T1.product_id, T1.product_name, T1.product_price FROM Products AS T1 JOIN Order_Items AS T2 ON T1.product_id = T2.product_id GROUP BY T1.product_id ORDER BY COUNT(T2.order_id) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 1658
+        }
+      }
+    },
+    {
+      "local_idx": 246,
+      "global_idx": 53,
+      "question": "What are the ids, names, and prices of all products that are ordered most frequently?",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT T1.product_id ,  T1.product_name ,  T1.product_price FROM Products AS T1 JOIN Order_items AS T2 ON T1.product_id  =  T2.product_id GROUP BY T1.product_id ORDER BY count(*) DESC LIMIT 1\te_commerce",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.product_id , T1.product_name , T1.product_price FROM Products AS T1",
+          "exec_ok": false,
+          "schema_chars": 203
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.product_id , T1.product_name , T1.product_price FROM Products AS T1 JOIN Order_Items AS T2 ON T1.product_id = T2.product_id GROUP BY T1.product_id ORDER BY COUNT(T2.order_item_id) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 846
+        },
+        "full_schema": {
+          "sql": "SELECT T1.product_id , T1.product_name , T1.product_price FROM Products AS T1 JOIN Order_Items AS T2 ON T1.product_id = T2.product_id GROUP BY T1.product_id ORDER BY COUNT(T2.order_item_id) DESC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 1658
+        }
+      }
+    },
+    {
+      "local_idx": 247,
+      "global_idx": 54,
+      "question": "Which order have the least sum of the product prices. List the order id and sum.",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT T1.order_id ,  sum(T2.product_price) FROM Order_items AS T1 JOIN Products AS T2 ON T1.product_id  =  T2.product_id GROUP BY T1.order_id ORDER BY sum(T2.product_price) ASC LIMIT 1\te_commerce",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.order_id , SUM(T2.product_price) FROM Orders AS T1 JOIN Order_Items AS T2 ON T1.order_id = T2.order_id GROUP BY T1.order_id ORDER BY SUM(T2.product_price) ASC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 569
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.order_id , SUM(T3.product_price) FROM Orders AS T1 JOIN Order_Items AS T2 ON T1.order_id = T2.order_id JOIN Products AS T3 ON T2.product_id = T3.product_id GROUP BY T1.order_id ORDER BY SUM(T3.product_price) ASC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 969
+        },
+        "full_schema": {
+          "sql": "SELECT T1.order_id , SUM(T3.product_price) FROM Orders AS T1 JOIN Order_Items AS T2 ON T1.order_id = T2.order_id JOIN Products AS T3 ON T2.product_id = T3.product_id GROUP BY T1.order_id ORDER BY SUM(T3.product_price) ASC LIMIT 1",
+          "exec_ok": true,
+          "schema_chars": 1658
+        }
+      }
+    },
+    {
+      "local_idx": 248,
+      "global_idx": 55,
+      "question": "What is the order that total cost the least , and how much is the total cost ?",
+      "db_id": "e_commerce",
+      "gold_sql": "select t1.order_id ,  sum(t2.product_price) from order_items as t1 join products as t2 on t1.product_id  =  t2.product_id group by t1.order_id order by sum(t2.product_price) asc limit 1\te_commerce",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT T1.order_id, SUM(T2.order_item_status_code = 'active') * 10 + SUM(T2.order_item_status_code = 'shipped') * 20 AS total_cost FROM Orders AS T1 JOIN Order_Items AS T2 ON T1.order_id = T2.order_id GROUP BY T1.order_id ORDER BY total_cost ASC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 319
+        },
+        "broader_rag": {
+          "sql": "SELECT T1.order_id, SUM(T2.product_price) FROM Orders AS T1 JOIN Order_Items AS T2 ON T1.order_id = T2.order_id GROUP BY T1.order_id ORDER BY SUM(T2.product_price) ASC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 719
+        },
+        "full_schema": {
+          "sql": "SELECT T1.order_id, SUM(T2.product_price) FROM Orders AS T1 JOIN Order_Items AS T2 ON T1.order_id = T2.order_id GROUP BY T1.order_id ORDER BY SUM(T2.product_price) ASC LIMIT 1",
+          "exec_ok": false,
+          "schema_chars": 1658
+        }
+      }
+    },
+    {
+      "local_idx": 249,
+      "global_idx": 72,
+      "question": "List all the distinct product names, price and descriptions which are bought by female customers.",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT DISTINCT T1.product_name ,  T1.product_price ,  T1.product_description FROM Products AS T1 JOIN Order_items AS T2 ON T1.product_id  =  T2.product_id JOIN Orders AS T3 ON T2.order_id  =  T3.order_id JOIN Customers AS T4 ON T3.customer_id  =  T4.customer_id WHERE T4.gender_code  =  'Female'\te_commerce",
+      "strategies": {
+        "current_rag": {
+          "sql": "SELECT DISTINCT T1.product_name, T1.product_price, T1.product_description FROM Products AS T1 JOIN Customers AS T2 ON T2.customer_id = T1.parent_product_id",
+          "exec_ok": false,
+          "schema_chars": 436
+        },
+        "broader_rag": {
+          "sql": "SELECT DISTINCT T1.product_name, T1.product_price, T1.product_description FROM Products AS T1 JOIN Order_Items AS T2 ON T1.product_id = T2.product_id JOIN Orders AS T3 ON T2.order_id = T3.order_id JOIN Customers AS T4 ON T3.customer_id = T4.customer_id WHERE T4.gender_code = 'F'",
+          "exec_ok": false,
+          "schema_chars": 1000
+        },
+        "full_schema": {
+          "sql": "SELECT DISTINCT T1.product_name, T1.product_price, T1.product_description FROM Products AS T1 JOIN Order_Items AS T2 ON T1.product_id = T2.product_id JOIN Orders AS T3 ON T2.order_id = T3.order_id JOIN Customers AS T4 ON T3.customer_id = T4.customer_id WHERE T4.gender_code = 'F'",
+          "exec_ok": false,
+          "schema_chars": 1658
+        }
+      }
+    }
+  ]
+}

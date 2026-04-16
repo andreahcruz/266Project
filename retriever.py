@@ -17,6 +17,13 @@ import re
 from typing import Optional
 
 # ── Stopwords ────────────────────────────────────────────────────────────
+# Words filtered from questions when scoring tables/columns.
+# COLUMN_NAME_WORDS are stopwords for question parsing but are valid column
+# names, so _score checks for them separately to avoid missing columns like
+# "name", "number", etc.
+COLUMN_NAME_WORDS = frozenset(
+    "name number total count average maximum minimum".split()
+)
 STOPWORDS = frozenset(
     "a an the is are was were be been being do does did have has had "
     "will would shall should can could may might must "
@@ -28,6 +35,26 @@ STOPWORDS = frozenset(
     "all any each every some many much more most other another "
     "find show list give get display return tell name "
     "total number count average maximum minimum".split()
+)
+
+JOIN_LIKE_PATTERNS = (
+    "for each",
+    "across",
+    "between",
+    "with their",
+    "together with",
+    "along with",
+    "joined with",
+    "per ",
+    "in each",
+    "for every",
+    "who have",
+    "that have",
+    "with the most",
+    "with at least",
+    "without",
+    "not ",
+    "or have",
 )
 
 
@@ -71,8 +98,13 @@ def _name_tokens(name: str) -> list[str]:
     return [p for p in parts if len(p) > 1]
 
 
-def _score(question_stems: set[str], name: str) -> float:
-    """Score a table or column name against stemmed question tokens."""
+def _score(question_stems: set[str], name: str, question_raw_tokens: set[str] | None = None) -> float:
+    """Score a table or column name against stemmed question tokens.
+
+    question_raw_tokens: full lowercase tokens from the question (before
+    stopword removal).  Used to match column names like "name" or "number"
+    that are stripped as stopwords from question_stems.
+    """
     name_toks = _name_tokens(name)
     if not name_toks:
         return 0.0
@@ -83,6 +115,8 @@ def _score(question_stems: set[str], name: str) -> float:
     for ns in name_stems:
         if ns in question_stems:
             score += 2.0  # exact stem match
+        elif question_raw_tokens and ns in COLUMN_NAME_WORDS and ns in question_raw_tokens:
+            score += 2.0  # column-name word that was stripped as stopword
         else:
             for qs in question_stems:
                 if len(ns) >= 3 and len(qs) >= 3:
@@ -99,7 +133,13 @@ def _score_table(
     columns: list[list],
     q_stems: set[str],
 ) -> float:
-    """Score a table by name match + column name matches."""
+    """Score a table by name match + column name matches.
+
+    Column-name words (like "name", "number") are NOT used for table ranking
+    because they are too generic — many tables share a "name" column, so
+    boosting them here adds noise.  They are used later for column selection
+    within already-selected tables.
+    """
     tbl_name = table_names[tbl_idx]
     human_name = entry.get("table_names", table_names)[tbl_idx]
     s = max(_score(q_stems, tbl_name), _score(q_stems, human_name))
@@ -115,6 +155,53 @@ def _score_table(
             col_score += _score(q_stems, human_col[1]) * 0.5
     s += col_score * 0.5
     return s
+
+
+def _looks_like_single_table_question(
+    question: str,
+    table_scores: list[tuple[int, float]],
+    table_names: list[str],
+) -> bool:
+    """Heuristic for simple one-table questions that should return fewer tables."""
+    q = question.lower()
+    q_tokens = _tokenize(question)
+    short_question = len(q_tokens) <= 8
+    has_join_like_language = any(pattern in q for pattern in JOIN_LIKE_PATTERNS)
+
+    normalized_question = " ".join(re.findall(r"[a-z0-9]+", q))
+    obvious_table_name_match = False
+    for table_name in table_names:
+        variants = {
+            table_name.lower(),
+            table_name.lower().replace("_", " "),
+        }
+        if any(variant and variant in normalized_question for variant in variants):
+            obvious_table_name_match = True
+            break
+
+    top_scores = [score for _, score in table_scores[:3]]
+    while len(top_scores) < 3:
+        top_scores.append(0.0)
+    top1, top2, top3 = top_scores
+    clear_score_lead = top1 >= top2 + 1.5 and top1 >= top3 + 2.0
+
+    return short_question and obvious_table_name_match and clear_score_lead and not has_join_like_language
+
+
+def _adaptive_top_k(
+    question: str,
+    table_scores: list[tuple[int, float]],
+    table_names: list[str],
+    default_top_k: int,
+) -> int:
+    """Adaptive top-k with a single-table bias for simple questions."""
+    if default_top_k <= 1:
+        return default_top_k
+
+    if _looks_like_single_table_question(question, table_scores, table_names):
+        return min(2, default_top_k)
+
+    return default_top_k
 
 
 # ── Vector reranking (OpenAI embeddings) ─────────────────────────────────
@@ -243,7 +330,7 @@ def _add_bridge_tables(
 
 # ── Main retrieval function ──────────────────────────────────────────────
 
-def retrieve_schema(
+def retrieve_schema_details(
     question: str,
     db_id: str,
     tables_data: dict,
@@ -253,16 +340,19 @@ def retrieve_schema(
     openai_client=None,
     vector_threshold: float = 0.35,
     vector_index: Optional[dict] = None,
-) -> str:
-    """Return a filtered schema string with only the most relevant tables/columns.
+    score_ratio_threshold: float = 0.35,
+) -> dict:
+    """Return retrieval details for the most relevant tables/columns.
 
     Args:
         mode: "lexical" (keyword only) or "hybrid" (lexical + vector reranking)
         openai_client: Required for hybrid mode. An OpenAI client instance.
         vector_threshold: Cosine similarity threshold for vector rescue (hybrid).
+        score_ratio_threshold: Min ratio of a table's score to the top score
+            to be included. Tables below top_score * ratio are pruned.
 
     Falls back to the full schema when the database has few tables.
-    Output format matches schema_loader.get_schema_string().
+    Output schema format matches schema_loader.get_schema_string().
     """
     entry = tables_data[db_id]
     table_names = entry["table_names_original"]
@@ -276,11 +366,26 @@ def retrieve_schema(
     # Small-schema shortcut: no filtering needed
     if num_tables <= top_k_tables:
         from schema_loader import get_schema_string
-        return get_schema_string(db_id, tables_data)
+        selected_tables = set(range(num_tables))
+        selected_column_indices = {
+            col_idx
+            for col_idx, (tbl_idx, _) in enumerate(columns)
+            if tbl_idx != -1
+        }
+        return {
+            "schema": get_schema_string(db_id, tables_data),
+            "selected_tables": selected_tables,
+            "selected_column_indices": selected_column_indices,
+            "selected_table_names": [table_names[i] for i in sorted(selected_tables)],
+            "table_scores": [],
+            "mode": mode,
+        }
 
     # ── Score tables (lexical) ───────────────────────────────────────────
     q_tokens = _tokenize(question)
     q_stems = {_stem(t) for t in q_tokens}
+    # Raw tokens (before stopword removal) for matching column-name words
+    q_raw_tokens = set(re.findall(r"[a-z0-9]+", question.lower()))
 
     table_scores: list[tuple[int, float]] = []
     for tbl_idx in range(num_tables):
@@ -289,10 +394,22 @@ def retrieve_schema(
 
     table_scores.sort(key=lambda x: x[1], reverse=True)
 
-    # ── Strict top-k selection ───────────────────────────────────────────
+    # ── Score-ratio pruning ─────────────────────────────────────────────
+    # Instead of always taking a fixed top-k, drop tables whose score is
+    # a small fraction of the top scorer.  This keeps all top-k tables
+    # when scores are close (multi-table queries) but trims irrelevant
+    # tables for single-table questions where only 1-2 tables match.
+    top_score = table_scores[0][1] if table_scores else 0.0
+    score_threshold = top_score * score_ratio_threshold
+
     selected_tables: set[int] = set()
     for tbl_idx, s in table_scores[:top_k_tables]:
-        selected_tables.add(tbl_idx)
+        if s > 0 and s >= score_threshold:
+            selected_tables.add(tbl_idx)
+
+    # Always keep at least the top table
+    if not selected_tables:
+        selected_tables.add(table_scores[0][0])
 
     # ── Hybrid mode: vector rerank unselected tables ─────────────────────
     if mode == "hybrid" and openai_client is not None:
@@ -332,6 +449,7 @@ def retrieve_schema(
 
     # Build output
     lines = []
+    selected_column_indices: set[int] = set()
     for tbl_idx in sorted(selected_tables):
         tbl_name = table_names[tbl_idx]
         cols = table_columns[tbl_idx]
@@ -347,7 +465,7 @@ def retrieve_schema(
                 else:
                     human_col = entry.get("column_names", columns)[col_idx]
                     human_name = human_col[1] if isinstance(human_col, list) else col_name
-                    s = _score(q_stems, col_name) + _score(q_stems, human_name) * 0.5
+                    s = _score(q_stems, col_name, q_raw_tokens) + _score(q_stems, human_name, q_raw_tokens) * 0.5  # column-name words matched here
                     col_scored.append((s, col_idx, col_name, col_type, is_pk))
 
             col_scored.sort(key=lambda x: x[0], reverse=True)
@@ -356,6 +474,9 @@ def retrieve_schema(
             selected_cols = must_include + extra
             col_order = {ci: i for i, (ci, _, _, _) in enumerate(cols)}
             selected_cols.sort(key=lambda x: col_order.get(x[0], 0))
+
+        for col_idx, _, _, _ in selected_cols:
+            selected_column_indices.add(col_idx)
 
         col_parts = []
         for col_idx, col_name, col_type, is_pk in selected_cols:
@@ -381,7 +502,43 @@ def retrieve_schema(
     if fk_parts:
         lines.append(f"Foreign Keys: {', '.join(fk_parts)}")
 
-    return "\n".join(lines)
+    return {
+        "schema": "\n".join(lines),
+        "selected_tables": selected_tables,
+        "selected_column_indices": selected_column_indices,
+        "selected_table_names": [table_names[i] for i in sorted(selected_tables)],
+        "table_scores": table_scores,
+        "mode": mode,
+        "score_ratio_threshold": score_ratio_threshold,
+    }
+
+
+def retrieve_schema(
+    question: str,
+    db_id: str,
+    tables_data: dict,
+    top_k_tables: int = 4,
+    top_n_columns: int = 6,
+    mode: str = "lexical",
+    openai_client=None,
+    vector_threshold: float = 0.35,
+    vector_index: Optional[dict] = None,
+    score_ratio_threshold: float = 0.35,
+) -> str:
+    """Return only the filtered schema string for backward compatibility."""
+    details = retrieve_schema_details(
+        question=question,
+        db_id=db_id,
+        tables_data=tables_data,
+        top_k_tables=top_k_tables,
+        top_n_columns=top_n_columns,
+        mode=mode,
+        openai_client=openai_client,
+        vector_threshold=vector_threshold,
+        vector_index=vector_index,
+        score_ratio_threshold=score_ratio_threshold,
+    )
+    return details["schema"]
 
 
 if __name__ == "__main__":

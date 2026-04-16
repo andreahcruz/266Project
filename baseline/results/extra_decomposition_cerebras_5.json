@@ -1,0 +1,79 @@
+{
+  "config": {
+    "limit": 5,
+    "seed": 42,
+    "top_k_tables": 3,
+    "top_n_columns": 8,
+    "with_self_correction": false,
+    "model": "llama3.1-8b",
+    "retrieval_mode": "lexical"
+  },
+  "summary": {
+    "count": 5,
+    "baseline_exec_accuracy": 0.6,
+    "decomposition_exec_accuracy": 0.2,
+    "delta": -0.4
+  },
+  "results": [
+    {
+      "local_idx": 240,
+      "global_idx": 40,
+      "question": "List the id, first name and last name of the customers who both have placed more than 2 orders and have bought at least 3 items.",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT T1.customer_id ,  T1.customer_first_name ,  T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id  =  T2.customer_id GROUP BY T1.customer_id HAVING count(*)  >  2 INTERSECT SELECT T1.customer_id ,  T1.customer_first_name ,  T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id  =  T2.customer_id JOIN Order_items AS T3 ON T2.order_id  =  T3.order_id GROUP BY T1.customer_id HAVING count(*)  >= 3\te_commerce",
+      "baseline_sql": "SELECT T1.customer_id , T1.customer_first_name , T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id = T2.customer_id JOIN Order_Items AS T3 ON T2.order_id = T3.order_id GROUP BY T1.customer_id HAVING COUNT(T2.order_id) > 2 AND COUNT(T3.order_item_id) > 3",
+      "baseline_exec_ok": true,
+      "decomposition_plan": "1. Tables: Customers, Orders, Order_Items\n2. Join path: Customers -> Orders -> Order_Items\n3. Filters: \n   - Orders: order_status_code = 'placed' (assuming placed status means order is confirmed)\n   - Order_Items: order_item_status_code = 'shipped' (assuming shipped status means item is delivered)\n   - Group by: customer_id\n   - Having: count(Orders) > 2 and count(Order_Items) > 2\n4. Aggregation / grouping: count(Orders), count(Order_Items)\n5. Ordering / limit: None\n6. Subqueries / set operations: None",
+      "decomposition_sql": "SELECT T1.customer_id , T1.customer_first_name , T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id = T2.customer_id JOIN Order_Items AS T3 ON T2.order_id = T3.order_id WHERE T2.order_status_code = 'placed' AND T3.order_item_status_code = 'shipped' GROUP BY T1.customer_id HAVING COUNT(T2.order_id) > 2 AND COUNT(T3.order_item_id) > 2",
+      "decomposition_exec_ok": false
+    },
+    {
+      "local_idx": 241,
+      "global_idx": 41,
+      "question": "What are the ids, first and last names of the customers who have ordered more than twice and have bought at least 3 items?",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT T1.customer_id ,  T1.customer_first_name ,  T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id  =  T2.customer_id GROUP BY T1.customer_id HAVING count(*)  >  2 INTERSECT SELECT T1.customer_id ,  T1.customer_first_name ,  T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id  =  T2.customer_id JOIN Order_items AS T3 ON T2.order_id  =  T3.order_id GROUP BY T1.customer_id HAVING count(*)  >= 3\te_commerce",
+      "baseline_sql": "SELECT T1.customer_id, T1.customer_first_name, T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id = T2.customer_id GROUP BY T1.customer_id HAVING COUNT(T2.order_id) > 2 AND COUNT(T3.order_item_id) >= 3 JOIN Order_Items AS T3 ON T2.order_id = T3.order_id",
+      "baseline_exec_ok": false,
+      "decomposition_plan": "1. Tables: \n   - Customers\n   - Orders\n   - Order_Items\n\n2. Join path: \n   - Customers\n   - Orders (on customer_id)\n   - Order_Items (on order_id)\n\n3. Filters: \n   - Orders.count > 2\n   - Order_Items.count >= 3\n\n4. Aggregation / grouping: \n   - Group by Customers.customer_id, Customers.customer_first_name, Customers.customer_last_name\n\n5. Ordering / limit: \n   - None\n\n6. Subqueries / set operations: \n   - None",
+      "decomposition_sql": "SELECT T1.customer_id, T1.customer_first_name, T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id = T2.customer_id JOIN Order_Items AS T3 ON T2.order_id = T3.order_id GROUP BY T1.customer_id, T1.customer_first_name, T1.customer_last_name HAVING COUNT(T2.order_id) > 2 AND COUNT(T3.order_item_id) >= 3",
+      "decomposition_exec_ok": false
+    },
+    {
+      "local_idx": 242,
+      "global_idx": 46,
+      "question": "Which customers did not make any orders? List the first name, middle initial and last name.",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT customer_first_name ,  customer_middle_initial ,  customer_last_name FROM Customers EXCEPT SELECT T1.customer_first_name ,  T1.customer_middle_initial ,  T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id  =  T2.customer_id\te_commerce",
+      "baseline_sql": "SELECT customer_first_name , customer_middle_initial , customer_last_name FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Orders)",
+      "baseline_exec_ok": true,
+      "decomposition_plan": "1. Tables: Customers\n2. Join path: Left join with Orders\n3. Filters: Orders.order_id is null\n4. Aggregation / grouping: None\n5. Ordering / limit: None\n6. Subqueries / set operations: None",
+      "decomposition_sql": "SELECT customer_first_name , customer_middle_initial , customer_last_name FROM Customers LEFT JOIN Orders ON Customers.customer_id = Orders.customer_id WHERE Orders.order_id IS NULL",
+      "decomposition_exec_ok": true
+    },
+    {
+      "local_idx": 243,
+      "global_idx": 47,
+      "question": "WHat are the first and last names, and middle initials of all customers who did not make any orders?",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT customer_first_name ,  customer_middle_initial ,  customer_last_name FROM Customers EXCEPT SELECT T1.customer_first_name ,  T1.customer_middle_initial ,  T1.customer_last_name FROM Customers AS T1 JOIN Orders AS T2 ON T1.customer_id  =  T2.customer_id\te_commerce",
+      "baseline_sql": "SELECT customer_first_name , customer_last_name , customer_middle_initial FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Orders)",
+      "baseline_exec_ok": false,
+      "decomposition_plan": "1. Tables: Customers\n2. Join path: None (no join needed)\n3. Filters: Orders.customer_id IS NULL\n4. Aggregation / grouping: None (no aggregation needed)\n5. Ordering / limit: None (no ordering or limiting needed)\n6. Subqueries / set operations: None (no subquery or set operation needed)",
+      "decomposition_sql": "SELECT customer_first_name , customer_last_name , customer_middle_initial FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Orders)",
+      "decomposition_exec_ok": false
+    },
+    {
+      "local_idx": 244,
+      "global_idx": 48,
+      "question": "What are the id, name, price and color of the products which have not been ordered for at least twice?",
+      "db_id": "e_commerce",
+      "gold_sql": "SELECT product_id ,  product_name ,  product_price ,  product_color FROM Products EXCEPT SELECT T1.product_id ,  T1.product_name ,  T1.product_price ,  T1.product_color FROM Products AS T1 JOIN Order_items AS T2 ON T1.product_id  =  T2.product_id JOIN Orders AS T3 ON T2.order_id  =  T3.order_id GROUP BY T1.product_id HAVING count(*)  >=  2\te_commerce",
+      "baseline_sql": "SELECT T1.product_id , T1.product_name , T1.product_price , T1.product_color FROM Products AS T1 WHERE T1.product_id NOT IN (SELECT T2.product_id FROM Order_Items AS T2 GROUP BY T2.product_id HAVING count(*) >= 2)",
+      "baseline_exec_ok": true,
+      "decomposition_plan": "1. Tables: \n   - Products\n   - Order_Items\n\n2. Join path: \n   - Inner join on Order_Items.product_id = Products.product_id\n\n3. Filters: \n   - Order_Items.order_id is not in the subquery of order_ids that appear at least twice\n\n4. Aggregation / grouping: \n   - Group by product_id\n\n5. Ordering / limit: \n   - None\n\n6. Subqueries / set operations: \n   - Subquery to find order_ids that appear at least twice",
+      "decomposition_sql": "SELECT T1.product_id , T1.product_name , T1.product_price , T1.product_color FROM Products AS T1 INNER JOIN Order_Items AS T2 ON T1.product_id = T2.product_id WHERE T2.order_id NOT IN (SELECT order_id FROM Order_Items GROUP BY order_id HAVING COUNT(order_id) >= 2)",
+      "decomposition_exec_ok": false
+    }
+  ]
+}

@@ -96,7 +96,7 @@ FEW_SHOT_K = int(os.getenv("FEW_SHOT_K", "3"))
 FEW_SHOT_SEED = int(os.getenv("FEW_SHOT_SEED", "42"))
 
 # ── Schema Retrieval (RAG) Settings ──────────────────────
-RETRIEVER_TOP_K_TABLES = int(os.getenv("RETRIEVER_TOP_K_TABLES", "4"))
+RETRIEVER_TOP_K_TABLES = int(os.getenv("RETRIEVER_TOP_K_TABLES", "3"))
 RETRIEVER_TOP_N_COLUMNS = int(os.getenv("RETRIEVER_TOP_N_COLUMNS", "8"))
 VECTOR_INDEX_PATH = BASE_DIR / "chroma_db"
 

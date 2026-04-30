@@ -1,0 +1,66 @@
+Loading tables, vector index, blurbs, train data ...
+  [1/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=1s
+  [11/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=3s
+  [21/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=9s
+  [31/320] db=bbc_channels              ok=True ret=0 cost=$0.0000 elapsed=14s
+  [41/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=77s
+  [51/320] db=online_exams              ok=True ret=0 cost=$0.0000 elapsed=82s
+  [61/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=87s
+  [71/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=94s
+  [81/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=158s
+  [91/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=161s
+  [101/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=165s
+  [111/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=231s
+  [121/320] db=bbc_channels              ok=True ret=0 cost=$0.0000 elapsed=237s
+  [131/320] db=tv_shows                  ok=True ret=0 cost=$0.0000 elapsed=241s
+  [141/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=245s
+  [151/320] db=online_exams              ok=True ret=0 cost=$0.0000 elapsed=309s
+  [161/320] db=soccer_3                  ok=True ret=1 cost=$0.0000 elapsed=315s
+  [171/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=319s
+  [181/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=385s
+  [191/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=392s
+  [201/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=397s
+  [211/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=401s
+  [221/320] db=online_exams              ok=True ret=0 cost=$0.0000 elapsed=465s
+  [231/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=473s
+  [241/320] db=e_commerce                ok=True ret=1 cost=$0.0000 elapsed=485s
+  [251/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=491s
+  [261/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=556s
+  [271/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=560s
+  [281/320] db=government_shift          ok=True ret=0 cost=$0.0000 elapsed=566s
+  [291/320] db=vehicle_rent              ok=True ret=0 cost=$0.0000 elapsed=633s
+  [301/320] db=cre_Students_Information_ ok=True ret=0 cost=$0.0000 elapsed=639s
+  [311/320] db=cre_Students_Information_ ok=False ret=3 cost=$0.0000 elapsed=645s
+
+Processed 320 new questions, 314 succeeded.
+Predictions: /Users/andreah/Downloads/spider_data/runs/control/predictions.sql
+Per-question: /Users/andreah/Downloads/spider_data/runs/control/per_question.csv
+Total LLM cost: $0.0000
+
+Running Spider evaluator ...
+  /Users/andreah/Downloads/spider_data/venv/bin/python /Users/andreah/Downloads/spider_data/evaluation.py --gold /Users/andreah/Downloads/spider_data/baseline/results/gold_test_balanced_80x4.sql --pred /Users/andreah/Downloads/spider_data/runs/control/predictions.sql --db test_database --table test_tables.json --etype exec
+Evaluator output: /Users/andreah/Downloads/spider_data/runs/control/evaluation_stdout.txt
+
+Summary: /Users/andreah/Downloads/spider_data/runs/control/summary.json
+{
+  "experiment_id": "control",
+  "routing": "oracle",
+  "retrieval": "hybrid",
+  "masking": false,
+  "prompt": "few_shot",
+  "model": "llama3.1-8b",
+  "max_retries": 3,
+  "cost_cap_usd": 0.01,
+  "limit": null,
+  "n_processed": 320,
+  "exec_success_rate_runtime": 0.98125,
+  "spider_exec_accuracy_overall": 0.653,
+  "spider_exec_by_difficulty": {
+    "easy": 0.713,
+    "medium": 0.8,
+    "hard": 0.625,
+    "extra": 0.475
+  },
+  "total_cost_usd": 0.0,
+  "wall_time_seconds": 710
+}

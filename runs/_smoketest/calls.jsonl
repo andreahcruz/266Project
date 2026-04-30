@@ -1,0 +1,1 @@
+{"ts": 1777449637.686207, "experiment_id": "_smoketest", "question_idx": null, "db_id": null, "model": "claude-haiku-4-5-20251001", "prompt_tokens": 13, "completion_tokens": 5, "cost_usd": 3.8e-05, "latency_ms": 1318, "retry_idx": 0, "escalated": false, "note": "phase0-smoketest"}

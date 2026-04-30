@@ -1,0 +1,22 @@
+{
+  "experiment_id": "control",
+  "routing": "oracle",
+  "retrieval": "hybrid",
+  "masking": false,
+  "prompt": "few_shot",
+  "model": "llama3.1-8b",
+  "max_retries": 3,
+  "cost_cap_usd": 0.01,
+  "limit": null,
+  "n_processed": 320,
+  "exec_success_rate_runtime": 0.98125,
+  "spider_exec_accuracy_overall": 0.653,
+  "spider_exec_by_difficulty": {
+    "easy": 0.713,
+    "medium": 0.8,
+    "hard": 0.625,
+    "extra": 0.475
+  },
+  "total_cost_usd": 0.0,
+  "wall_time_seconds": 710
+}

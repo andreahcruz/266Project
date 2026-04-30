@@ -1,0 +1,11 @@
+{
+  "experiment_id": "masked-broker-fullschema",
+  "routing": "broker",
+  "retrieval": "none",
+  "masking": true,
+  "prompt": "few_shot",
+  "model": "llama3.1-8b",
+  "max_retries": 3,
+  "cost_cap_usd": 1.0,
+  "limit": null
+}

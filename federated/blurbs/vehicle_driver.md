@@ -1,0 +1,1 @@
+Catalog of vehicles paired with the drivers who operate them. Tracks vehicle specifications such as model, engine power, top speed, and similar performance attributes. Designed for analyzing which drivers operate which vehicles and comparing vehicles by mechanical capability — not for rentals or commerce.

@@ -1,0 +1,53 @@
+{
+  "_comment": "Phase 5 ablation matrix. PDF baselines are external controls; do not re-run them. Each cell maps to one run_federated_eval.py invocation.",
+  "_default_model": "llama3.1-8b",
+  "_default_max_retries": 3,
+  "_default_cost_cap_usd": 1.0,
+  "cells": [
+    {
+      "experiment_id": "control",
+      "purpose": "Sanity check: federated pipeline reproduces baseline. Compare to PDF Cerebras few-shot (~60.3%).",
+      "routing": "oracle",
+      "retrieval": "hybrid",
+      "masking": false,
+      "prompt": "few_shot",
+      "model": "llama3.1-8b"
+    },
+    {
+      "experiment_id": "masked-oracle",
+      "purpose": "Headline: masking cost. Compare delta vs control.",
+      "routing": "oracle",
+      "retrieval": "hybrid",
+      "masking": true,
+      "prompt": "few_shot",
+      "model": "llama3.1-8b"
+    },
+    {
+      "experiment_id": "masked-broker",
+      "purpose": "Headline: broker cost on top of masking. Compare delta vs masked-oracle.",
+      "routing": "broker",
+      "retrieval": "hybrid",
+      "masking": true,
+      "prompt": "few_shot",
+      "model": "llama3.1-8b"
+    },
+    {
+      "experiment_id": "masked-broker-lexical",
+      "purpose": "Confirms hybrid > lexical still holds under masking.",
+      "routing": "broker",
+      "retrieval": "lexical",
+      "masking": true,
+      "prompt": "few_shot",
+      "model": "llama3.1-8b"
+    },
+    {
+      "experiment_id": "masked-broker-fullschema",
+      "purpose": "Tests whether full-DDL benefit on Hard/Extra survives masking. Compare to PDF full-schema (60.0% Extra).",
+      "routing": "broker",
+      "retrieval": "none",
+      "masking": true,
+      "prompt": "few_shot",
+      "model": "llama3.1-8b"
+    }
+  ]
+}

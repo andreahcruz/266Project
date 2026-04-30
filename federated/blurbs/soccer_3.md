@@ -1,0 +1,1 @@
+Football (soccer) database covering professional clubs and the players who belong to them. Useful for queries about team rosters, player demographics, and aggregate stats by club. The only sports-related database in the system.

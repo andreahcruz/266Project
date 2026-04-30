@@ -1,0 +1,1 @@
+Government service-delivery analytics. Citizens (customers) interact with government services through various channels (phone, web, in-person), and these interactions are tracked. Includes integration platforms and analytical layers used to study how services are consumed across channels. Distinguished from commercial customer databases by its government / public-service framing.

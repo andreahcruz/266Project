@@ -1,0 +1,11 @@
+{
+  "experiment_id": "_runner_smoketest",
+  "routing": "broker",
+  "retrieval": "hybrid",
+  "masking": true,
+  "prompt": "few_shot",
+  "model": "claude-haiku-4-5-20251001",
+  "max_retries": 3,
+  "cost_cap_usd": 2.0,
+  "limit": 5
+}

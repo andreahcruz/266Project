@@ -1,0 +1,18 @@
+{
+  "experiment_id": "_cerebras_smoke",
+  "routing": "oracle",
+  "retrieval": "hybrid",
+  "masking": false,
+  "prompt": "few_shot",
+  "model": "llama3.1-8b",
+  "max_retries": 3,
+  "cost_cap_usd": 0.01,
+  "limit": 5,
+  "n_processed": 5,
+  "exec_success_rate_runtime": 1.0,
+  "spider_exec_accuracy_overall": null,
+  "spider_exec_by_difficulty": {},
+  "total_cost_usd": 0.0,
+  "wall_time_seconds": 2,
+  "note": "limited run \u2014 Spider eval skipped"
+}

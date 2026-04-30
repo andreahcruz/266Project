@@ -1,0 +1,11 @@
+{
+  "experiment_id": "_cerebras_smoke",
+  "routing": "oracle",
+  "retrieval": "hybrid",
+  "masking": false,
+  "prompt": "few_shot",
+  "model": "llama3.1-8b",
+  "max_retries": 3,
+  "cost_cap_usd": 0.01,
+  "limit": 5
+}

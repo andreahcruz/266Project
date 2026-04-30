@@ -1,0 +1,1 @@
+Online testing and assessment platform. Students take exams composed of multiple questions; valid answers are pre-defined; student responses are recorded and graded into assessments. Centered on the act of taking and grading exams. Different from school administration databases that focus on transcripts, classes, and teachers.

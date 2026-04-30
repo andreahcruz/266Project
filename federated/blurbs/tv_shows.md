@@ -1,0 +1,1 @@
+Geographic broadcasting database: which cities have which channels, and which channels carry which radio stations and television shows. Strong emphasis on city-level distribution, transmitter properties, and erp/wattage of radio stations. Distinct from director-and-program TV databases — this one is about geographic distribution of broadcast media.

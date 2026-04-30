@@ -1,0 +1,18 @@
+{
+  "experiment_id": "_runner_smoketest",
+  "routing": "broker",
+  "retrieval": "hybrid",
+  "masking": true,
+  "prompt": "few_shot",
+  "model": "claude-haiku-4-5-20251001",
+  "max_retries": 3,
+  "cost_cap_usd": 2.0,
+  "limit": 5,
+  "n_processed": 5,
+  "exec_success_rate_runtime": 1.0,
+  "spider_exec_accuracy_overall": null,
+  "spider_exec_by_difficulty": {},
+  "total_cost_usd": 0.003139,
+  "wall_time_seconds": 7,
+  "note": "limited run \u2014 Spider eval skipped"
+}

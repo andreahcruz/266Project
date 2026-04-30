@@ -1,0 +1,1 @@
+Geographic registry of buildings and the regions they belong to. Minimal schema: just buildings and the larger regions that contain them. For queries about how many buildings exist in each region, properties of individual buildings, or comparisons of regions by their building counts.

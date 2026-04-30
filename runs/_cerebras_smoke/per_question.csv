@@ -1,0 +1,6 @@
+pos,test_idx,db_id_gold,db_id_used,broker_pick,broker_correct,re_picked,retries,exec_success,masked_sql,real_sql
+0,0,soccer_3,soccer_3,,,False,0,True,SELECT COUNT(*) FROM club,SELECT COUNT(*) FROM club
+1,1,soccer_3,soccer_3,,,False,0,True,SELECT count(*) FROM club,SELECT count(*) FROM club
+2,2,soccer_3,soccer_3,,,False,0,True,SELECT Name FROM club ORDER BY Name ASC,SELECT Name FROM club ORDER BY Name ASC
+3,3,soccer_3,soccer_3,,,False,0,True,SELECT Name FROM club ORDER BY Name,SELECT Name FROM club ORDER BY Name
+4,6,soccer_3,soccer_3,,,False,0,True,SELECT T1.Name FROM club AS T1 WHERE T1.Manufacturer != 'Nike',SELECT T1.Name FROM club AS T1 WHERE T1.Manufacturer != 'Nike'

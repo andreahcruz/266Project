@@ -75,6 +75,7 @@ GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 CEREBRAS_API_KEY = os.getenv("CEREBRAS_API_KEY")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 
 # ── Model Settings ────────────────────────────────────────
 GROQ_MODEL = "llama-3.3-70b-versatile"
@@ -104,3 +105,11 @@ VECTOR_INDEX_PATH = BASE_DIR / "chroma_db"
 MAX_RETRIES = 3
 API_DELAY = 0.5  # seconds between API calls to avoid rate limits
 SQL_TIMEOUT = 30  # seconds for SQL execution timeout
+
+# ── Federated pipeline (Phase 0+) ─────────────────────────
+ANTHROPIC_MODEL = os.getenv("ANTHROPIC_MODEL", "claude-haiku-4-5-20251001")
+ANTHROPIC_MAX_TOKENS = int(os.getenv("ANTHROPIC_MAX_TOKENS", "1024"))
+PRIMARY_MODEL = os.getenv("PRIMARY_MODEL", ANTHROPIC_MODEL)  # dev default; eval overrides to Cerebras
+RUNS_DIR = BASE_DIR / "runs"
+FEDERATED_MAX_RETRIES = int(os.getenv("FEDERATED_MAX_RETRIES", "3"))
+FEDERATED_COST_CAP_USD = float(os.getenv("FEDERATED_COST_CAP_USD", "1.0"))

@@ -1,0 +1,6 @@
+pos,test_idx,db_id_gold,db_id_used,broker_pick,broker_correct,re_picked,retries,exec_success,masked_sql,real_sql
+0,0,soccer_3,soccer_3,soccer_3,True,False,0,True,SELECT COUNT(DISTINCT C1) FROM T1,SELECT COUNT(DISTINCT Club_ID) FROM club
+1,1,soccer_3,soccer_3,soccer_3,True,False,0,True,SELECT COUNT(*) FROM T1,SELECT COUNT(*) FROM club
+2,2,soccer_3,soccer_3,soccer_3,True,False,0,True,SELECT C2 FROM T1 ORDER BY C2 ASC,SELECT Name FROM club ORDER BY Name ASC
+3,3,soccer_3,soccer_3,soccer_3,True,False,0,True,SELECT T1.C2 FROM T1 ORDER BY T1.C2 ASC,SELECT club.Name FROM club ORDER BY club.Name ASC
+4,6,soccer_3,soccer_3,soccer_3,True,False,0,True,SELECT DISTINCT T1.C2 FROM T1 WHERE T1.C3 != 'Nike',SELECT DISTINCT club.Name FROM club WHERE club.Manager != 'Nike'

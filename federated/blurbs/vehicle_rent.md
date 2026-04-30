@@ -1,0 +1,1 @@
+Vehicle rental business. Customers rent vehicles over time, with rental records tracking who rented what and when, plus discount programs that reduce rental cost. Distinguished from vehicle-driver databases by its commercial rental focus: customers, transactions, and pricing — not driver-vehicle assignments or vehicle performance specs.

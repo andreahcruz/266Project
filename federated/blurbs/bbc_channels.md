@@ -1,0 +1,1 @@
+Broadcast television operations: TV channels, the programs they air, and the directors responsible for each program. Includes administrative oversight linking directors to programs they manage. Distinct from city-based broadcasting databases — this one is centered on directors, programs, and channel programming.

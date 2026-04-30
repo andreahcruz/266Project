@@ -1,0 +1,1 @@
+{"ts": 1777450112.0844312, "experiment_id": "_phase1_demo", "question_idx": null, "db_id": "online_exams", "model": "claude-haiku-4-5-20251001", "prompt_tokens": 290, "completion_tokens": 14, "cost_usd": 0.00036, "latency_ms": 1075, "retry_idx": 0, "escalated": false, "note": "phase1-smoketest"}

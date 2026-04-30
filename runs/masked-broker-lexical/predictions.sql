@@ -1,0 +1,320 @@
+SELECT COUNT(Club_ID) FROM club
+SELECT COUNT(Club_ID) FROM club
+SELECT Name FROM club
+SELECT club.Name FROM club WHERE club.Name IS NOT NULL ORDER BY club.Name ASC
+SELECT player.Name FROM club AS club JOIN player ON club.Club_ID = player.Club_ID WHERE club.Manager != "Nike"
+SELECT Name FROM club WHERE Manufacturer != 'Nike'
+SELECT player.Name FROM club AS club JOIN player AS player ON club.Club_ID = player.Club_ID ORDER BY player.Earnings ASC
+SELECT driver.Name FROM vehicle_driver AS vehicle JOIN driver ON vehicle.Vehicle_ID = driver.Driver_ID GROUP BY driver.Name ORDER BY COUNT(driver.Name) ASC
+SELECT DISTINCT Name FROM club WHERE Sponsor > 1200000
+SELECT player.Name FROM club AS club JOIN player ON club.Club_ID = player.Club_ID WHERE club.Manufacturer > 1200000
+SELECT player.Name FROM player WHERE player.Club_ID IN (SELECT club.Club_ID FROM club GROUP BY club.Club_ID HAVING COUNT(club.Club_ID) > 1)
+SELECT Name FROM club WHERE Club_ID IN (SELECT Club_ID FROM player GROUP BY Club_ID HAVING COUNT(Club_ID) > 1)
+SELECT club.Name FROM club WHERE club.Club_ID IN ( SELECT player.Club_ID FROM player GROUP BY player.Club_ID HAVING COUNT(player.Club_ID) > 1 )
+SELECT player.Name FROM player WHERE player.Earnings > 1
+SELECT COUNT(DISTINCT player.Name) FROM club AS club JOIN player AS player ON club.Club_ID = player.Club_ID
+SELECT COUNT(DISTINCT player.Name) FROM club AS club JOIN player AS player ON club.Club_ID = player.Club_ID
+SELECT COUNT(Customer_Orders.order_id) FROM Customer_Orders
+SELECT count(DISTINCT Customers.customer_id) FROM Customers AS Customers JOIN Customer_Orders AS Customer_Orders ON Customer_Orders.customer_id = Customers.customer_id
+SELECT count(*) FROM Order_Items
+SELECT DISTINCT order_quantity FROM Order_Items
+SELECT COUNT(DISTINCT payment_method_code) FROM Customer_Payment_Methods
+SELECT COUNT(DISTINCT payment_method_code) FROM Customer_Payment_Methods
+SELECT COUNT(order_item_id) FROM Order_Items
+SELECT COUNT(product_id) FROM Products
+SELECT avg(product_price) FROM Products
+SELECT AVG(product_price) FROM Products
+SELECT avg(product_price) FROM Products
+SELECT avg(product_price) FROM Products
+SELECT COUNT(DISTINCT Affiliation) FROM city_channel
+SELECT program.Title FROM program ORDER BY program.Start_Year DESC
+SELECT channel.Name FROM channel AS channel INNER JOIN program AS program ON channel.Channel_ID = program.Channel_ID INNER JOIN director AS director ON program.Director_ID = director.Director_ID WHERE director.Age BETWEEN 30 AND 60
+SELECT count(*) FROM radio WHERE Transmitter = 'radio'
+SELECT city_channel_radio.Is_online FROM radio AS radio JOIN city_channel_radio AS city_channel_radio ON radio.Radio_ID = city_channel_radio.Radio_ID ORDER BY city_channel_radio.Is_online ASC
+SELECT city_channel_radio.Is_online FROM city_channel_radio WHERE city_channel_radio.Radio_ID != (SELECT Affiliation FROM city_channel WHERE City = 'ABC')
+SELECT AVG(Is_online) FROM city_channel_radio WHERE Radio_ID IN (SELECT Radio_ID FROM radio WHERE Transmitter = 'radio')
+SELECT city_channel_radio.Radio_ID FROM city_channel AS city_channel INNER JOIN city_channel_radio AS city_channel_radio ON city_channel.ID = city_channel_radio.City_channel_ID GROUP BY city_channel_radio.Radio_ID HAVING COUNT(city_channel_radio.Radio_ID) > 3
+SELECT driver.Name FROM vehicle AS vehicle JOIN vehicle_driver AS vehicle_driver ON vehicle.Vehicle_ID = vehicle_driver.Vehicle_ID JOIN driver AS driver ON vehicle_driver.Driver_ID = driver.Driver_ID WHERE driver.Name = 'United States'
+SELECT driver.Name FROM vehicle_driver AS vehicle JOIN driver ON vehicle.Vehicle_ID = driver.Driver_ID WHERE driver.Name = 'United States'
+SELECT count(*) FROM vehicle WHERE Model = 'NASCAR'
+SELECT COUNT(*) FROM vehicle WHERE Model = 'NASCAR'
+SELECT AVG(Power) FROM vehicle
+SELECT AVG(Power) FROM vehicle
+SELECT Model FROM vehicle ORDER BY Model ASC
+SELECT driver.Name FROM vehicle_driver AS vehicle JOIN driver ON vehicle.Vehicle_ID = driver.Driver_ID
+SELECT count(*) FROM Exams
+SELECT count(*) FROM Exams
+SELECT DISTINCT Subject_Code FROM Exams ORDER BY Subject_Code ASC
+SELECT DISTINCT Subject_Code FROM Exams
+SELECT DISTINCT Student_Assessments.Student_Answer_Text FROM Student_Assessments INNER JOIN Student_Answers ON Student_Assessments.Valid_Answer_ID = Student_Answers.Exam_ID WHERE Student_Answers.Comments = 'Normal'
+SELECT DISTINCT Student_Assessments.Student_Answer_Text FROM Student_Assessments JOIN Valid_Answers ON Student_Assessments.Valid_Answer_ID = Valid_Answers.Valid_Answer_ID WHERE Student_Assessments.Assessment = "Normal"
+SELECT count(DISTINCT Student_Answers.Comments) FROM Students AS Students JOIN Student_Answers AS Student_Answers ON Students.Student_ID = Student_Answers.Student_ID
+SELECT COUNT(DISTINCT Student_Answer_Text) FROM Student_Answers
+SELECT Students.bio_data FROM Students WHERE Students.student_details != "M"
+SELECT Student_Events.event_type_code FROM Students AS Students INNER JOIN Student_Events ON Students.student_id = Student_Events.student_id WHERE Students.bio_data != "M"
+SELECT Questions_in_Exams.Question_ID FROM Questions_in_Exams JOIN Questions ON Questions_in_Exams.Question_ID = Questions.Question_ID GROUP BY Questions_in_Exams.Question_ID HAVING COUNT(*) >= 3
+SELECT Questions.Type_of_Question_Code FROM Questions AS Questions JOIN Questions_in_Exams AS Questions_in_Exams ON Questions.Question_ID = Questions_in_Exams.Question_ID GROUP BY Questions_in_Exams.Question_ID HAVING COUNT(Questions_in_Exams.Question_ID) >= 3
+SELECT * FROM Students
+SELECT Students.student_id, Students.bio_data, Students.student_details, Student_Events.event_id, Student_Events.event_type_code, Student_Events.student_id, Student_Events.event_date, Student_Events.other_details, Student_Loans.student_loan_id, Student_Loans.student_id, Student_Loans.date_of_loan, Student_Loans.amount_of_loan, Student_Loans.other_details, Students_Addresses.student_address_id, Students_Addresses.address_id, Students_Addresses.address_type_code, Students_Addresses.student_id, Students_Addresses.date_from, Students_Addresses.date_to FROM Students INNER JOIN Student_Events ON Student_Events.student_id = Students.student_id INNER JOIN Student_Loans ON Student_Loans.student_id = Students.student_id INNER JOIN Students_Addresses ON Students_Addresses.student_id = Students.student_id
+SELECT COUNT(*) FROM Customers
+SELECT COUNT(customer_id) FROM Customers
+SELECT count(*) FROM Products
+SELECT COUNT(product_id) FROM Products
+SELECT product_price FROM Products WHERE product_type_code = 'Monitor'
+SELECT Top_Speed FROM vehicle WHERE Model = 'Monitor'
+SELECT avg(product_price) FROM Products WHERE product_color = "Clothes"
+SELECT AVG(product_price) FROM Products WHERE product_color = 'Clothes'
+SELECT COUNT(product_id) FROM Products
+SELECT COUNT(product_id) FROM Products WHERE product_type_code = "Hardware"
+SELECT T5.product_color FROM Products AS T4 JOIN Order_Items AS T5 ON T4.product_id = T5.product_id ORDER BY T5.order_item_status_code DESC
+SELECT product_color FROM Products ORDER BY product_price DESC
+SELECT product_color FROM Products GROUP BY product_color HAVING COUNT(product_color) >= 2
+SELECT Name FROM driver WHERE Driver_ID IN (SELECT Vehicle_ID FROM vehicle_driver GROUP BY Vehicle_ID HAVING COUNT(*) >= 2)
+SELECT COUNT(customer_id) FROM Customers
+SELECT COUNT(customer_id) FROM Customers
+SELECT DISTINCT gender_code FROM Customers
+SELECT DISTINCT total_hours FROM Renting_history
+SELECT COUNT(customer_id) FROM Customers
+SELECT COUNT(*) FROM Customers WHERE customer_id IN (SELECT customer_id FROM Customer_Orders)
+SELECT COUNT(Customers.customer_id) FROM Customers AS Customers JOIN Customer_Orders AS Customer_Orders ON Customers.customer_id = Customer_Orders.customer_id
+SELECT COUNT(DISTINCT Customer_Orders.customer_id) FROM Customer_Orders
+SELECT player.Name, player.Country FROM club AS club JOIN player AS player ON player.Club_ID = club.Club_ID WHERE club.Name = 'manager' OR club.Name = 'captain'
+SELECT club.Name, club.Manager FROM club AS club JOIN player AS player ON club.Club_ID = player.Club_ID WHERE player.Name = 'Manager' INTERSECT SELECT club.Name, club.Manager FROM club AS club JOIN player AS player ON club.Club_ID = player.Club_ID WHERE player.Name = 'Captain'
+SELECT player.Name FROM player WHERE player.Earnings = ( SELECT MAX(Earnings) FROM player )
+SELECT player.Name FROM player INNER JOIN club ON player.Club_ID = club.Club_ID ORDER BY player.Earnings DESC LIMIT 1
+SELECT club.Name , club.Manager FROM club AS club JOIN player AS player ON player.Club_ID = club.Club_ID
+SELECT player.Name, player.Country FROM player INNER JOIN club ON player.Club_ID = club.Club_ID
+SELECT player.Name FROM player WHERE player.Earnings > 2
+SELECT player.Name FROM club AS club JOIN player ON club.Club_ID = player.Club_ID GROUP BY player.Name HAVING COUNT(player.Club_ID) > 2
+SELECT player.Name FROM club AS club JOIN player AS player ON club.Club_ID = player.Club_ID WHERE club.Manufacturer = "Sam Allardyce"
+SELECT player.Name FROM club AS club JOIN player ON club.Club_ID = player.Club_ID WHERE club.Manager = "Sam Allardyce"
+SELECT driver.Name , count(*) FROM vehicle AS vehicle JOIN vehicle_driver AS vehicle_driver ON vehicle.Vehicle_ID = vehicle_driver.Vehicle_ID JOIN driver AS driver ON vehicle_driver.Driver_ID = driver.Driver_ID GROUP BY driver.Name
+SELECT driver.Name, COUNT(*) FROM vehicle_driver INNER JOIN driver ON vehicle_driver.Driver_ID = driver.Driver_ID GROUP BY driver.Name
+SELECT Earnings FROM player WHERE Name = "Australia" OR Name = "Zimbabwe"
+SELECT player.Name , player.Earnings FROM player WHERE player.Country = "Australia" OR player.Country = "Zimbabwe"
+SELECT Order_Items.product_id , Order_Items.order_item_status_code , count(*) FROM Order_Items GROUP BY Order_Items.product_id
+SELECT Order_Items.order_id, COUNT(Order_Items.order_item_id), Customer_Orders.order_status_code, Customer_Orders.order_id FROM Customer_Orders AS Customer_Orders JOIN Order_Items AS Order_Items ON Order_Items.order_id = Customer_Orders.order_id GROUP BY Customer_Orders.order_id
+SELECT Products.product_id, Products.product_price FROM Products AS Products JOIN Order_Items AS Order_Items ON Products.product_id = Order_Items.product_id JOIN Shipment_Items AS Shipment_Items ON Order_Items.order_item_id = Shipment_Items.shipment_id WHERE Shipment_Items.order_item_id >= 2
+SELECT Customer_Orders.customer_id, Customer_Orders.order_date FROM Customer_Orders INNER JOIN Order_Items ON Order_Items.order_id = Customer_Orders.order_id GROUP BY Customer_Orders.customer_id, Customer_Orders.order_date HAVING COUNT(Order_Items.order_item_id) >= 2
+SELECT Customers.customer_number , count(*) FROM Customers AS Customers JOIN Customer_Orders AS Customer_Orders ON Customers.customer_id = Customer_Orders.customer_id GROUP BY Customers.customer_number
+SELECT Order_Items.product_id, COUNT(*) FROM Order_Items JOIN Orders ON Order_Items.order_id = Orders.order_id GROUP BY Order_Items.product_id
+SELECT Customers.gender_code, Customers.customer_first_name, Customers.customer_middle_initial, Customer_Payment_Methods.payment_method_code FROM Customers JOIN Customer_Payment_Methods ON Customers.customer_id = Customer_Payment_Methods.customer_id
+SELECT Customers.gender_code , Customers.customer_first_name , Customers.customer_middle_initial , Customer_Payment_Methods.payment_method_code FROM Customers INNER JOIN Customer_Payment_Methods ON Customers.customer_id = Customer_Payment_Methods.customer_id
+SELECT Shipments.shipment_tracking_number, Shipments.shipment_date, Orders.date_order_placed FROM Orders INNER JOIN Shipments ON Orders.order_id = Shipments.order_id
+SELECT Shipments.shipment_tracking_number, Shipments.shipment_date, Shipments.shipment_date FROM Shipments
+SELECT Order_Items.product_id, Order_Items.order_quantity FROM Order_Items WHERE Order_Items.order_id IN (SELECT order_id FROM Customer_Orders WHERE order_date LIKE '%ordered%' AND order_date LIKE '%shipped%')
+SELECT Order_Items.product_id, Order_Items.order_quantity FROM Order_Items WHERE Order_Items.order_id IN ( SELECT Customer_Orders.order_id FROM Customer_Orders WHERE Customer_Orders.order_date LIKE 'ordered and shipped' )
+SELECT Customers.customer_number, Customers.customer_phone FROM Customers INNER JOIN Customer_Orders ON Customers.customer_id = Customer_Orders.customer_id WHERE Customer_Orders.order_status_code LIKE '+12%'
+SELECT Customers.customer_number , Customers.customer_name FROM Customers AS Customers JOIN Customer_Orders AS Customer_Orders ON Customers.customer_id = Customer_Orders.customer_id WHERE Customer_Orders.order_status_code LIKE '+12%'
+SELECT product_color FROM Products WHERE product_name LIKE '%Dell%'
+SELECT Order_Items.order_item_status_code FROM Products AS Products JOIN Order_Items ON Products.product_id = Order_Items.product_id WHERE Products.product_color LIKE '%Dell%'
+SELECT Order_Items.order_item_status_code, Orders.date_order_placed FROM Order_Items INNER JOIN Orders ON Order_Items.order_id = Orders.order_id
+SELECT Order_Items.product_id , Order_Items.order_item_status_code FROM Order_Items JOIN Orders ON Order_Items.order_id = Orders.order_id
+SELECT Customers.customer_number , Customers.customer_name , Customers.customer_address FROM Addresses AS Addresses JOIN Customers AS Customers ON Addresses.address_id = Customers.customer_id WHERE Customers.customer_phone = "USA"
+SELECT customer_address, customer_name, customer_phone FROM Customers
+SELECT Products.product_id, Products.product_color FROM Products AS Products JOIN Order_Items AS Order_Items ON Order_Items.product_id = Products.product_id WHERE Order_Items.order_id > 3
+SELECT Products.product_id, Products.product_color FROM Products WHERE Products.product_price > 3
+SELECT Customer_Orders.order_date , Customer_Orders.order_id FROM Customer_Orders WHERE Customer_Orders.order_id IN ( SELECT Customer_Orders.order_id FROM Customer_Orders GROUP BY Customer_Orders.order_id HAVING COUNT(Customer_Orders.order_id) >= 2 )
+SELECT Customer_Orders.order_date , Customer_Orders.order_id FROM Customer_Orders WHERE Customer_Orders.order_id IN (SELECT Customer_Orders.order_id FROM Customer_Orders GROUP BY Customer_Orders.order_id HAVING COUNT(Customer_Orders.order_id) >= 2)
+SELECT Customers.address_id , Customer_Orders.order_date FROM Customers JOIN Customer_Orders ON Customers.customer_id = Customer_Orders.customer_id
+SELECT Customer_Orders.order_status_code , Customer_Orders.order_date FROM Customer_Orders
+SELECT director.Name FROM program AS channel JOIN director ON channel.Director_ID = director.Director_ID ORDER BY channel.Start_Year DESC LIMIT 1
+SELECT COUNT(Program_ID) FROM program WHERE Title LIKE '%bbc%'
+SELECT director.Name FROM program AS channel JOIN director ON channel.Director_ID = director.Director_ID ORDER BY channel.Start_Year DESC LIMIT 1
+SELECT channel.Name, channel.Analogue_terrestrial_channel FROM channel AS channel JOIN program AS program ON program.Channel_ID = channel.Channel_ID WHERE program.Start_Year > 1
+SELECT director.Name, COUNT(program.Program_ID) FROM program INNER JOIN director ON program.Director_ID = director.Director_ID GROUP BY director.Name
+SELECT channel.Name FROM channel INNER JOIN program ON channel.Channel_ID = program.Channel_ID WHERE program.Title = 'Dracula'
+SELECT channel.Name, channel.Analogue_terrestrial_channel FROM channel INNER JOIN program ON program.Channel_ID = channel.Channel_ID
+SELECT Transmitter FROM radio WHERE RnaG_MHz > 150 OR RnaG_MHz < 30
+SELECT city_channel_radio.Radio_ID FROM city_channel_radio WHERE city_channel_radio.Is_online = ( SELECT MAX(Is_online) FROM city_channel_radio )
+SELECT city_channel_radio.Radio_ID, COUNT(city_channel_radio.Radio_ID) FROM city_channel AS city_channel JOIN city_channel_radio ON city_channel.ID = city_channel_radio.City_channel_ID GROUP BY city_channel_radio.Radio_ID
+SELECT city_channel_radio.Radio_ID, city_channel_tv_show.Is_free FROM city_channel AS city_channel INNER JOIN city_channel_radio ON city_channel.ID = city_channel_radio.City_channel_ID INNER JOIN city_channel_tv_show ON city_channel.ID = city_channel_tv_show.City_channel_ID WHERE city_channel.City = 'city channels' ORDER BY city_channel_tv_show.Is_free ASC
+SELECT radio.Transmitter, radio.Radio_MHz FROM radio INNER JOIN city_channel_radio ON radio.Radio_ID = city_channel_radio.Radio_ID INNER JOIN city_channel ON city_channel_radio.City_channel_ID = city_channel.ID
+SELECT radio.Transmitter , COUNT(city_channel_tv_show.tv_show_ID) FROM radio JOIN city_channel_radio ON radio.Radio_ID = city_channel_radio.Radio_ID JOIN city_channel_tv_show ON city_channel_radio.City_channel_ID = city_channel_tv_show.City_channel_ID GROUP BY radio.Transmitter
+SELECT MAX(Power), AVG(Power) FROM vehicle WHERE Model = 'Zhuzhou'
+SELECT MAX(Power), AVG(Power) FROM vehicle WHERE Model = 'Zhuzhou'
+SELECT vehicle.Power , vehicle.Builder FROM vehicle AS vehicle JOIN vehicle_driver AS driver ON vehicle.Vehicle_ID = driver.Vehicle_ID WHERE driver.Driver_ID IN ( SELECT Driver_ID FROM driver WHERE Name = "1996" )
+SELECT vehicle.Power , vehicle.Top_Speed FROM vehicle AS vehicle JOIN vehicle_driver AS driver ON vehicle.Vehicle_ID = driver.Vehicle_ID WHERE vehicle.Top_Speed = 1996
+SELECT driver.Name , driver.Citizenship , driver.Racing_Series FROM driver INNER JOIN vehicle_driver ON driver.Driver_ID = vehicle_driver.Driver_ID
+SELECT driver.Citizenship , driver.Racing_Series , vehicle.Build_Year FROM vehicle AS vehicle JOIN driver AS driver ON vehicle.Vehicle_ID = driver.Driver_ID
+SELECT COUNT(*) FROM vehicle AS vehicle JOIN vehicle_driver AS driver ON driver.Vehicle_ID = vehicle.Vehicle_ID WHERE vehicle.Top_Speed = 2012
+SELECT COUNT(DISTINCT vehicle.Vehicle_ID) FROM vehicle AS vehicle JOIN vehicle_driver AS vehicle_driver ON vehicle.Vehicle_ID = vehicle_driver.Vehicle_ID WHERE vehicle.Top_Speed = 2012
+SELECT vehicle.Model FROM vehicle WHERE vehicle.Top_Speed > 100 OR vehicle.Power > 150
+SELECT driver.Name FROM vehicle AS vehicle JOIN vehicle_driver AS vehicle_driver ON vehicle.Vehicle_ID = vehicle_driver.Vehicle_ID JOIN driver ON vehicle_driver.Driver_ID = driver.Driver_ID WHERE vehicle.Power > 100 OR vehicle.Top_Speed > 150
+SELECT driver.Name, driver.Citizenship FROM vehicle AS vehicle JOIN vehicle_driver AS vehicle_driver ON vehicle.Vehicle_ID = vehicle_driver.Vehicle_ID JOIN driver AS driver ON vehicle_driver.Driver_ID = driver.Driver_ID WHERE vehicle.Model LIKE '%DJ%'
+SELECT driver.Name , driver.Citizenship FROM vehicle AS vehicle JOIN vehicle_driver AS driver ON vehicle.Vehicle_ID = driver.Vehicle_ID WHERE vehicle.Model LIKE "%DJ%"
+SELECT COUNT(vehicle.Vehicle_ID) FROM vehicle AS vehicle JOIN vehicle_driver AS driver ON vehicle.Vehicle_ID = driver.Vehicle_ID GROUP BY driver.Vehicle_ID
+SELECT count(*) FROM vehicle AS vehicle JOIN vehicle_driver AS driver ON vehicle.Vehicle_ID = driver.Vehicle_ID JOIN driver AS vehicle_driver ON driver.Driver_ID = vehicle_driver.Driver_ID GROUP BY vehicle_driver.Name
+SELECT Subject_Code , Exam_Date FROM Exams WHERE Exam_Name != "Database"
+SELECT Exams.Exam_Date, Exams.Subject_Code FROM Exams WHERE Exams.Exam_Name != "Database"
+SELECT product_type_code , COUNT(*) FROM Products GROUP BY product_type_code
+SELECT vehicle.Vehicle_ID , COUNT(*) FROM vehicle JOIN vehicle_driver ON vehicle.Vehicle_ID = vehicle_driver.Vehicle_ID GROUP BY vehicle.Vehicle_ID
+SELECT Student_Assessments.Assessment FROM Student_Assessments GROUP BY Student_Assessments.Assessment ORDER BY COUNT(Student_Assessments.Assessment) DESC
+SELECT Student_Answer_Text FROM Student_Answers GROUP BY Student_Answer_Text ORDER BY COUNT(Student_Answer_Text) DESC
+SELECT Student_Events.event_type_code, Student_Events.event_date FROM Student_Events JOIN Students ON Student_Events.student_id = Students.student_id
+SELECT Students.First_Name , Student_Answers.Date_of_Answer FROM Students AS Students JOIN Student_Answers AS Student_Answers ON Students.Student_ID = Student_Answers.Student_ID
+SELECT Addresses.address_details , Students_Addresses.date_from FROM Students_Addresses JOIN Addresses ON Students_Addresses.address_id = Addresses.address_id ORDER BY Students_Addresses.date_from DESC
+SELECT Student_Answers.Exam_ID , Student_Answers.Date_of_Answer FROM Student_Answers JOIN Students ON Student_Answers.Student_ID = Students.Student_ID
+SELECT Student_Events.event_type_code FROM Student_Events AS Student_Events INNER JOIN Students ON Student_Events.student_id = Students.student_id GROUP BY Student_Events.event_type_code HAVING COUNT(Student_Events.event_type_code) >= 2
+SELECT Student_Events.event_type_code FROM Student_Events AS Student_Events INNER JOIN Students ON Student_Events.student_id = Students.student_id GROUP BY Student_Events.event_type_code HAVING COUNT(*) >= 2
+SELECT Students.bio_data , COUNT(*) FROM Students GROUP BY Students.bio_data
+SELECT player.Name FROM club AS club JOIN player AS player ON player.Club_ID = club.Club_ID WHERE club.Manufacturer > 2 ORDER BY club.Manufacturer DESC LIMIT 1
+SELECT player.Name FROM player AS club JOIN club AS player ON club.Club_ID = player.Club_ID WHERE club.Wins_count > 2 GROUP BY club.Club_ID ORDER BY count(*) DESC LIMIT 1
+SELECT player.Name FROM club AS club JOIN player ON player.Club_ID = club.Club_ID GROUP BY player.Name ORDER BY AVG(club.Name) DESC
+SELECT player.Name FROM player INNER JOIN club ON player.Club_ID = club.Club_ID GROUP BY player.Club_ID ORDER BY AVG(player.Earnings) DESC
+SELECT driver.Name FROM vehicle_driver AS vehicle JOIN driver ON vehicle.Vehicle_ID = driver.Driver_ID GROUP BY driver.Name ORDER BY COUNT(*) DESC LIMIT 1
+SELECT player.Name FROM club AS club JOIN player AS player ON club.Club_ID = player.Club_ID GROUP BY player.Name ORDER BY count(*) DESC LIMIT 1
+SELECT Name FROM club WHERE Club_ID NOT IN (SELECT Club_ID FROM player)
+SELECT club.Name FROM club WHERE club.Club_ID NOT IN (SELECT player.Club_ID FROM player)
+SELECT Name FROM club WHERE Manufacturer > 1400000 INTERSECT SELECT Name FROM club WHERE Manufacturer < 1100000
+SELECT player.Name FROM player INNER JOIN club ON player.Club_ID = club.Club_ID WHERE club.Manufacturer > 1400000 INTERSECT SELECT player.Name FROM player INNER JOIN club ON player.Club_ID = club.Club_ID WHERE club.Manufacturer < 1100000
+SELECT Shipments.shipment_date FROM Shipments WHERE Shipments.shipment_date = (SELECT MIN(shipment_date) FROM Shipments) OR Order_Items.product_id > 1
+SELECT Shipments.shipment_date FROM Shipments WHERE Shipments.invoice_number = ( SELECT MIN(invoice_number) FROM Shipments ) SELECT Shipments.shipment_date FROM Shipments WHERE Shipments.invoice_number > 1
+SELECT Products.product_id , Products.product_color , Products.product_price , Products.product_name FROM Products WHERE Products.parent_product_id < 2
+SELECT payment_method_code FROM Customer_Payment_Methods GROUP BY payment_method_code ORDER BY COUNT(payment_method_code) DESC LIMIT 1
+SELECT Customer_Payment_Methods.payment_method_code FROM Customer_Payment_Methods GROUP BY Customer_Payment_Methods.payment_method_code ORDER BY COUNT(Customer_Payment_Methods.payment_method_code) DESC LIMIT 1
+SELECT Products.product_color , COUNT(Products.parent_product_id) FROM Products GROUP BY Products.product_color
+SELECT parent_product_id, product_name, COUNT(*) FROM Products GROUP BY product_name
+SELECT Products.product_type_code, Products.product_name FROM Products
+SELECT Products.product_type_code , Products.product_name FROM Products
+SELECT Customer_Orders.product_type_code , Order_Items.order_quantity FROM Order_Items JOIN Products ON Order_Items.product_id = Products.product_id JOIN Customer_Orders ON Order_Items.order_id = Customer_Orders.order_id WHERE Order_Items.order_item_id = 1
+SELECT Products.product_name , Products.product_color FROM Products AS Products JOIN Shipments AS Shipments ON Products.product_id = Shipments.shipment_id WHERE Shipments.shipment_tracking_number = 'shipped'
+SELECT Shipments.shipment_tracking_number FROM Shipments INNER JOIN Order_Items ON Shipments.invoice_number = Order_Items.order_id WHERE Order_Items.order_id IS NULL
+SELECT Shipments.shipment_tracking_number FROM Shipments WHERE Shipments.order_id NOT IN (SELECT Orders.order_id FROM Orders WHERE Orders.date_order_placed IS NOT NULL)
+SELECT Shipment_Items.shipment_id, Shipments.shipment_date, Shipment_Items.order_item_id FROM Shipments INNER JOIN Shipment_Items ON Shipments.shipment_id = Shipment_Items.shipment_id
+SELECT Orders.order_id, Orders.date_order_placed, Order_Items.product_id FROM Orders INNER JOIN Order_Items ON Orders.order_id = Order_Items.order_id
+SELECT Products.product_color , Products.product_name FROM Products
+SELECT Products.parent_product_id , Products.product_name FROM Products
+SELECT Orders.date_order_placed FROM Customers AS Customers JOIN Customer_Payment_Methods AS Customer_Payment_Methods ON Customers.customer_id = Customer_Payment_Methods.customer_id JOIN Orders AS Orders ON Customers.customer_id = Orders.customer_id JOIN Order_Items AS Order_Items ON Orders.order_id = Order_Items.order_id WHERE Order_Items.product_id = 2
+SELECT Orders.date_order_placed FROM Customers AS Customers JOIN Customer_Payment_Methods AS Customer_Payment_Methods ON Customers.customer_id = Customer_Payment_Methods.customer_id JOIN Orders AS Orders ON Customers.customer_id = Orders.customer_id WHERE Customer_Payment_Methods.payment_method_code = "2"
+SELECT order_quantity FROM Order_Items WHERE product_id = (SELECT max(product_id) FROM Order_Items WHERE product_id NOT IN (SELECT product_id FROM Order_Items GROUP BY product_id ORDER BY COUNT(*) LIMIT 1))
+SELECT MIN(order_quantity) FROM Order_Items
+SELECT director.Name FROM director INNER JOIN program ON director.Director_ID = program.Director_ID INNER JOIN channel ON program.Channel_ID = channel.Channel_ID WHERE program.Start_Year > ( SELECT AVG(Age) FROM director )
+SELECT channel.Name , channel.Channel_ID FROM channel AS channel JOIN program AS program ON program.Channel_ID = channel.Channel_ID WHERE channel.Name != "Hank Baskett"
+SELECT city_channel_tv_show.Is_free FROM city_channel AS city_channel JOIN city_channel_radio AS city_channel_radio ON city_channel.ID = city_channel_radio.City_channel_ID JOIN city_channel_tv_show AS city_channel_tv_show ON city_channel.ID = city_channel_tv_show.City_channel_ID WHERE city_channel.City = "city channels" GROUP BY city_channel_tv_show.Is_free ORDER BY COUNT(*) DESC LIMIT 1
+SELECT radio.Transmitter, radio.Radio_MHz FROM radio INNER JOIN city_channel_radio ON radio.Radio_ID = city_channel_radio.Radio_ID INNER JOIN city_channel ON city_channel_radio.City_channel_ID = city_channel.ID WHERE radio.2FM_MHz LIKE '%2FM_MHz' ESCAPE '.' ORDER BY city_channel.Owned_Since DESC
+SELECT DISTINCT radio.Affiliation FROM radio WHERE radio.Affiliation NOT IN (SELECT city_channel.Affiliation FROM city_channel WHERE city_channel.Owned_Since IS NULL)
+SELECT driver.Name FROM vehicle AS vehicle INNER JOIN vehicle_driver AS vehicle_driver ON vehicle.Vehicle_ID = vehicle_driver.Vehicle_ID INNER JOIN driver AS driver ON vehicle_driver.Driver_ID = driver.Driver_ID WHERE vehicle.Power > 6000 ORDER BY vehicle.Top_Speed DESC LIMIT 1
+SELECT driver.Name FROM vehicle AS vehicle JOIN vehicle_driver AS driver ON vehicle.Vehicle_ID = driver.Vehicle_ID WHERE vehicle.Power > 6000 ORDER BY vehicle.Top_Speed DESC LIMIT 1
+SELECT COUNT(*) , Vehicle_ID FROM vehicle WHERE Vehicle_ID IN (SELECT Vehicle_ID FROM vehicle_driver GROUP BY Vehicle_ID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT vehicle.Vehicle_ID , count(*) FROM vehicle JOIN vehicle_driver ON vehicle.Vehicle_ID = vehicle_driver.Vehicle_ID GROUP BY vehicle.Vehicle_ID ORDER BY count(*) DESC LIMIT 1
+SELECT vehicle.Vehicle_ID FROM vehicle WHERE vehicle.Power = ( SELECT MIN(vehicle.Power) FROM vehicle )
+SELECT vehicle_driver.Driver_ID FROM vehicle_driver WHERE vehicle_driver.Vehicle_ID = ( SELECT min(Vehicle_ID) FROM vehicle_driver )
+SELECT DISTINCT driver.Name FROM vehicle AS vehicle JOIN vehicle_driver AS driver ON vehicle.Vehicle_ID = driver.Vehicle_ID WHERE vehicle.Power > 5000
+SELECT driver.Name FROM driver INNER JOIN vehicle_driver ON driver.Driver_ID = vehicle_driver.Driver_ID INNER JOIN vehicle ON vehicle_driver.Vehicle_ID = vehicle.Vehicle_ID WHERE vehicle.Power > 5000
+SELECT Builder FROM vehicle WHERE Vehicle_ID NOT IN (SELECT Vehicle_ID FROM vehicle_driver)
+SELECT Model FROM vehicle WHERE Vehicle_ID NOT IN (SELECT Vehicle_ID FROM vehicle_driver)
+SELECT driver.Name, driver.Citizenship FROM vehicle_driver AS vehicle JOIN driver ON vehicle.Vehicle_ID = driver.Driver_ID WHERE vehicle.Vehicle_ID IN (SELECT vehicle.Vehicle_ID FROM vehicle JOIN vehicle_driver ON vehicle.Vehicle_ID = vehicle_driver.Vehicle_ID GROUP BY vehicle.Vehicle_ID HAVING COUNT(*) >= 2) OR driver.Name = 'Ziyang'
+SELECT vehicle.Vehicle_ID, vehicle.Model FROM vehicle JOIN vehicle_driver ON vehicle.Vehicle_ID = vehicle_driver.Vehicle_ID WHERE vehicle_driver.Vehicle_ID IN (SELECT vehicle_driver.Vehicle_ID FROM vehicle_driver GROUP BY vehicle_driver.Vehicle_ID HAVING COUNT(*) = 2) OR vehicle.Model = "Ziyang"
+SELECT COUNT(Vehicle_ID) FROM vehicle WHERE Power = ( SELECT MAX(Power) FROM vehicle )
+SELECT COUNT(Driver_ID) FROM vehicle_driver WHERE Vehicle_ID = (SELECT MAX(Vehicle_ID) FROM vehicle_driver)
+SELECT driver.Name , driver.Citizenship FROM vehicle_driver INNER JOIN driver ON vehicle_driver.Driver_ID = driver.Driver_ID INNER JOIN vehicle ON vehicle_driver.Vehicle_ID = vehicle.Vehicle_ID WHERE vehicle.Model = 'DJ1'
+SELECT driver.Name, driver.Citizenship FROM vehicle_driver AS vehicle JOIN driver ON vehicle.Vehicle_ID = driver.Driver_ID WHERE vehicle.Driver_ID IN ( SELECT Vehicle_ID FROM vehicle WHERE Builder = 'DJ1' )
+SELECT Detention.datetime_detention_start, Detention.datetime_detention_end FROM Detention WHERE Detention.detention_type_code LIKE "%data%" ORDER BY Detention.datetime_detention_start DESC
+SELECT Detention.datetime_detention_start FROM Detention WHERE Detention.detention_type_code LIKE '%data%' ORDER BY Detention.datetime_detention_start DESC
+SELECT Student_Answer_Text FROM Student_Answers GROUP BY Student_Answer_Text ORDER BY COUNT(*) ASC LIMIT 1
+SELECT Student_Answer_ID FROM Student_Assessments WHERE Valid_Answer_ID = ( SELECT MIN(Valid_Answer_ID) FROM Student_Assessments )
+SELECT Student_Assessments.Assessment FROM Student_Assessments GROUP BY Student_Assessments.Assessment ORDER BY COUNT(Student_Assessments.Assessment) DESC LIMIT 1
+SELECT Student_Answer_Text FROM Student_Answers GROUP BY Student_Answer_Text ORDER BY COUNT(Student_Answer_Text) DESC LIMIT 1
+SELECT Students.First_Name FROM Students WHERE Students.Student_ID NOT IN (SELECT Student_Answers.Student_ID FROM Student_Answers)
+SELECT Student_Events.bio_data FROM Student_Events LEFT JOIN Students ON Student_Events.student_id = Students.student_id WHERE Students.student_id IS NULL
+SELECT Student_Assessments.Assessment FROM Student_Assessments WHERE Student_Assessments.Student_Answer_Text = 'Normal' INTERSECT SELECT Student_Assessments.Assessment FROM Student_Assessments WHERE Student_Assessments.Student_Answer_Text = 'Absent'
+SELECT Student_Answers.Comments FROM Student_Answers WHERE Student_Answers.Student_Answer_Text = 'Normal' INTERSECT SELECT Student_Answers.Comments FROM Student_Answers WHERE Student_Answers.Student_Answer_Text = 'Absent'
+SELECT product_color FROM Products WHERE product_price > ( SELECT AVG(product_price) FROM Products )
+SELECT product_color FROM Products WHERE product_price > ( SELECT avg(product_price) FROM Products )
+SELECT product_color FROM Products ORDER BY product_price DESC LIMIT 1
+SELECT product_color FROM Products WHERE product_price = (SELECT max(product_price) FROM Products WHERE product_name = "Clothes")
+SELECT Order_Items.order_item_id , Order_Items.order_quantity FROM Order_Items WHERE Order_Items.product_id IN ( SELECT Products.product_id FROM Products WHERE Products.product_type_code = "Hardware" ORDER BY Products.product_price LIMIT 1 )
+SELECT Products.product_id, Products.product_name FROM Products AS Products JOIN Order_Items AS Order_Items ON Order_Items.product_id = Products.product_id WHERE Products.product_color = 'Hardware' ORDER BY Products.product_price LIMIT 1
+SELECT product_price FROM Products GROUP BY product_price ORDER BY COUNT(*) DESC LIMIT 1
+SELECT product_type_code FROM Products GROUP BY product_type_code ORDER BY COUNT(product_type_code) DESC LIMIT 1
+SELECT customer_address FROM Customers GROUP BY customer_address ORDER BY COUNT(*) DESC LIMIT 1
+SELECT customer_id FROM Customer_Payment_Methods
+SELECT payment_method_code FROM Customers GROUP BY payment_method_code ORDER BY COUNT(payment_method_code) ASC LIMIT 1
+SELECT Discount.name FROM Renting_history AS Customers JOIN Discount ON Customers.discount_id = Discount.id GROUP BY Discount.name ORDER BY COUNT(Discount.name) LIMIT 1
+SELECT Products.product_type_code FROM Products GROUP BY Products.product_type_code ORDER BY COUNT(Products.product_type_code) LIMIT 1
+SELECT product_type_code FROM Products GROUP BY product_type_code ORDER BY COUNT(product_type_code) ASC LIMIT 1
+SELECT Order_Items.order_quantity FROM Order_Items GROUP BY Order_Items.order_quantity ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Customer_Orders.order_status_code FROM Customer_Orders JOIN Customers ON Customer_Orders.customer_id = Customers.customer_id GROUP BY Customer_Orders.order_status_code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T5.product_color FROM Products AS Products INNER JOIN Order_Items AS Order_Items ON Products.product_id = Order_Items.product_id INNER JOIN Orders AS Orders ON Order_Items.order_id = Orders.order_id LEFT JOIN Products AS T5 ON T5.product_id = Orders.customer_id WHERE T5.product_id IS NULL
+SELECT product_color FROM Products WHERE product_id NOT IN (SELECT product_id FROM Order_Items)
+SELECT Customers.customer_id, Customers.address_id, Customers.customer_number FROM Customers WHERE Customers.customer_id IN ( SELECT Customer_Orders.customer_id FROM Customer_Orders GROUP BY Customer_Orders.customer_id HAVING COUNT(Customer_Orders.customer_id) > 2 ) AND Customers.address_id IN ( SELECT Customer_Orders.customer_id FROM Customer_Orders GROUP BY Customer_Orders.customer_id HAVING COUNT(Customer_Orders.customer_id) > 2 INTERSECT SELECT Customer_Orders.customer_id FROM Customer_Orders GROUP BY Customer_Orders.customer_id HAVING SUM(Customer_Orders.customer_id) > 3 )
+SELECT Customers.customer_id, Customers.customer_number, Customers.customer_name FROM Customers AS Customers JOIN Customer_Orders AS Customer_Orders ON Customers.customer_id = Customer_Orders.customer_id GROUP BY Customer_Orders.order_id HAVING COUNT(Customer_Orders.order_id) > 2 INTERSECT SELECT Customers.customer_id, Customers.customer_number, Customers.customer_name FROM Customers AS Customers JOIN Order_Items AS Order_Items ON Customers.customer_id = Order_Items.order_id GROUP BY Order_Items.order_item_id HAVING COUNT(Order_Items.order_item_id) >= 3
+SELECT customer_number , customer_name , customer_address FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Customer_Orders)
+SELECT Customers.customer_number, Customers.customer_name, Customers.customer_address FROM Customers WHERE Customers.customer_id NOT IN (SELECT Customer_Orders.customer_id FROM Customer_Orders)
+SELECT Products.product_id , Products.product_type_code , Products.product_name , Products.product_price FROM Products WHERE Products.product_id NOT IN (SELECT Order_Items.product_id FROM Order_Items GROUP BY Order_Items.product_id HAVING COUNT(*) >= 2)
+SELECT Products.product_color , Products.product_name , Products.product_price FROM Products AS Products JOIN Order_Items AS Orders ON Products.product_id = Orders.product_id GROUP BY Products.product_color ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Products.product_id , Products.product_name , Products.product_price FROM Products AS Products JOIN Products AS T2 ON Products.product_id = T2.product_id GROUP BY T2.product_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Order_Items.order_item_id , SUM(Customer_Orders.customer_id * Customer_Orders.order_status_code) FROM Customer_Orders JOIN Order_Items ON Order_Items.order_id = Customer_Orders.order_id GROUP BY Order_Items.order_item_id ORDER BY SUM(Customer_Orders.customer_id * Customer_Orders.order_status_code) ASC LIMIT 1
+SELECT Customer_Orders.order_date, SUM(Order_Items.product_id) FROM Customer_Orders INNER JOIN Order_Items ON Customer_Orders.order_id = Order_Items.order_id GROUP BY Customer_Orders.order_date ORDER BY SUM(Order_Items.product_id) ASC LIMIT 1
+SELECT DISTINCT Customers.gender_code, Customers.customer_last_name, Customers.login_name FROM Products AS Products JOIN Customers AS Customers ON Products.product_id = Customers.customer_id WHERE Products.product_color = 'female'
+SELECT Customers.gender_code, Customers.customer_first_name, Customers.customer_middle_initial FROM Products AS Products JOIN Customers AS Customers ON Products.product_id = Customers.customer_id WHERE Products.parent_product_id = 'female'
+SELECT product_price , product_color FROM Products WHERE product_price > ( SELECT AVG(product_price) FROM Products )
+SELECT product_price, product_color FROM Products WHERE product_price > ( SELECT AVG(product_price) FROM Products )
+SELECT COUNT(product_id) FROM Products WHERE product_color = 'Not Sold'
+SELECT COUNT(product_id) FROM Products WHERE product_id NOT IN (SELECT product_id FROM Order_Items)
+SELECT COUNT(customer_id) FROM Customers WHERE gender_code NOT IN (SELECT payment_method_code FROM Customer_Payment_Methods)
+SELECT count(*) FROM Customers WHERE payment_method_code NOT IN (SELECT payment_method_code FROM Customers WHERE customer_number IS NOT NULL)
+SELECT Customers.customer_number , Customers.customer_name , Customers.customer_address FROM Customers GROUP BY Customers.customer_number ORDER BY COUNT(Customers.customer_number) LIMIT 1
+SELECT Customers.payment_method_code, Customers.customer_number, Customers.customer_address FROM Customers WHERE Customers.customer_id IN (SELECT Customer_Orders.customer_id FROM Customer_Orders GROUP BY Customer_Orders.customer_id ORDER BY COUNT(Customer_Orders.customer_id) ASC LIMIT 1)
+SELECT product_color , product_size , product_description FROM Products WHERE parent_product_id < ( SELECT MAX(parent_product_id) FROM Products )
+SELECT product_size , product_color , product_description FROM Products WHERE product_price < ( SELECT MAX(product_price) FROM Products )
+SELECT director.Name , count(*) FROM program AS channel JOIN director ON channel.Director_ID = director.Director_ID GROUP BY director.Name ORDER BY count(*) DESC LIMIT 1
+SELECT director.Name, director.Age FROM program INNER JOIN director ON program.Director_ID = director.Director_ID INNER JOIN channel ON program.Channel_ID = channel.Channel_ID WHERE program.Start_Year = ( SELECT MAX(Start_Year) FROM program )
+SELECT COUNT(Program_ID) FROM program WHERE Start_Year = 0
+SELECT channel.Name, channel.Analogue_terrestrial_channel FROM channel AS channel JOIN program AS program ON program.Channel_ID = channel.Channel_ID GROUP BY channel.Name, channel.Analogue_terrestrial_channel ORDER BY COUNT(channel.Name) DESC LIMIT 1
+SELECT director.Name FROM program AS channel JOIN director ON channel.Director_ID = director.Director_ID WHERE channel.Start_Year < 40 AND channel.Start_Year > 60
+SELECT vehicle.Vehicle_ID, vehicle.Model FROM vehicle JOIN vehicle_driver ON vehicle.Vehicle_ID = vehicle_driver.Vehicle_ID WHERE vehicle_driver.Vehicle_ID IN (SELECT Vehicle_ID FROM vehicle WHERE Model = 'Jeff Gordon') OR vehicle_driver.Vehicle_ID IN (SELECT Vehicle_ID FROM vehicle GROUP BY Vehicle_ID HAVING COUNT(Vehicle_ID) > 2)
+SELECT driver.Name , driver.Citizenship FROM vehicle_driver AS vehicle JOIN driver ON vehicle.Vehicle_ID = driver.Driver_ID GROUP BY vehicle.Vehicle_ID HAVING count(*) > 2 UNION SELECT driver.Name , driver.Citizenship FROM vehicle_driver AS vehicle JOIN driver ON vehicle.Vehicle_ID = driver.Driver_ID WHERE driver.Name = 'Jeff Gordon'
+SELECT COUNT(*) FROM driver WHERE Name NOT IN (SELECT Model FROM vehicle)
+SELECT count(*) FROM vehicle WHERE Top_Speed = 0
+SELECT driver.Name FROM driver INNER JOIN vehicle_driver ON driver.Driver_ID = vehicle_driver.Driver_ID WHERE vehicle_driver.Vehicle_ID > ( SELECT AVG(Vehicle_ID) FROM vehicle_driver )
+SELECT driver.Name FROM vehicle AS vehicle JOIN vehicle_driver AS driver ON vehicle.Vehicle_ID = driver.Vehicle_ID WHERE vehicle.Power > ( SELECT AVG(Power) FROM vehicle WHERE Model = 'Hardware' )
+SELECT Customers.customer_id , Customers.customer_number , Customers.customer_name , Customers.customer_phone FROM Customers INNER JOIN Customer_Orders ON Customers.customer_id = Customer_Orders.customer_id GROUP BY Customers.customer_id ORDER BY COUNT(Customer_Orders.customer_id) DESC LIMIT 1
+SELECT Customers.customer_id, Customers.address_id, Customers.customer_number, Customers.customer_name FROM Customers AS Customers JOIN Customer_Orders AS Customer_Orders ON Customer_Orders.customer_id = Customers.customer_id GROUP BY Customers.customer_id ORDER BY count(*) DESC LIMIT 1
+SELECT count(*) FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Orders)
+SELECT COUNT(*) FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Customer_Orders)
+SELECT Orders.date_order_placed, Order_Items.order_id FROM Order_Items JOIN Orders ON Order_Items.order_id = Orders.order_id WHERE Order_Items.product_id IN (SELECT Products.product_id FROM Products WHERE Products.product_price > 6 OR Products.parent_product_id > 3)
+SELECT Order_Items.order_item_id, Customer_Orders.order_date FROM Order_Items JOIN Customer_Orders ON Order_Items.order_id = Customer_Orders.order_id WHERE Order_Items.product_id = 1 AND (Order_Items.order_item_id > 6 OR Order_Items.order_id > 3)
+SELECT region.Name FROM building AS building JOIN region ON building.Region_ID = region.Region_ID GROUP BY region.Name ORDER BY COUNT(building.Building_ID) DESC LIMIT 1
+SELECT region.Name, region.Capital FROM building AS building JOIN region ON building.Region_ID = region.Region_ID GROUP BY region.Name ORDER BY COUNT(building.Building_ID) DESC LIMIT 1
+SELECT Vehicles.name, Vehicles.Model_year, Vehicles.Type_of_powertrain, Vehicles.Combined_fuel_economy_rate, Vehicles.City_fuel_economy_rate, Vehicles.Highway_fuel_economy_rate, Vehicles.Cost_per_25_miles, Vehicles.Annual_fuel_cost, Vehicles.Notes FROM Vehicles JOIN Renting_history ON Vehicles.id = Renting_history.vehicles_id JOIN Customers ON Renting_history.customer_id = Customers.id WHERE Renting_history.discount_id = (SELECT id FROM Discount ORDER BY id DESC LIMIT 1)
+SELECT Customers.customer_number, Customers.customer_name, Customers.customer_address, Customers.customer_phone, Customers.customer_email FROM Customers INNER JOIN ( SELECT Customer_Orders.customer_id, COUNT(*) AS count FROM Customer_Orders GROUP BY Customer_Orders.customer_id ORDER BY count DESC LIMIT 1 ) AS T3 ON Customers.customer_id = T3.customer_id
+SELECT Customers.customer_number FROM Customers AS Customers JOIN Customer_Orders AS Customer_Orders ON Customer_Orders.customer_id = Customers.customer_id GROUP BY Customers.customer_number ORDER BY COUNT(Customers.customer_number) DESC LIMIT 1
+SELECT Services.Service_Details , Services.Service_Details , COUNT(Customer_Interactions.Status_Code) FROM Services AS Services JOIN Customer_Interactions AS Customer_Interactions ON Services.Service_ID = Customer_Interactions.Service_ID GROUP BY Services.Service_Details ORDER BY COUNT(Customer_Interactions.Status_Code) DESC LIMIT 1
+SELECT customer_number FROM Customers GROUP BY customer_number ORDER BY COUNT(customer_number) LIMIT 1
+SELECT Customers.customer_number FROM Customers GROUP BY Customers.customer_number ORDER BY COUNT(Customers.customer_number) ASC LIMIT 1
+SELECT Customers.Customer_Details FROM Customers_and_Services AS Services JOIN Customers ON Services.Customer_ID = Customers.Customer_ID JOIN Customer_Interactions ON Services.Service_ID = Customer_Interactions.Service_ID WHERE Customer_Interactions.Status_Code = "Hardy Kutch" INTERSECT SELECT Customers.Customer_Details FROM Customers_and_Services AS Services JOIN Customers ON Services.Customer_ID = Customers.Customer_ID JOIN Customer_Interactions ON Services.Service_ID = Customer_Interactions.Service_ID WHERE Customer_Interactions.Services_and_Channels_Details = "good"
+SELECT Customer_Interactions.Status_Code FROM Customer_Interactions JOIN Customers ON Customer_Interactions.Customer_ID = Customers.Customer_ID WHERE Customers.Customer_Details = "Hardy Kutch" INTERSECT SELECT Customer_Interactions.Status_Code FROM Customer_Interactions WHERE Customer_Interactions.Services_and_Channels_Details = "good"
+SELECT Customers.Customers_and_Services_Details FROM Customers_and_Services AS Services JOIN Customers ON Services.Customer_ID = Customers.Customer_ID JOIN Customer_Interactions ON Customer_Interactions.Customer_ID = Customers.Customer_ID WHERE Customer_Interactions.Status_Code = 'Hardy Kutch' AND Customer_Interactions.Services_and_Channels_Details = 'bad'
+SELECT Customers_and_Services.Customers_and_Services_Details FROM Customers_and_Services INNER JOIN Customers ON Customers_and_Services.Customer_ID = Customers.Customer_ID INNER JOIN Services ON Customers_and_Services.Service_ID = Services.Service_ID WHERE Services.Service_Details = 'Hardy Kutch' AND Customers_and_Services.Customers_and_Services_ID IN ( SELECT Customer_Interactions.Customer_Interaction_ID FROM Customer_Interactions WHERE Customer_Interactions.Status_Code = 'bad' )
+SELECT driver.Name , vehicle.Build_Year , vehicle.Builder FROM vehicle AS vehicle JOIN vehicle_driver AS vehicle_driver ON vehicle.Vehicle_ID = vehicle_driver.Vehicle_ID JOIN driver AS driver ON vehicle_driver.Driver_ID = driver.Driver_ID WHERE vehicle.Top_Speed = 2013 OR vehicle.Top_Speed = 2014
+SELECT vehicle.Model , driver.Name , vehicle.Power FROM vehicle AS vehicle JOIN vehicle_driver AS vehicle_driver ON vehicle.Vehicle_ID = vehicle_driver.Vehicle_ID JOIN driver AS driver ON vehicle_driver.Driver_ID = driver.Driver_ID WHERE vehicle.Top_Speed = 2013 OR vehicle.Top_Speed = 2014
+SELECT Vehicles.name, Vehicles.Model_year FROM Renting_history AS Customers JOIN Vehicles ON Customers.vehicles_id = Vehicles.id JOIN Discount ON Customers.discount_id = Discount.id GROUP BY Vehicles.id ORDER BY COUNT(Customers.id) DESC LIMIT 1
+SELECT Vehicles.name, Vehicles.Model_year FROM Renting_history INNER JOIN Vehicles ON Renting_history.vehicles_id = Vehicles.id GROUP BY Vehicles.id ORDER BY COUNT(Renting_history.id) DESC LIMIT 1
+SELECT Discount.name FROM Renting_history AS Customers JOIN Discount ON Customers.discount_id = Discount.id GROUP BY Discount.name ORDER BY COUNT(Customers.id) DESC LIMIT 1
+SELECT Vehicles.name FROM Renting_history AS Customers JOIN Vehicles AS Discount ON Customers.vehicles_id = Discount.id JOIN Discount AS Vehicles ON Customers.discount_id = Vehicles.id GROUP BY Vehicles.name ORDER BY COUNT(Vehicles.name) DESC LIMIT 1
+SELECT Students.bio_data , Students.student_details FROM Students AS Students JOIN Classes AS Classes ON Students.student_id = Classes.student_id GROUP BY Students.student_id HAVING COUNT(Classes.student_id) >= 2 INTERSECT SELECT Students.bio_data , Students.student_details FROM Students AS Students WHERE Students.student_id NOT IN (SELECT Students.student_id FROM Students AS Students JOIN Classes AS Classes ON Students.student_id = Classes.student_id GROUP BY Students.student_id HAVING COUNT(Classes.student_id) < 2)
+SELECT Classes.bio_data , Classes.student_details FROM Students AS Students JOIN Classes AS Classes ON Students.student_id = Classes.student_id WHERE Classes.student_id IN (SELECT Classes.student_id FROM Students AS Students JOIN Classes AS Classes ON Students.student_id = Classes.student_id GROUP BY Classes.student_id HAVING COUNT(*) >= 2) OR Classes.student_id IN (SELECT Students_Addresses.student_id FROM Students AS Students JOIN Students_Addresses AS Students_Addresses ON Students.student_id = Students_Addresses.student_id GROUP BY Students_Addresses.student_id HAVING COUNT(*) < 2)
+SELECT Students.bio_data, Students.student_details, Classes.class_details FROM Students JOIN Classes ON Students.student_id = Classes.student_id JOIN Teachers ON Classes.teacher_id = Teachers.teacher_id WHERE Classes.class_details LIKE '%data%' AND Classes.class_details NOT LIKE 'net%'
+SELECT Students.bio_data FROM Students JOIN Classes ON Students.student_id = Classes.student_id JOIN Teachers ON Classes.teacher_id = Teachers.teacher_id WHERE Classes.class_details LIKE '%data%' AND Classes.class_details NOT LIKE 'net%'
+SELECT Achievements.achievement_type_code , Achievements.date_achievement FROM Achievements JOIN Student_Loans ON Achievements.student_id = Student_Loans.student_id GROUP BY Achievements.student_id HAVING Count(*) >= 2
+SELECT Student_Loans.amount_of_loan, Student_Loans.date_of_loan FROM Student_Loans INNER JOIN Students ON Student_Loans.student_id = Students.student_id WHERE Students.bio_data IN ( SELECT Achievements.achievement_type_code FROM Achievements WHERE Achievements.student_id IN ( SELECT student_id FROM Students GROUP BY student_id HAVING COUNT(student_id) > 1 ) )
+SELECT driver.Name , driver.Driver_ID FROM vehicle_driver AS vehicle JOIN driver ON vehicle.Vehicle_ID = driver.Driver_ID GROUP BY driver.Driver_ID ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Teachers.teacher_details , Students.student_id FROM Students AS Students JOIN Classes AS Classes ON Students.student_id = Classes.student_id JOIN Teachers AS Teachers ON Teachers.teacher_id = Classes.teacher_id GROUP BY Students.student_id ORDER BY COUNT(Students.student_id) DESC LIMIT 1
+SELECT Students.bio_data, Students.student_details, Student_Events.event_type_code, Student_Events.event_date, Student_Events.other_details FROM Students JOIN Student_Events ON Student_Events.student_id = Students.student_id JOIN Behaviour_Monitoring ON Behaviour_Monitoring.student_id = Students.student_id WHERE Behaviour_Monitoring.student_id IN ( SELECT student_id FROM Behaviour_Monitoring GROUP BY student_id ORDER BY COUNT(student_id) DESC LIMIT 1 ) AND Behaviour_Monitoring.student_id IN ( SELECT student_id FROM Behaviour_Monitoring WHERE student_id = 3 )
+SELECT Students.bio_data , Students.student_details FROM Students AS Students JOIN Behaviour_Monitoring AS Behaviour_Monitoring ON Students.student_id = Behaviour_Monitoring.student_id WHERE Behaviour_Monitoring.student_id IN ( SELECT Behaviour_Monitoring.student_id FROM Behaviour_Monitoring GROUP BY Behaviour_Monitoring.student_id ORDER BY COUNT(Behaviour_Monitoring.student_id) DESC LIMIT 1 ) INTERSECT SELECT Students.bio_data , Students.student_details FROM Students AS Students JOIN Behaviour_Monitoring AS Behaviour_Monitoring ON Students.student_id = Behaviour_Monitoring.student_id WHERE Behaviour_Monitoring.student_id IN ( SELECT Behaviour_Monitoring.student_id FROM Behaviour_Monitoring WHERE behaviour_monitoring_details = "3" GROUP BY Behaviour_Monitoring.student_id )
+SELECT Students.bio_data , Students.student_details FROM Students AS Students JOIN Behaviour_Monitoring AS Behaviour_Monitoring ON Behaviour_Monitoring.student_id = Students.student_id GROUP BY Students.student_id HAVING count(*) = (SELECT count(*) FROM Behaviour_Monitoring AS Behaviour_Monitoring GROUP BY Behaviour_Monitoring.student_id ORDER BY count(*) DESC LIMIT 1)
+SELECT Student_Events.event_type_code , Student_Events.event_date , Student_Events.other_details FROM Student_Events JOIN Students ON Student_Events.student_id = Students.student_id GROUP BY Student_Events.student_id ORDER BY COUNT(Student_Events.student_id) DESC LIMIT 1
+SELECT count(*) , Ref_Event_Types.event_type_description , Ref_Event_Types.event_type_code FROM Ref_Event_Types AS Ref_Event_Types JOIN Student_Events AS Student_Events ON Ref_Event_Types.event_type_code = Student_Events.event_type_code GROUP BY Ref_Event_Types.event_type_description ORDER BY count(*) DESC LIMIT 1
+SELECT Ref_Event_Types.event_type_code, count(*) AS num_students, Ref_Achievement_Type.achievement_type_code, Ref_Achievement_Type.achievement_type_description FROM Student_Events AS Ref_Event_Types INNER JOIN Ref_Achievement_Type ON Ref_Event_Types.event_type_code = Ref_Achievement_Type.achievement_type_code GROUP BY Ref_Event_Types.event_type_code ORDER BY count(*) DESC LIMIT 1
+SELECT COUNT(Students.student_id) FROM Students WHERE Students.student_id NOT IN (SELECT Achievements.student_id FROM Achievements)
+SELECT COUNT(Achievements.student_id) FROM Achievements WHERE Achievements.achievement_type_code NOT IN (SELECT Achievements.achievement_type_code FROM Achievements WHERE Achievements.achievement_details = 'achievement')
+SELECT Discount.name, Discount.membership_credit FROM Renting_history AS Customers JOIN Discount ON Customers.discount_id = Discount.id GROUP BY Discount.name ORDER BY count(*) ASC LIMIT 1
+SELECT Ref_Detention_Type.detention_type_code , Ref_Detention_Type.detention_type_description FROM Ref_Detention_Type JOIN Detention ON Ref_Detention_Type.detention_type_code = Detention.detention_type_code GROUP BY Ref_Detention_Type.detention_type_code ORDER BY COUNT(Ref_Detention_Type.detention_type_code) LIMIT 1
+SELECT Students.bio_data, Students.student_details, Student_Loans.amount_of_loan, Student_Loans.other_details FROM Students INNER JOIN Student_Loans ON Students.student_id = Student_Loans.student_id WHERE Student_Loans.amount_of_loan > ( SELECT AVG(amount_of_loan) FROM Student_Loans )
+SELECT Students.bio_data, Students.student_details, Student_Loans.other_details FROM Students INNER JOIN Student_Loans ON Students.student_id = Student_Loans.student_id WHERE Student_Loans.amount_of_loan > ( SELECT AVG(amount_of_loan) FROM Student_Loans )
+SELECT Teachers.teacher_details FROM Teachers INNER JOIN Classes ON Classes.teacher_id = Teachers.teacher_id INNER JOIN Students ON Classes.student_id = Students.student_id INNER JOIN Transcripts ON Students.student_id = Transcripts.student_id ORDER BY Transcripts.date_of_transcript LIMIT 1
+SELECT Student_Events.* FROM Student_Events INNER JOIN Students ON Student_Events.student_id = Students.student_id INNER JOIN Student_Loans ON Students.student_id = Student_Loans.student_id WHERE Student_Loans.date_of_loan = ( SELECT MIN(date_of_loan) FROM Student_Loans )
+SELECT Ref_Address_Types.address_type_code , Ref_Address_Types.address_type_description FROM Students_Addresses AS Ref_Achievement_Type INNER JOIN Ref_Address_Types AS Ref_Address_Types ON Ref_Achievement_Type.address_type_code = Ref_Address_Types.address_type_code GROUP BY Ref_Address_Types.address_type_code ORDER BY COUNT(Ref_Achievement_Type.address_type_code) DESC LIMIT 1
+SELECT Addresses.address_details, Addresses.address_id FROM Addresses WHERE address_id IN ( SELECT address_id FROM Customers GROUP BY address_id ORDER BY COUNT(*) DESC LIMIT 1 )

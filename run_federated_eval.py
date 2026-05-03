@@ -67,8 +67,14 @@ def parse_args():
     )
     p.add_argument("--no-mask", action="store_true")
     p.add_argument(
+        "--mask-style",
+        default="hard",
+        choices=["hard", "semantic"],
+        help="Masked identifier style when masking is enabled.",
+    )
+    p.add_argument(
         "--prompt", default="few_shot",
-        choices=["zero_shot", "few_shot", "self_correction"],
+        choices=["zero_shot", "few_shot", "self_correction", "chain_of_thought"],
     )
     p.add_argument("--model", default=CEREBRAS_MODEL,
                    help=f"Default {CEREBRAS_MODEL}; pass {ANTHROPIC_MODEL} for Haiku dev.")
@@ -78,6 +84,16 @@ def parse_args():
                    help="Process only first N questions (debug). Default: all 320.")
     p.add_argument("--resume", action="store_true",
                    help="Skip questions already in predictions.sql.")
+    p.add_argument("--phrase-hints", action="store_true",
+                   help="Enable phrase→token column hints from each node.")
+    p.add_argument("--indices-from", default=None,
+                   help="Path to JSON list of test_idx values to evaluate. "
+                        "Overrides the default 320 split (used for stratified subsets).")
+    p.add_argument("--cascade-hard-model", default=None,
+                   help="If set, route hard+extra difficulty questions to this "
+                        "model instead of --model. easy/medium still use --model. "
+                        "Difficulty is derived from gold SQL via Spider's "
+                        "Evaluator.eval_hardness (oracle difficulty).")
     return p.parse_args()
 
 
@@ -88,14 +104,15 @@ def load_eval_questions():
     return [(i, questions[i]) for i in indices]
 
 
-def write_gold_slice():
-    indices = json.load(open(BASE_DIR / "balanced_test_indices_80x4.json"))["indices"]
+def write_gold_slice(custom_indices: list[int] | None = None, out_name: str = "gold_test_balanced_80x4.sql"):
+    if custom_indices is None:
+        custom_indices = json.load(open(BASE_DIR / "balanced_test_indices_80x4.json"))["indices"]
     with open(TEST_GOLD, encoding="utf-8") as f:
         all_lines = f.readlines()
-    out = RESULTS_DIR / "gold_test_balanced_80x4.sql"
+    out = RESULTS_DIR / out_name
     out.parent.mkdir(parents=True, exist_ok=True)
     with open(out, "w", encoding="utf-8") as g:
-        for i in indices:
+        for i in custom_indices:
             g.write(all_lines[i])
     return out
 
@@ -112,6 +129,7 @@ def main():
         "routing": args.routing,
         "retrieval": args.retrieval,
         "masking": not args.no_mask,
+        "mask_style": args.mask_style if not args.no_mask else "none",
         "prompt": args.prompt,
         "model": args.model,
         "max_retries": args.max_retries,
@@ -147,6 +165,19 @@ def main():
         else None
     )
     cost_logger = CostLogger(args.experiment_id, cost_cap_usd=args.cost_cap_usd)
+
+    # Cascade routing config: easy/medium → primary, hard/extra → cascade model.
+    model_for_difficulty: dict[str, str] = {}
+    if args.cascade_hard_model:
+        model_for_difficulty = {
+            "easy": args.model,
+            "medium": args.model,
+            "hard": args.cascade_hard_model,
+            "extra": args.cascade_hard_model,
+        }
+        config_dump["cascade_hard_model"] = args.cascade_hard_model
+        config_path.write_text(json.dumps(config_dump, indent=2))
+
     hub = Hub(
         broker=broker,
         nodes_by_db_id=nodes,
@@ -154,15 +185,39 @@ def main():
         prompt_strategy=args.prompt,
         retrieval=args.retrieval,
         masking=not args.no_mask,
+        mask_style=args.mask_style,
         routing_mode=args.routing,
         max_retries=args.max_retries,
         cost_logger=cost_logger,
         train_rows=train_rows,
+        use_phrase_hints=args.phrase_hints,
+        model_for_difficulty=model_for_difficulty,
     )
 
     eval_qs = load_eval_questions()
+    if args.indices_from:
+        wanted = set(json.loads(Path(args.indices_from).read_text()))
+        eval_qs = [(i, q) for (i, q) in eval_qs if i in wanted]
     if args.limit:
         eval_qs = eval_qs[: args.limit]
+
+    # Pre-classify difficulty per question via the precomputed JSON.
+    # Used by cascade routing; harmless when model_for_difficulty is empty.
+    difficulty_by_idx: dict[int, str] = {}
+    if model_for_difficulty:
+        diff_path = BASE_DIR / "balanced_difficulty.json"
+        if not diff_path.exists():
+            sys.exit(
+                f"--cascade-hard-model needs {diff_path}; run "
+                "`python precompute_difficulty.py` first."
+            )
+        raw = json.loads(diff_path.read_text())
+        # JSON keys are strings → convert to int test_idx
+        difficulty_by_idx = {int(k): v for k, v in raw.items()}
+        from collections import Counter
+        c = Counter(difficulty_by_idx.get(idx, "medium") for idx, _q in eval_qs)
+        print(f"[cascade] difficulty distribution over {len(eval_qs)} q: {dict(c)}")
+        print(f"[cascade] easy/medium → {args.model}, hard/extra → {args.cascade_hard_model}")
 
     # Open files for streaming append
     pred_mode = "a" if (args.resume and resume_pos > 0) else "w"
@@ -174,6 +229,7 @@ def main():
         csv_w.writerow([
             "pos", "test_idx", "db_id_gold", "db_id_used", "broker_pick",
             "broker_correct", "re_picked", "retries", "exec_success",
+            "difficulty", "model_used",
             "masked_sql", "real_sql",
         ])
 
@@ -189,6 +245,7 @@ def main():
                     q["question"],
                     oracle_db_id=q["db_id"],
                     question_idx=test_idx,
+                    difficulty=difficulty_by_idx.get(test_idx),
                 )
                 pred_sql = rec.real_sql_final or PLACEHOLDER_SQL
                 if not pred_sql.strip():
@@ -201,6 +258,7 @@ def main():
                     pos, test_idx, q["db_id"], rec.db_id_used, rec.broker_pick,
                     rec.broker_correct, rec.re_picked, rec.retries,
                     rec.success,
+                    rec.difficulty or "", rec.model_used or "",
                     " ".join(rec.masked_sql_final.split()),
                     pred_sql_oneline,
                 ])
@@ -222,7 +280,8 @@ def main():
                 pred_f.flush()
                 csv_w.writerow([
                     pos, test_idx, q["db_id"], "ERR", None, None, False, 0,
-                    False, "", f"ERR: {exc!r}",
+                    False, difficulty_by_idx.get(test_idx, "") or "", "",
+                    "", f"ERR: {exc!r}",
                 ])
                 csv_f.flush()
                 print(f"  ! exception at pos={pos}: {exc!r}")
@@ -252,7 +311,13 @@ def main():
         return
 
     # Run Spider evaluator
-    gold_path = write_gold_slice()
+    if args.indices_from:
+        # Build a custom gold slice ordered to match the predictions we wrote
+        ordered_indices = [test_idx for (test_idx, _) in eval_qs]
+        slice_name = f"gold_{args.experiment_id}.sql"
+        gold_path = write_gold_slice(ordered_indices, out_name=slice_name)
+    else:
+        gold_path = write_gold_slice()
     cmd = [
         sys.executable,
         str(BASE_DIR / "evaluation.py"),

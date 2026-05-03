@@ -1,0 +1,13 @@
+experiment_id,routing,retrieval,masking,mask_style,prompt,model,easy,medium,hard,extra,overall,exec_runtime_success,spider_parse_failure_rate,n_processed,total_cost_usd,wall_time_s,cascade_hard_model
+control,oracle,hybrid,False,,few_shot,llama3.1-8b,0.713,0.8,0.625,0.475,0.653,0.98125,0.090625,320,0.0,710,
+masked-broker,broker,hybrid,True,,few_shot,llama3.1-8b,0.175,0.037,0.125,0.062,0.1,0.95,0.584375,320,0.0,790,
+masked-broker-lexical,broker,lexical,True,,few_shot,llama3.1-8b,0.175,0.037,0.125,0.062,0.1,0.959375,0.6,320,0.0,720,
+masked-oracle,oracle,hybrid,True,,few_shot,llama3.1-8b,0.237,0.037,0.163,0.075,0.128,0.95625,0.403125,320,0.0,702,
+masked-oracle-hints-320,oracle,hybrid,True,hard,few_shot,llama3.1-8b,0.338,0.2,0.2,0.075,0.203,0.921875,0.428125,320,0.0,803,
+masked-oracle-hints-40,oracle,hybrid,True,,few_shot,llama3.1-8b,0.5,0.1,0.3,0.0,0.225,0.95,0.05,40,0.0,150,
+masked-oracle-nohints-40,oracle,hybrid,True,,few_shot,llama3.1-8b,0.2,0.2,0.1,0.0,0.125,1.0,0.065625,40,0.0,131,
+semantic-oracle-hints-320,oracle,hybrid,True,semantic,few_shot,llama3.1-8b,0.3,0.212,0.225,0.075,0.203,0.825,0.478125,320,0.0,1029,
+semantic-oracle-hints-40,oracle,hybrid,True,semantic,few_shot,llama3.1-8b,0.6,0.3,0.3,0.0,0.3,0.85,0.06875,40,0.0,215,
+semantic-oracle-nohints-320,oracle,hybrid,True,semantic,few_shot,llama3.1-8b,0.263,0.062,0.113,0.138,0.144,0.915625,0.396875,320,0.0,835,
+semantic-oracle-nohints-40,oracle,hybrid,True,semantic,few_shot,llama3.1-8b,0.3,0.0,0.1,0.0,0.1,0.9,0.071875,40,0.0,135,
+test_hints_40,oracle,hybrid,True,,few_shot,llama3.1-8b,0.125,0.0,0.0,0.0,0.125,0.95,0.084375,40,0.0,100,

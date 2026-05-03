@@ -1,0 +1,11 @@
+{
+  "experiment_id": "masked-oracle-hints-40",
+  "routing": "oracle",
+  "retrieval": "hybrid",
+  "masking": true,
+  "prompt": "few_shot",
+  "model": "llama3.1-8b",
+  "max_retries": 3,
+  "cost_cap_usd": 0.05,
+  "limit": null
+}

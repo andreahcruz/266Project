@@ -1,13 +1,14 @@
-"""Sovereign masking: real schema names ⇄ opaque tokens.
+"""Sovereign masking: real schema names ⇄ masked schema identifiers.
 
 Operates on Spider ``tables.json`` entries plus a ``selected_tables`` set
 returned by the retriever. Only the *selected* portion is masked — that's
 what the LLM sees. Tokens are globally unique within a session so the
 unmasker can replace them with simple word-boundary regex.
 
-Token scheme:
-  - Tables → T1, T2, …  (in sorted index order)
-  - Columns → C1, C2, …  (in original column index order, only for selected tables)
+Mask styles:
+  - ``hard`` tables → ``T1``, ``T2`` and columns → ``C1``, ``C2``
+  - ``semantic`` tables stay ``T1``, ``T2`` but columns become semantic
+    proxies such as ``IDENTIFIER_PRIMARY_1`` or ``CURRENCY_AMOUNT_2``
 
 The mask dict is the *forward* (token → real) map, plus index helpers used
 when rendering the masked schema. Per-session.
@@ -19,11 +20,97 @@ import re
 from typing import Iterable
 
 
+MASK_STYLES = ("hard", "semantic")
+
+
+def _semantic_column_base(
+    *,
+    table_name: str,
+    column_name: str,
+    column_type: str,
+    is_primary_key: bool,
+    is_foreign_key: bool,
+) -> str:
+    """Return a coarse semantic proxy label for a column.
+
+    The goal is to preserve broad SQL-relevant meaning without exposing the
+    original schema name. These labels are intentionally generic.
+    """
+    lower_name = column_name.lower()
+    table_lower = table_name.lower()
+    toks = set(re.findall(r"[a-z0-9]+", lower_name.replace("_", " ")))
+    combined = toks | set(re.findall(r"[a-z0-9]+", table_lower.replace("_", " ")))
+    col_type = column_type.lower()
+
+    if is_primary_key:
+        return "IDENTIFIER_PRIMARY"
+    if is_foreign_key:
+        if {"date", "year", "month", "day", "time"} & combined:
+            return "CHRONOLOGICAL_REFERENCE"
+        return "IDENTIFIER_REFERENCE"
+    if "id" in toks or lower_name.endswith("_id") or lower_name.startswith("id_"):
+        return "IDENTIFIER_CODE"
+    if {"date", "year", "month", "day", "birth", "dob"} & combined or col_type in {"time", "datetime", "date", "year"}:
+        return "CHRONOLOGICAL_MARKER"
+    if {"salary", "pay", "wage", "income", "revenue", "budget", "price", "cost", "fee", "amount"} & combined:
+        return "CURRENCY_AMOUNT"
+    if {"total", "count", "num", "number", "quantity", "qty", "score", "age", "population", "size", "length", "height", "weight", "rank", "rating"} & combined:
+        return "MEASUREMENT_VALUE"
+    if {"percent", "percentage", "ratio", "rate", "avg", "average"} & combined:
+        return "STATISTICAL_VALUE"
+    if {"name", "title", "type", "category", "class", "status", "level", "gender", "country", "state", "city", "address", "email", "phone"} & combined:
+        return "DESCRIPTIVE_ATTRIBUTE"
+    if {"first", "last", "middle"} & combined and "name" in combined:
+        return "PERSON_NAME"
+    if {"first", "last"} & combined:
+        return "ORDERING_MARKER"
+    if {"comment", "description", "detail", "summary", "note", "remark"} & combined:
+        return "TEXTUAL_CONTENT"
+    if {"url", "website", "link"} & combined:
+        return "WEB_REFERENCE"
+    if {"latitude", "longitude", "lat", "lon"} & combined:
+        return "GEO_COORDINATE"
+    if {"location", "place", "region"} & combined:
+        return "LOCATION_ATTRIBUTE"
+    if {"yes", "no", "true", "false", "flag", "active"} & combined or col_type == "boolean":
+        return "BOOLEAN_FLAG"
+    if col_type in {"number", "integer", "real", "float", "double"}:
+        return "NUMERIC_FIELD"
+    if col_type in {"time", "datetime", "date", "year"}:
+        return "CHRONOLOGICAL_MARKER"
+    if col_type in {"text", "varchar", "char"}:
+        return "TEXT_FIELD"
+    return "GENERIC_ATTRIBUTE"
+
+
+def _make_column_token(
+    *,
+    style: str,
+    col_counter: int,
+    table_name: str,
+    column_name: str,
+    column_type: str,
+    is_primary_key: bool,
+    is_foreign_key: bool,
+) -> str:
+    if style == "hard":
+        return f"C{col_counter}"
+    base = _semantic_column_base(
+        table_name=table_name,
+        column_name=column_name,
+        column_type=column_type,
+        is_primary_key=is_primary_key,
+        is_foreign_key=is_foreign_key,
+    )
+    return f"{base}_{col_counter}"
+
+
 def mask_selection(
     db_id: str,
     entry: dict,
     selected_tables: Iterable[int],
     selected_column_indices: Iterable[int] | None = None,
+    mask_style: str = "hard",
 ) -> tuple[str, dict]:
     """Mask the selected portion of a schema.
 
@@ -36,6 +123,10 @@ def mask_selection(
     col_types = entry["column_types"]
     primary_keys = set(entry["primary_keys"])
     foreign_keys = entry["foreign_keys"]
+    foreign_key_columns = {src for src, _ in foreign_keys} | {dst for _, dst in foreign_keys}
+
+    if mask_style not in MASK_STYLES:
+        raise ValueError(f"unknown mask_style {mask_style!r}")
 
     selected_tables = sorted(set(selected_tables))
     if selected_column_indices is None:
@@ -63,7 +154,15 @@ def mask_selection(
         if ci not in selected_column_indices:
             continue
         col_counter += 1
-        token = f"C{col_counter}"
+        token = _make_column_token(
+            style=mask_style,
+            col_counter=col_counter,
+            table_name=table_names[ti],
+            column_name=cname,
+            column_type=col_types[ci],
+            is_primary_key=ci in primary_keys,
+            is_foreign_key=ci in foreign_key_columns,
+        )
         col_idx_to_token[ci] = token
         token_to_column[token] = cname
 
@@ -106,12 +205,9 @@ def mask_selection(
         "token_to_column": token_to_column,
         "table_idx_to_token": table_idx_to_token,
         "col_idx_to_token": col_idx_to_token,
+        "mask_style": mask_style,
     }
     return "\n".join(lines), mask_dict
-
-
-# Tokens look like T1, C12, T9, etc. Word-boundary safe replace.
-_TOKEN_RE = re.compile(r"\b(T\d+|C\d+)\b")
 
 
 def unmask_sql(sql: str, mask_dict: dict) -> str:
@@ -124,6 +220,14 @@ def unmask_sql(sql: str, mask_dict: dict) -> str:
     """
     table_map = mask_dict["token_to_table"]
     col_map = mask_dict["token_to_column"]
+    all_tokens = sorted(
+        list(table_map.keys()) + list(col_map.keys()),
+        key=len,
+        reverse=True,
+    )
+    if not all_tokens:
+        return sql
+    token_re = re.compile(r"\b(" + "|".join(re.escape(tok) for tok in all_tokens) + r")\b")
 
     def sub(m: re.Match) -> str:
         tok = m.group(0)
@@ -133,7 +237,7 @@ def unmask_sql(sql: str, mask_dict: dict) -> str:
             return col_map[tok]
         return tok  # unknown — leave as-is
 
-    return _TOKEN_RE.sub(sub, sql)
+    return token_re.sub(sub, sql)
 
 
 def find_real_name_leaks(masked_text: str, entry: dict) -> list[str]:

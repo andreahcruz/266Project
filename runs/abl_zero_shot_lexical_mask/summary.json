@@ -1,0 +1,23 @@
+{
+  "experiment_id": "abl_zero_shot_lexical_mask",
+  "routing": "oracle",
+  "retrieval": "lexical",
+  "masking": true,
+  "mask_style": "semantic",
+  "prompt": "zero_shot",
+  "model": "llama3.1-8b",
+  "max_retries": 3,
+  "cost_cap_usd": 0.05,
+  "limit": null,
+  "n_processed": 320,
+  "exec_success_rate_runtime": 0.928125,
+  "spider_exec_accuracy_overall": 0.125,
+  "spider_exec_by_difficulty": {
+    "easy": 0.212,
+    "medium": 0.062,
+    "hard": 0.125,
+    "extra": 0.1
+  },
+  "total_cost_usd": 0.0,
+  "wall_time_seconds": 810
+}

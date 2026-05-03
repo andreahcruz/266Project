@@ -1,0 +1,50 @@
+{
+  "_comment": "Focused few-shot ablation for the final presentation. Uses Claude Haiku and isolates the masking mechanism on the full 320-question balanced split.",
+  "_default_model": "claude-haiku-4-5-20251001",
+  "_default_max_retries": 3,
+  "_default_cost_cap_usd": 2.5,
+  "_default_routing": "oracle",
+  "cells": [
+    {
+      "experiment_id": "haiku_fewshot_control_nomask",
+      "purpose": "Few-shot federated control with no masking.",
+      "retrieval": "hybrid",
+      "masking": false,
+      "prompt": "few_shot"
+    },
+    {
+      "experiment_id": "haiku_fewshot_hardmask_nohints",
+      "purpose": "Measure the raw masking penalty under hard masking.",
+      "retrieval": "hybrid",
+      "masking": true,
+      "mask_style": "hard",
+      "prompt": "few_shot"
+    },
+    {
+      "experiment_id": "haiku_fewshot_hardmask_hints",
+      "purpose": "Measure how much phrase hints recover under hard masking.",
+      "retrieval": "hybrid",
+      "masking": true,
+      "mask_style": "hard",
+      "phrase_hints": true,
+      "prompt": "few_shot"
+    },
+    {
+      "experiment_id": "haiku_fewshot_semantic_nohints",
+      "purpose": "Compare semantic masking against hard masking without hints.",
+      "retrieval": "hybrid",
+      "masking": true,
+      "mask_style": "semantic",
+      "prompt": "few_shot"
+    },
+    {
+      "experiment_id": "haiku_fewshot_semantic_hints",
+      "purpose": "Compare semantic masking against hard masking once phrase hints are enabled.",
+      "retrieval": "hybrid",
+      "masking": true,
+      "mask_style": "semantic",
+      "phrase_hints": true,
+      "prompt": "few_shot"
+    }
+  ]
+}

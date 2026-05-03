@@ -1,0 +1,5 @@
+experiment_id,n,exec_runtime_error,extra_clause,missing_clause,other,success,wrong_column,wrong_table,wrong_values
+control,320,6,12,20,136,0,119,22,5
+masked-oracle,320,14,5,24,35,0,136,103,3
+masked-oracle-hints-320,320,25,3,24,60,0,145,61,2
+semantic-oracle-hints-320,320,56,5,21,51,0,132,53,2

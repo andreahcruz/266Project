@@ -1,0 +1,12 @@
+{
+  "experiment_id": "haiku_fewshot_control_nomask",
+  "routing": "oracle",
+  "retrieval": "hybrid",
+  "masking": false,
+  "mask_style": "none",
+  "prompt": "few_shot",
+  "model": "claude-haiku-4-5-20251001",
+  "max_retries": 3,
+  "cost_cap_usd": 2.5,
+  "limit": null
+}

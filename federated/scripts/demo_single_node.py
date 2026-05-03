@@ -37,6 +37,7 @@ def main():
     p.add_argument("--question", default="How many students are there?")
     p.add_argument("--retrieval", default="hybrid", choices=["hybrid", "lexical", "none"])
     p.add_argument("--no-mask", action="store_true")
+    p.add_argument("--mask-style", default="hard", choices=["hard", "semantic"])
     p.add_argument("--model", default=ANTHROPIC_MODEL)
     args = p.parse_args()
 
@@ -53,7 +54,11 @@ def main():
     )
     session = SessionState(db_id=args.db)
     masked_schema = node.retrieve_and_mask(
-        args.question, session, retrieval=args.retrieval, masking=not args.no_mask
+        args.question,
+        session,
+        retrieval=args.retrieval,
+        masking=not args.no_mask,
+        mask_style=args.mask_style,
     )
 
     print("=== MASKED SCHEMA SENT TO LLM ===")

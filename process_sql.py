@@ -26,6 +26,15 @@
 
 import json
 import sqlite3
+
+import nltk
+
+# NLTK 3.9+ expects punkt_tab for word_tokenize; data is not bundled with pip.
+try:
+    nltk.data.find("tokenizers/punkt_tab/english/")
+except LookupError:
+    nltk.download("punkt_tab", quiet=True)
+
 from nltk import word_tokenize
 
 CLAUSE_KEYWORDS = ('select', 'from', 'where', 'group', 'order', 'limit', 'intersect', 'union', 'except')

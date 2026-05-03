@@ -1,0 +1,23 @@
+{
+  "experiment_id": "masked-oracle-hints-320",
+  "routing": "oracle",
+  "retrieval": "hybrid",
+  "masking": true,
+  "mask_style": "hard",
+  "prompt": "few_shot",
+  "model": "llama3.1-8b",
+  "max_retries": 3,
+  "cost_cap_usd": 0.05,
+  "limit": null,
+  "n_processed": 320,
+  "exec_success_rate_runtime": 0.921875,
+  "spider_exec_accuracy_overall": 0.203,
+  "spider_exec_by_difficulty": {
+    "easy": 0.338,
+    "medium": 0.2,
+    "hard": 0.2,
+    "extra": 0.075
+  },
+  "total_cost_usd": 0.0,
+  "wall_time_seconds": 803
+}

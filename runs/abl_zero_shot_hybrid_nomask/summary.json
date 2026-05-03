@@ -1,0 +1,23 @@
+{
+  "experiment_id": "abl_zero_shot_hybrid_nomask",
+  "routing": "oracle",
+  "retrieval": "hybrid",
+  "masking": false,
+  "mask_style": "none",
+  "prompt": "zero_shot",
+  "model": "llama3.1-8b",
+  "max_retries": 3,
+  "cost_cap_usd": 0.05,
+  "limit": null,
+  "n_processed": 320,
+  "exec_success_rate_runtime": 0.990625,
+  "spider_exec_accuracy_overall": 0.491,
+  "spider_exec_by_difficulty": {
+    "easy": 0.6,
+    "medium": 0.575,
+    "hard": 0.463,
+    "extra": 0.325
+  },
+  "total_cost_usd": 0.0,
+  "wall_time_seconds": 684
+}

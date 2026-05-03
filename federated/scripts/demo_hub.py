@@ -57,6 +57,7 @@ def main():
         prompt_strategy="few_shot",
         retrieval="hybrid",
         masking=True,
+        mask_style="hard",
         routing_mode="broker",
         max_retries=2,  # keep smoketest cheap
         cost_logger=logger,

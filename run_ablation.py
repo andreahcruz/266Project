@@ -43,7 +43,7 @@ def cell_to_cli(cell: dict, defaults: dict) -> list[str]:
         sys.executable,
         str(BASE_DIR / "run_federated_eval.py"),
         "--experiment-id", cell["experiment_id"],
-        "--routing", cell.get("routing", "broker"),
+        "--routing", cell.get("routing", defaults.get("_default_routing", "broker")),
         "--retrieval", cell.get("retrieval", "hybrid"),
         "--prompt", cell.get("prompt", "few_shot"),
         "--model", cell.get("model", defaults.get("_default_model", "llama3.1-8b")),
@@ -52,6 +52,13 @@ def cell_to_cli(cell: dict, defaults: dict) -> list[str]:
     ]
     if not cell.get("masking", True):
         cmd.append("--no-mask")
+    else:
+        # Mask-style only matters when masking is on
+        cmd += ["--mask-style", cell.get("mask_style", "hard")]
+    if cell.get("phrase_hints", False):
+        cmd.append("--phrase-hints")
+    if cell.get("cascade_hard_model"):
+        cmd += ["--cascade-hard-model", cell["cascade_hard_model"]]
     if cell.get("resume", False):
         cmd.append("--resume")
     return cmd

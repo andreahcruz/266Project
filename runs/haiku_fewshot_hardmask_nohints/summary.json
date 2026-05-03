@@ -1,0 +1,23 @@
+{
+  "experiment_id": "haiku_fewshot_hardmask_nohints",
+  "routing": "oracle",
+  "retrieval": "hybrid",
+  "masking": true,
+  "mask_style": "hard",
+  "prompt": "few_shot",
+  "model": "claude-haiku-4-5-20251001",
+  "max_retries": 3,
+  "cost_cap_usd": 2.5,
+  "limit": null,
+  "n_processed": 320,
+  "exec_success_rate_runtime": 1.0,
+  "spider_exec_accuracy_overall": 0.212,
+  "spider_exec_by_difficulty": {
+    "easy": 0.375,
+    "medium": 0.113,
+    "hard": 0.212,
+    "extra": 0.15
+  },
+  "total_cost_usd": 0.2632229999999999,
+  "wall_time_seconds": 388
+}

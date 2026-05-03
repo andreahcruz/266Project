@@ -1,0 +1,22 @@
+{
+  "experiment_id": "masked-oracle-nohints-40",
+  "routing": "oracle",
+  "retrieval": "hybrid",
+  "masking": true,
+  "prompt": "few_shot",
+  "model": "llama3.1-8b",
+  "max_retries": 3,
+  "cost_cap_usd": 0.05,
+  "limit": null,
+  "n_processed": 40,
+  "exec_success_rate_runtime": 1.0,
+  "spider_exec_accuracy_overall": 0.125,
+  "spider_exec_by_difficulty": {
+    "easy": 0.2,
+    "medium": 0.2,
+    "hard": 0.1,
+    "extra": 0.0
+  },
+  "total_cost_usd": 0.0,
+  "wall_time_seconds": 131
+}

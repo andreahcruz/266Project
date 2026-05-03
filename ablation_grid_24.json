@@ -1,0 +1,36 @@
+{
+  "_comment": "Phase 7.3b: full strategy x retrieval x masking grid. 4 prompts x 3 retrievals x 2 masking = 24 cells. All on Cerebras free tier with oracle routing (broker handled separately).",
+  "_default_model": "llama3.1-8b",
+  "_default_max_retries": 3,
+  "_default_cost_cap_usd": 0.05,
+  "_default_routing": "oracle",
+  "cells": [
+    { "experiment_id": "abl_zero_shot_hybrid_nomask", "prompt": "zero_shot",       "retrieval": "hybrid",  "masking": false },
+    { "experiment_id": "abl_zero_shot_hybrid_mask",   "prompt": "zero_shot",       "retrieval": "hybrid",  "masking": true,  "mask_style": "semantic", "phrase_hints": true },
+    { "experiment_id": "abl_zero_shot_lexical_nomask","prompt": "zero_shot",       "retrieval": "lexical", "masking": false },
+    { "experiment_id": "abl_zero_shot_lexical_mask",  "prompt": "zero_shot",       "retrieval": "lexical", "masking": true,  "mask_style": "semantic", "phrase_hints": true },
+    { "experiment_id": "abl_zero_shot_none_nomask",   "prompt": "zero_shot",       "retrieval": "none",    "masking": false },
+    { "experiment_id": "abl_zero_shot_none_mask",     "prompt": "zero_shot",       "retrieval": "none",    "masking": true,  "mask_style": "semantic", "phrase_hints": true },
+
+    { "experiment_id": "abl_few_shot_hybrid_nomask",  "prompt": "few_shot",        "retrieval": "hybrid",  "masking": false },
+    { "experiment_id": "abl_few_shot_hybrid_mask",    "prompt": "few_shot",        "retrieval": "hybrid",  "masking": true,  "mask_style": "semantic", "phrase_hints": true },
+    { "experiment_id": "abl_few_shot_lexical_nomask", "prompt": "few_shot",        "retrieval": "lexical", "masking": false },
+    { "experiment_id": "abl_few_shot_lexical_mask",   "prompt": "few_shot",        "retrieval": "lexical", "masking": true,  "mask_style": "semantic", "phrase_hints": true },
+    { "experiment_id": "abl_few_shot_none_nomask",    "prompt": "few_shot",        "retrieval": "none",    "masking": false },
+    { "experiment_id": "abl_few_shot_none_mask",      "prompt": "few_shot",        "retrieval": "none",    "masking": true,  "mask_style": "semantic", "phrase_hints": true },
+
+    { "experiment_id": "abl_cot_hybrid_nomask",       "prompt": "chain_of_thought","retrieval": "hybrid",  "masking": false },
+    { "experiment_id": "abl_cot_hybrid_mask",         "prompt": "chain_of_thought","retrieval": "hybrid",  "masking": true,  "mask_style": "semantic", "phrase_hints": true },
+    { "experiment_id": "abl_cot_lexical_nomask",      "prompt": "chain_of_thought","retrieval": "lexical", "masking": false },
+    { "experiment_id": "abl_cot_lexical_mask",        "prompt": "chain_of_thought","retrieval": "lexical", "masking": true,  "mask_style": "semantic", "phrase_hints": true },
+    { "experiment_id": "abl_cot_none_nomask",         "prompt": "chain_of_thought","retrieval": "none",    "masking": false },
+    { "experiment_id": "abl_cot_none_mask",           "prompt": "chain_of_thought","retrieval": "none",    "masking": true,  "mask_style": "semantic", "phrase_hints": true },
+
+    { "experiment_id": "abl_self_corr_hybrid_nomask", "prompt": "self_correction","retrieval": "hybrid",  "masking": false },
+    { "experiment_id": "abl_self_corr_hybrid_mask",   "prompt": "self_correction","retrieval": "hybrid",  "masking": true,  "mask_style": "semantic", "phrase_hints": true },
+    { "experiment_id": "abl_self_corr_lexical_nomask","prompt": "self_correction","retrieval": "lexical", "masking": false },
+    { "experiment_id": "abl_self_corr_lexical_mask",  "prompt": "self_correction","retrieval": "lexical", "masking": true,  "mask_style": "semantic", "phrase_hints": true },
+    { "experiment_id": "abl_self_corr_none_nomask",   "prompt": "self_correction","retrieval": "none",    "masking": false },
+    { "experiment_id": "abl_self_corr_none_mask",     "prompt": "self_correction","retrieval": "none",    "masking": true,  "mask_style": "semantic", "phrase_hints": true }
+  ]
+}

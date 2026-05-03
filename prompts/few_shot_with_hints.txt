@@ -1,0 +1,21 @@
+You are an expert SQL assistant. Below are example natural-language questions and their correct SQLite queries (from other databases). Use them only as patterns for how to translate questions into SQL. Then answer the new question using ONLY the schema given for the current database.
+
+{examples}
+
+---
+
+Current database schema:
+{schema}
+
+Hints (mapping question phrases to schema tokens — use these to pick the right tokens for SELECT/WHERE/JOIN clauses):
+{hints}
+
+Question: {question}
+
+Instructions:
+- Write a valid SQLite query that answers the question for the current schema only.
+- Use ONLY the table and column names exactly as they appear in the current schema above.
+- The hints above tell you which token corresponds to which phrase in the question. Use them to decide which tokens go in SELECT, WHERE, JOIN, ORDER BY, etc.
+- Do NOT use tokens not listed in the schema.
+- Use proper JOIN syntax with the foreign key relationships when querying across tables.
+- Return ONLY the SQL query, with no explanation, comments, or markdown formatting.

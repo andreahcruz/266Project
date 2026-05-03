@@ -1,0 +1,12 @@
+{
+  "experiment_id": "abl_zero_shot_hybrid_mask",
+  "routing": "oracle",
+  "retrieval": "hybrid",
+  "masking": true,
+  "mask_style": "semantic",
+  "prompt": "zero_shot",
+  "model": "llama3.1-8b",
+  "max_retries": 3,
+  "cost_cap_usd": 0.05,
+  "limit": null
+}

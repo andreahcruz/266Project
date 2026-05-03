@@ -1,0 +1,23 @@
+{
+  "experiment_id": "semantic-oracle-hints-40",
+  "routing": "oracle",
+  "retrieval": "hybrid",
+  "masking": true,
+  "mask_style": "semantic",
+  "prompt": "few_shot",
+  "model": "llama3.1-8b",
+  "max_retries": 3,
+  "cost_cap_usd": 0.05,
+  "limit": null,
+  "n_processed": 40,
+  "exec_success_rate_runtime": 0.85,
+  "spider_exec_accuracy_overall": 0.3,
+  "spider_exec_by_difficulty": {
+    "easy": 0.6,
+    "medium": 0.3,
+    "hard": 0.3,
+    "extra": 0.0
+  },
+  "total_cost_usd": 0.0,
+  "wall_time_seconds": 215
+}

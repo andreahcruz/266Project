@@ -1,0 +1,211 @@
+=== Phase 7.1 cell 1: masked-oracle + phrase hints (hard mask) on 320 ===
+Loading tables, vector index, blurbs, train data ...
+  [1/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=3s
+  [11/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=11s
+  [21/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=19s
+  [31/320] db=bbc_channels              ok=True ret=0 cost=$0.0000 elapsed=26s
+  [41/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=94s
+  [51/320] db=online_exams              ok=True ret=0 cost=$0.0000 elapsed=101s
+  [61/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=109s
+  [71/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=116s
+  [81/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=123s
+  [91/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=188s
+  [101/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=195s
+  [111/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=205s
+  [121/320] db=bbc_channels              ok=True ret=0 cost=$0.0000 elapsed=273s
+  [131/320] db=tv_shows                  ok=False ret=3 cost=$0.0000 elapsed=281s
+  [141/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=286s
+  [151/320] db=online_exams              ok=True ret=0 cost=$0.0000 elapsed=354s
+  [161/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=362s
+  [171/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=369s
+  [181/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=439s
+  [191/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=447s
+  [201/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=455s
+  [211/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=523s
+  [221/320] db=online_exams              ok=True ret=0 cost=$0.0000 elapsed=530s
+  [231/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=536s
+  [241/320] db=e_commerce                ok=False ret=3 cost=$0.0000 elapsed=605s
+  [251/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=615s
+  [261/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=624s
+  [271/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=691s
+  [281/320] db=government_shift          ok=True ret=0 cost=$0.0000 elapsed=699s
+  [291/320] db=vehicle_rent              ok=True ret=0 cost=$0.0000 elapsed=711s
+  [301/320] db=cre_Students_Information_ ok=True ret=0 cost=$0.0000 elapsed=719s
+  [311/320] db=cre_Students_Information_ ok=True ret=0 cost=$0.0000 elapsed=792s
+
+Processed 320 new questions, 295 succeeded.
+Predictions: /Users/andreah/Downloads/spider_data/runs/masked-oracle-hints-320/predictions.sql
+Per-question: /Users/andreah/Downloads/spider_data/runs/masked-oracle-hints-320/per_question.csv
+Total LLM cost: $0.0000
+
+Running Spider evaluator ...
+  /Users/andreah/Downloads/spider_data/venv/bin/python /Users/andreah/Downloads/spider_data/evaluation.py --gold /Users/andreah/Downloads/spider_data/baseline/results/gold_test_balanced_80x4.sql --pred /Users/andreah/Downloads/spider_data/runs/masked-oracle-hints-320/predictions.sql --db test_database --table test_tables.json --etype exec
+Evaluator output: /Users/andreah/Downloads/spider_data/runs/masked-oracle-hints-320/evaluation_stdout.txt
+
+Summary: /Users/andreah/Downloads/spider_data/runs/masked-oracle-hints-320/summary.json
+{
+  "experiment_id": "masked-oracle-hints-320",
+  "routing": "oracle",
+  "retrieval": "hybrid",
+  "masking": true,
+  "mask_style": "hard",
+  "prompt": "few_shot",
+  "model": "llama3.1-8b",
+  "max_retries": 3,
+  "cost_cap_usd": 0.05,
+  "limit": null,
+  "n_processed": 320,
+  "exec_success_rate_runtime": 0.921875,
+  "spider_exec_accuracy_overall": 0.203,
+  "spider_exec_by_difficulty": {
+    "easy": 0.338,
+    "medium": 0.2,
+    "hard": 0.2,
+    "extra": 0.075
+  },
+  "total_cost_usd": 0.0,
+  "wall_time_seconds": 803
+}
+=== Phase 7.1 cell 2: semantic mask, no hints, on 320 ===
+Loading tables, vector index, blurbs, train data ...
+  [1/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=1s
+  [11/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=64s
+  [21/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=68s
+  [31/320] db=bbc_channels              ok=True ret=0 cost=$0.0000 elapsed=72s
+  [41/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=77s
+  [51/320] db=online_exams              ok=True ret=0 cost=$0.0000 elapsed=141s
+  [61/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=146s
+  [71/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=152s
+  [81/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=216s
+  [91/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=220s
+  [101/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=225s
+  [111/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=295s
+  [121/320] db=bbc_channels              ok=True ret=0 cost=$0.0000 elapsed=301s
+  [131/320] db=tv_shows                  ok=False ret=3 cost=$0.0000 elapsed=306s
+  [141/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=368s
+  [151/320] db=online_exams              ok=True ret=0 cost=$0.0000 elapsed=372s
+  [161/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=379s
+  [171/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=442s
+  [181/320] db=e_commerce                ok=False ret=3 cost=$0.0000 elapsed=450s
+  [191/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=459s
+  [201/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=523s
+  [211/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=527s
+  [221/320] db=online_exams              ok=True ret=0 cost=$0.0000 elapsed=591s
+  [231/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=599s
+  [241/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=604s
+  [251/320] db=e_commerce                ok=True ret=1 cost=$0.0000 elapsed=610s
+  [261/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=675s
+  [271/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=679s
+  [281/320] db=government_shift          ok=True ret=0 cost=$0.0000 elapsed=684s
+  [291/320] db=vehicle_rent              ok=False ret=3 cost=$0.0000 elapsed=752s
+  [301/320] db=cre_Students_Information_ ok=True ret=0 cost=$0.0000 elapsed=822s
+  [311/320] db=cre_Students_Information_ ok=True ret=0 cost=$0.0000 elapsed=830s
+
+Processed 320 new questions, 293 succeeded.
+Predictions: /Users/andreah/Downloads/spider_data/runs/semantic-oracle-nohints-320/predictions.sql
+Per-question: /Users/andreah/Downloads/spider_data/runs/semantic-oracle-nohints-320/per_question.csv
+Total LLM cost: $0.0000
+
+Running Spider evaluator ...
+  /Users/andreah/Downloads/spider_data/venv/bin/python /Users/andreah/Downloads/spider_data/evaluation.py --gold /Users/andreah/Downloads/spider_data/baseline/results/gold_test_balanced_80x4.sql --pred /Users/andreah/Downloads/spider_data/runs/semantic-oracle-nohints-320/predictions.sql --db test_database --table test_tables.json --etype exec
+Evaluator output: /Users/andreah/Downloads/spider_data/runs/semantic-oracle-nohints-320/evaluation_stdout.txt
+
+Summary: /Users/andreah/Downloads/spider_data/runs/semantic-oracle-nohints-320/summary.json
+{
+  "experiment_id": "semantic-oracle-nohints-320",
+  "routing": "oracle",
+  "retrieval": "hybrid",
+  "masking": true,
+  "mask_style": "semantic",
+  "prompt": "few_shot",
+  "model": "llama3.1-8b",
+  "max_retries": 3,
+  "cost_cap_usd": 0.05,
+  "limit": null,
+  "n_processed": 320,
+  "exec_success_rate_runtime": 0.915625,
+  "spider_exec_accuracy_overall": 0.144,
+  "spider_exec_by_difficulty": {
+    "easy": 0.263,
+    "medium": 0.062,
+    "hard": 0.113,
+    "extra": 0.138
+  },
+  "total_cost_usd": 0.0,
+  "wall_time_seconds": 835
+}
+=== Phase 7.1 cell 3: semantic mask + phrase hints on 320 (the headline) ===
+Loading tables, vector index, blurbs, train data ...
+  [1/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=1s
+  [11/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=68s
+  [21/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=81s
+  [31/320] db=bbc_channels              ok=True ret=0 cost=$0.0000 elapsed=91s
+  [41/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=160s
+  [51/320] db=online_exams              ok=True ret=0 cost=$0.0000 elapsed=170s
+  [61/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=182s
+  [71/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=251s
+  [81/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=259s
+  [91/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=266s
+  [101/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=336s
+  [111/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=345s
+  [121/320] db=bbc_channels              ok=True ret=0 cost=$0.0000 elapsed=353s
+  [131/320] db=tv_shows                  ok=False ret=3 cost=$0.0000 elapsed=422s
+  [141/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=430s
+  [151/320] db=online_exams              ok=True ret=0 cost=$0.0000 elapsed=437s
+  [161/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=509s
+  [171/320] db=e_commerce                ok=True ret=1 cost=$0.0000 elapsed=517s
+  [181/320] db=e_commerce                ok=False ret=3 cost=$0.0000 elapsed=589s
+  [191/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=599s
+  [201/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=608s
+  [211/320] db=vehicle_driver            ok=True ret=1 cost=$0.0000 elapsed=676s
+  [221/320] db=online_exams              ok=True ret=0 cost=$0.0000 elapsed=685s
+  [231/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=755s
+  [241/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=765s
+  [251/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=775s
+  [261/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=842s
+  [271/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=850s
+  [281/320] db=government_shift          ok=True ret=0 cost=$0.0000 elapsed=861s
+  [291/320] db=vehicle_rent              ok=False ret=3 cost=$0.0000 elapsed=933s
+  [301/320] db=cre_Students_Information_ ok=True ret=0 cost=$0.0000 elapsed=1008s
+  [311/320] db=cre_Students_Information_ ok=True ret=0 cost=$0.0000 elapsed=1018s
+
+Processed 320 new questions, 264 succeeded.
+Predictions: /Users/andreah/Downloads/spider_data/runs/semantic-oracle-hints-320/predictions.sql
+Per-question: /Users/andreah/Downloads/spider_data/runs/semantic-oracle-hints-320/per_question.csv
+Total LLM cost: $0.0000
+
+Running Spider evaluator ...
+  /Users/andreah/Downloads/spider_data/venv/bin/python /Users/andreah/Downloads/spider_data/evaluation.py --gold /Users/andreah/Downloads/spider_data/baseline/results/gold_test_balanced_80x4.sql --pred /Users/andreah/Downloads/spider_data/runs/semantic-oracle-hints-320/predictions.sql --db test_database --table test_tables.json --etype exec
+Evaluator output: /Users/andreah/Downloads/spider_data/runs/semantic-oracle-hints-320/evaluation_stdout.txt
+
+Summary: /Users/andreah/Downloads/spider_data/runs/semantic-oracle-hints-320/summary.json
+{
+  "experiment_id": "semantic-oracle-hints-320",
+  "routing": "oracle",
+  "retrieval": "hybrid",
+  "masking": true,
+  "mask_style": "semantic",
+  "prompt": "few_shot",
+  "model": "llama3.1-8b",
+  "max_retries": 3,
+  "cost_cap_usd": 0.05,
+  "limit": null,
+  "n_processed": 320,
+  "exec_success_rate_runtime": 0.825,
+  "spider_exec_accuracy_overall": 0.203,
+  "spider_exec_by_difficulty": {
+    "easy": 0.3,
+    "medium": 0.212,
+    "hard": 0.225,
+    "extra": 0.075
+  },
+  "total_cost_usd": 0.0,
+  "wall_time_seconds": 1029
+}
+=== ALL 7.1 CELLS DONE ===
+--- masked-oracle-hints-320 ---
+{'experiment_id': 'masked-oracle-hints-320', 'routing': 'oracle', 'retrieval': 'hybrid', 'masking': True, 'mask_style': 'hard', 'prompt': 'few_shot', 'model': 'llama3.1-8b', 'max_retries': 3, 'cost_cap_usd': 0.05, 'limit': None, 'n_processed': 320, 'exec_success_rate_runtime': 0.921875, 'spider_exec_accuracy_overall': 0.203, 'spider_exec_by_difficulty': {'easy': 0.338, 'medium': 0.2, 'hard': 0.2, 'extra': 0.075}, 'total_cost_usd': 0.0, 'wall_time_seconds': 803}
+--- semantic-oracle-nohints-320 ---
+{'experiment_id': 'semantic-oracle-nohints-320', 'routing': 'oracle', 'retrieval': 'hybrid', 'masking': True, 'mask_style': 'semantic', 'prompt': 'few_shot', 'model': 'llama3.1-8b', 'max_retries': 3, 'cost_cap_usd': 0.05, 'limit': None, 'n_processed': 320, 'exec_success_rate_runtime': 0.915625, 'spider_exec_accuracy_overall': 0.144, 'spider_exec_by_difficulty': {'easy': 0.263, 'medium': 0.062, 'hard': 0.113, 'extra': 0.138}, 'total_cost_usd': 0.0, 'wall_time_seconds': 835}
+--- semantic-oracle-hints-320 ---
+{'experiment_id': 'semantic-oracle-hints-320', 'routing': 'oracle', 'retrieval': 'hybrid', 'masking': True, 'mask_style': 'semantic', 'prompt': 'few_shot', 'model': 'llama3.1-8b', 'max_retries': 3, 'cost_cap_usd': 0.05, 'limit': None, 'n_processed': 320, 'exec_success_rate_runtime': 0.825, 'spider_exec_accuracy_overall': 0.203, 'spider_exec_by_difficulty': {'easy': 0.3, 'medium': 0.212, 'hard': 0.225, 'extra': 0.075}, 'total_cost_usd': 0.0, 'wall_time_seconds': 1029}

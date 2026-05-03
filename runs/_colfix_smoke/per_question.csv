@@ -1,0 +1,9 @@
+pos,test_idx,db_id_gold,db_id_used,broker_pick,broker_correct,re_picked,retries,exec_success,difficulty,model_used,retrieval_used,masked_sql,real_sql
+0,0,soccer_3,soccer_3,,,False,0,True,easy,claude-haiku-4-5-20251001,hybrid,SELECT COUNT(*) FROM T1,SELECT COUNT(*) FROM club
+1,1,soccer_3,soccer_3,,,False,0,True,easy,claude-haiku-4-5-20251001,hybrid,SELECT COUNT(*) FROM T1,SELECT COUNT(*) FROM club
+2,2,soccer_3,soccer_3,,,False,0,True,easy,claude-haiku-4-5-20251001,hybrid,SELECT C2 FROM T1 ORDER BY C2 ASC,SELECT Name FROM club ORDER BY Name ASC
+3,3,soccer_3,soccer_3,,,False,0,True,easy,claude-haiku-4-5-20251001,hybrid,SELECT C4 FROM T1 ORDER BY C4 ASC,SELECT Captain FROM club ORDER BY Captain ASC
+4,6,soccer_3,soccer_3,,,False,0,True,easy,claude-haiku-4-5-20251001,hybrid,SELECT T1.C2 FROM T1 JOIN T2 ON T1.C1 = T2.C13 WHERE T2.C8 != 'Nike',SELECT club.Name FROM club JOIN player ON club.Club_ID = player.Club_ID WHERE player.Name != 'Nike'
+5,7,soccer_3,soccer_3,,,False,0,True,easy,claude-haiku-4-5-20251001,hybrid,SELECT DISTINCT T1.C2 FROM T1 LEFT JOIN T2 ON T1.C1 = T2.C13 WHERE T2.C13 IS NULL OR T2.C8 != 'Nike' GROUP BY T1.C1 HAVING COUNT(CASE WHEN T2.C8 = 'Nike' THEN 1 END) = 0,SELECT DISTINCT club.Name FROM club LEFT JOIN player ON club.Club_ID = player.Club_ID WHERE player.Club_ID IS NULL OR player.Name != 'Nike' GROUP BY club.Club_ID HAVING COUNT(CASE WHEN player.Name = 'Nike' THEN 1 END) = 0
+6,8,soccer_3,soccer_3,,,False,0,True,easy,claude-haiku-4-5-20251001,hybrid,SELECT C10 FROM T2 ORDER BY C12 ASC,SELECT Earnings FROM player ORDER BY Wins_count ASC
+7,9,soccer_3,soccer_3,,,False,0,True,easy,claude-haiku-4-5-20251001,hybrid,SELECT C10 FROM T2 ORDER BY C12 ASC,SELECT Earnings FROM player ORDER BY Wins_count ASC

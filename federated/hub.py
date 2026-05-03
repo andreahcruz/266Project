@@ -54,6 +54,7 @@ class AnswerRecord:
     re_picked: bool = False
     difficulty: Optional[str] = None
     model_used: Optional[str] = None
+    retrieval_used: Optional[str] = None
     extras: dict = field(default_factory=dict)
 
 
@@ -100,6 +101,9 @@ class Hub:
         few_shot_seed: int = 42,
         use_phrase_hints: bool = False,
         model_for_difficulty: Optional[dict[str, str]] = None,
+        retrieval_for_difficulty: Optional[dict[str, str]] = None,
+        top_k_tables: int = 4,
+        top_n_columns: int = 6,
     ):
         self.broker = broker
         self.nodes = nodes_by_db_id
@@ -126,6 +130,9 @@ class Hub:
         # passed via answer(... difficulty=...). Falls back to primary_model
         # when difficulty is None or not in the dict.
         self.model_for_difficulty = model_for_difficulty or {}
+        self.retrieval_for_difficulty = retrieval_for_difficulty or {}
+        self.top_k_tables = top_k_tables
+        self.top_n_columns = top_n_columns
 
     # ── Routing ───────────────────────────────────────────────
     def _route(
@@ -143,7 +150,13 @@ class Hub:
     def _format_hints(hints: list[tuple[str, str]]) -> str:
         if not hints:
             return "(none)"
-        return "\n".join(f"- \"{phrase}\" → {token}" for phrase, token in hints)
+        lines = []
+        for phrase, token in hints:
+            if token.startswith("T"):
+                lines.append(f'- table for "{phrase}" → {token}')
+            else:
+                lines.append(f'- column for "{phrase}" → {token}')
+        return "\n".join(lines)
 
     def _build_prompt(
         self,
@@ -205,6 +218,12 @@ class Hub:
             return self.model_for_difficulty.get(difficulty, self.primary_model)
         return self.primary_model
 
+    def _retrieval_for(self, difficulty: Optional[str]) -> str:
+        """Resolve which retrieval mode to use for this question."""
+        if difficulty and self.retrieval_for_difficulty:
+            return self.retrieval_for_difficulty.get(difficulty, self.retrieval)
+        return self.retrieval
+
     def answer(
         self,
         question: str,
@@ -244,12 +263,15 @@ class Hub:
 
         session = SessionState(db_id=db_id_used)
         node = self.nodes[db_id_used]
+        retrieval_used = self._retrieval_for(difficulty)
         masked_schema = node.retrieve_and_mask(
             question,
             session,
-            retrieval=self.retrieval,
+            retrieval=retrieval_used,
             masking=self.masking,
             mask_style=self.mask_style,
+            top_k_tables=self.top_k_tables,
+            top_n_columns=self.top_n_columns,
         )
 
         re_picked = False
@@ -267,16 +289,18 @@ class Hub:
                     masked_schema = node.retrieve_and_mask(
                         question,
                         session,
-                        retrieval=self.retrieval,
+                        retrieval=retrieval_used,
                         masking=self.masking,
                         mask_style=self.mask_style,
+                        top_k_tables=self.top_k_tables,
+                        top_n_columns=self.top_n_columns,
                     )
                     re_picked = True
                     break
 
         # Optionally compute phrase hints — node-side embedding match between
         # question content words and real column names. Only token IDs leak.
-        hints: list[tuple[str, str]] = []
+        hints: list[tuple[str, str, str]] = []
         if self.use_phrase_hints and self.masking:
             try:
                 hints = node.compute_phrase_hints(question, session)
@@ -341,4 +365,5 @@ class Hub:
             re_picked=re_picked,
             difficulty=difficulty,
             model_used=chosen_model,
+            retrieval_used=retrieval_used,
         )

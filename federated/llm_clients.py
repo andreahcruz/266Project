@@ -118,12 +118,18 @@ def complete(
                 if system:
                     openai_messages = [{"role": "system", "content": system}] + openai_messages
                 default_max = OPENAI_MAX_TOKENS if provider == "openai" else CEREBRAS_MAX_TOKENS
-                resp = client.chat.completions.create(
+                kwargs = dict(
                     model=model,
                     messages=openai_messages,
                     temperature=temperature,
-                    max_tokens=max_tokens or default_max,
                 )
+                max_out = max_tokens or default_max
+                # GPT-5 family uses max_completion_tokens on Chat Completions.
+                if provider == "openai" and model.startswith("gpt-5"):
+                    kwargs["max_completion_tokens"] = max_out
+                else:
+                    kwargs["max_tokens"] = max_out
+                resp = client.chat.completions.create(**kwargs)
                 text = resp.choices[0].message.content
                 u = resp.usage
                 usage = {

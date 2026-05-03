@@ -65,6 +65,14 @@ def parse_args():
     p.add_argument(
         "--retrieval", default="hybrid", choices=["hybrid", "lexical", "none"]
     )
+    p.add_argument(
+        "--retrieval-easy-medium", default=None, choices=["hybrid", "lexical", "none"],
+        help="Optional retrieval override for easy/medium questions."
+    )
+    p.add_argument(
+        "--retrieval-hard-extra", default=None, choices=["hybrid", "lexical", "none"],
+        help="Optional retrieval override for hard/extra questions."
+    )
     p.add_argument("--no-mask", action="store_true")
     p.add_argument(
         "--mask-style",
@@ -86,6 +94,10 @@ def parse_args():
                    help="Skip questions already in predictions.sql.")
     p.add_argument("--phrase-hints", action="store_true",
                    help="Enable phrase→token column hints from each node.")
+    p.add_argument("--top-k-tables", type=int, default=4,
+                   help="Number of tables to retrieve when using lexical/hybrid retrieval.")
+    p.add_argument("--top-n-columns", type=int, default=6,
+                   help="Max columns per selected table when using lexical/hybrid retrieval.")
     p.add_argument("--indices-from", default=None,
                    help="Path to JSON list of test_idx values to evaluate. "
                         "Overrides the default 320 split (used for stratified subsets).")
@@ -128,6 +140,10 @@ def main():
         "experiment_id": args.experiment_id,
         "routing": args.routing,
         "retrieval": args.retrieval,
+        "retrieval_easy_medium": args.retrieval_easy_medium or args.retrieval,
+        "retrieval_hard_extra": args.retrieval_hard_extra or args.retrieval,
+        "top_k_tables": args.top_k_tables,
+        "top_n_columns": args.top_n_columns,
         "masking": not args.no_mask,
         "mask_style": args.mask_style if not args.no_mask else "none",
         "prompt": args.prompt,
@@ -152,7 +168,12 @@ def main():
     print("Loading tables, vector index, blurbs, train data ...")
     tables_data = load_tables(TEST_TABLES_JSON)
     openai_client = OpenAI(api_key=OPENAI_API_KEY, base_url=OPENAI_BASE_URL)
-    vector_index = load_index() if args.retrieval == "hybrid" else None
+    uses_hybrid_retrieval = "hybrid" in {
+        args.retrieval,
+        args.retrieval_easy_medium or args.retrieval,
+        args.retrieval_hard_extra or args.retrieval,
+    }
+    vector_index = load_index() if uses_hybrid_retrieval else None
     train_rows = load_train_spider(TRAIN_SPIDER_JSON)
 
     nodes = {
@@ -178,6 +199,16 @@ def main():
         config_dump["cascade_hard_model"] = args.cascade_hard_model
         config_path.write_text(json.dumps(config_dump, indent=2))
 
+    retrieval_for_difficulty: dict[str, str] = {}
+    if args.retrieval_easy_medium or args.retrieval_hard_extra:
+        retrieval_for_difficulty = {
+            "easy": args.retrieval_easy_medium or args.retrieval,
+            "medium": args.retrieval_easy_medium or args.retrieval,
+            "hard": args.retrieval_hard_extra or args.retrieval,
+            "extra": args.retrieval_hard_extra or args.retrieval,
+        }
+        config_path.write_text(json.dumps(config_dump, indent=2))
+
     hub = Hub(
         broker=broker,
         nodes_by_db_id=nodes,
@@ -192,6 +223,9 @@ def main():
         train_rows=train_rows,
         use_phrase_hints=args.phrase_hints,
         model_for_difficulty=model_for_difficulty,
+        retrieval_for_difficulty=retrieval_for_difficulty,
+        top_k_tables=args.top_k_tables,
+        top_n_columns=args.top_n_columns,
     )
 
     eval_qs = load_eval_questions()
@@ -204,11 +238,11 @@ def main():
     # Pre-classify difficulty per question via the precomputed JSON.
     # Used by cascade routing; harmless when model_for_difficulty is empty.
     difficulty_by_idx: dict[int, str] = {}
-    if model_for_difficulty:
+    if model_for_difficulty or retrieval_for_difficulty:
         diff_path = BASE_DIR / "balanced_difficulty.json"
         if not diff_path.exists():
             sys.exit(
-                f"--cascade-hard-model needs {diff_path}; run "
+                f"difficulty-aware routing needs {diff_path}; run "
                 "`python precompute_difficulty.py` first."
             )
         raw = json.loads(diff_path.read_text())
@@ -217,7 +251,14 @@ def main():
         from collections import Counter
         c = Counter(difficulty_by_idx.get(idx, "medium") for idx, _q in eval_qs)
         print(f"[cascade] difficulty distribution over {len(eval_qs)} q: {dict(c)}")
-        print(f"[cascade] easy/medium → {args.model}, hard/extra → {args.cascade_hard_model}")
+        if model_for_difficulty:
+            print(f"[cascade] easy/medium model → {args.model}, hard/extra model → {args.cascade_hard_model}")
+        if retrieval_for_difficulty:
+            print(
+                "[cascade] easy/medium retrieval → "
+                f"{retrieval_for_difficulty['easy']}, hard/extra retrieval → "
+                f"{retrieval_for_difficulty['hard']}"
+            )
 
     # Open files for streaming append
     pred_mode = "a" if (args.resume and resume_pos > 0) else "w"
@@ -229,7 +270,7 @@ def main():
         csv_w.writerow([
             "pos", "test_idx", "db_id_gold", "db_id_used", "broker_pick",
             "broker_correct", "re_picked", "retries", "exec_success",
-            "difficulty", "model_used",
+            "difficulty", "model_used", "retrieval_used",
             "masked_sql", "real_sql",
         ])
 
@@ -258,7 +299,7 @@ def main():
                     pos, test_idx, q["db_id"], rec.db_id_used, rec.broker_pick,
                     rec.broker_correct, rec.re_picked, rec.retries,
                     rec.success,
-                    rec.difficulty or "", rec.model_used or "",
+                    rec.difficulty or "", rec.model_used or "", rec.retrieval_used or "",
                     " ".join(rec.masked_sql_final.split()),
                     pred_sql_oneline,
                 ])
@@ -280,7 +321,7 @@ def main():
                 pred_f.flush()
                 csv_w.writerow([
                     pos, test_idx, q["db_id"], "ERR", None, None, False, 0,
-                    False, difficulty_by_idx.get(test_idx, "") or "", "",
+                    False, difficulty_by_idx.get(test_idx, "") or "", "", "",
                     "", f"ERR: {exc!r}",
                 ])
                 csv_f.flush()

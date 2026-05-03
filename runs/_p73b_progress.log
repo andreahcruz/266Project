@@ -1067,3 +1067,1731 @@ Summary: /Users/andreah/Downloads/spider_data/runs/abl_zero_shot_none_mask/summa
   "total_cost_usd": 0.0,
   "wall_time_seconds": 15748
 }
+Loading tables, vector index, blurbs, train data ...
+  [1/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=0s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [11/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=442s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [21/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=978s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [31/320] db=bbc_channels              ok=True ret=0 cost=$0.0000 elapsed=1404s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [41/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=1901s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [51/320] db=online_exams              ok=True ret=0 cost=$0.0000 elapsed=2352s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [61/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=2822s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [71/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=3180s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [81/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=3585s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [91/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=4036s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [101/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=4638s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [111/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=5162s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [121/320] db=bbc_channels              ok=True ret=0 cost=$0.0000 elapsed=5636s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [131/320] db=tv_shows                  ok=True ret=0 cost=$0.0000 elapsed=6099s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [141/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=6679s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [151/320] db=online_exams              ok=True ret=0 cost=$0.0000 elapsed=7143s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [161/320] db=soccer_3                  ok=True ret=1 cost=$0.0000 elapsed=7676s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [171/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=8138s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [181/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=8754s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [191/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=9359s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [201/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=9822s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [211/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=10305s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [221/320] db=online_exams              ok=True ret=0 cost=$0.0000 elapsed=10759s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [231/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=11152s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [241/320] db=e_commerce                ok=False ret=3 cost=$0.0000 elapsed=11822s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [251/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=12500s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [261/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=13034s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [271/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=13438s
+  [281/320] db=government_shift          ok=True ret=0 cost=$0.0000 elapsed=13449s
+  [291/320] db=vehicle_rent              ok=True ret=0 cost=$0.0000 elapsed=13466s
+  [301/320] db=cre_Students_Information_ ok=True ret=0 cost=$0.0000 elapsed=13476s
+  [311/320] db=cre_Students_Information_ ok=False ret=3 cost=$0.0000 elapsed=13490s
+
+Processed 320 new questions, 313 succeeded.
+Predictions: /Users/andreah/Downloads/spider_data/runs/abl_few_shot_hybrid_nomask/predictions.sql
+Per-question: /Users/andreah/Downloads/spider_data/runs/abl_few_shot_hybrid_nomask/per_question.csv
+Total LLM cost: $0.0000
+
+Running Spider evaluator ...
+  /Users/andreah/Downloads/spider_data/venv/bin/python /Users/andreah/Downloads/spider_data/evaluation.py --gold /Users/andreah/Downloads/spider_data/baseline/results/gold_test_balanced_80x4.sql --pred /Users/andreah/Downloads/spider_data/runs/abl_few_shot_hybrid_nomask/predictions.sql --db test_database --table test_tables.json --etype exec
+Evaluator output: /Users/andreah/Downloads/spider_data/runs/abl_few_shot_hybrid_nomask/evaluation_stdout.txt
+
+Summary: /Users/andreah/Downloads/spider_data/runs/abl_few_shot_hybrid_nomask/summary.json
+{
+  "experiment_id": "abl_few_shot_hybrid_nomask",
+  "routing": "oracle",
+  "retrieval": "hybrid",
+  "masking": false,
+  "mask_style": "none",
+  "prompt": "few_shot",
+  "model": "llama3.1-8b",
+  "max_retries": 3,
+  "cost_cap_usd": 0.05,
+  "limit": null,
+  "n_processed": 320,
+  "exec_success_rate_runtime": 0.978125,
+  "spider_exec_accuracy_overall": 0.644,
+  "spider_exec_by_difficulty": {
+    "easy": 0.7,
+    "medium": 0.812,
+    "hard": 0.588,
+    "extra": 0.475
+  },
+  "total_cost_usd": 0.0,
+  "wall_time_seconds": 13502
+}
+Loading tables, vector index, blurbs, train data ...
+  [1/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=1s
+  [11/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=69s
+  [21/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=83s
+  [31/320] db=bbc_channels              ok=True ret=0 cost=$0.0000 elapsed=94s
+  [41/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=169s
+  [51/320] db=online_exams              ok=True ret=0 cost=$0.0000 elapsed=185s
+  [61/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=198s
+  [71/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=269s
+  [81/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=280s
+  [91/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=288s
+  [101/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=305s
+  [111/320] db=e_commerce                ok=False ret=3 cost=$0.0000 elapsed=388s
+  [121/320] db=bbc_channels              ok=True ret=0 cost=$0.0000 elapsed=399s
+  [131/320] db=tv_shows                  ok=False ret=3 cost=$0.0000 elapsed=412s
+  [141/320] db=vehicle_driver            ok=False ret=3 cost=$0.0000 elapsed=484s
+  [151/320] db=online_exams              ok=True ret=0 cost=$0.0000 elapsed=493s
+  [161/320] db=soccer_3                  ok=True ret=1 cost=$0.0000 elapsed=503s
+  [171/320] db=e_commerce                ok=True ret=2 cost=$0.0000 elapsed=575s
+  [181/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=590s
+  [191/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=603s
+  [201/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=618s
+  [211/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=687s
+  [221/320] db=online_exams              ok=True ret=0 cost=$0.0000 elapsed=696s
+  [231/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=709s
+  [241/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=782s
+  [251/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=793s
+  [261/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=804s
+  [271/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=815s
+  [281/320] db=government_shift          ok=True ret=0 cost=$0.0000 elapsed=885s
+  [291/320] db=vehicle_rent              ok=False ret=3 cost=$0.0000 elapsed=903s
+  [301/320] db=cre_Students_Information_ ok=True ret=0 cost=$0.0000 elapsed=984s
+  [311/320] db=cre_Students_Information_ ok=True ret=0 cost=$0.0000 elapsed=995s
+
+Processed 320 new questions, 275 succeeded.
+Predictions: /Users/andreah/Downloads/spider_data/runs/abl_few_shot_hybrid_mask/predictions.sql
+Per-question: /Users/andreah/Downloads/spider_data/runs/abl_few_shot_hybrid_mask/per_question.csv
+Total LLM cost: $0.0000
+
+Running Spider evaluator ...
+  /Users/andreah/Downloads/spider_data/venv/bin/python /Users/andreah/Downloads/spider_data/evaluation.py --gold /Users/andreah/Downloads/spider_data/baseline/results/gold_test_balanced_80x4.sql --pred /Users/andreah/Downloads/spider_data/runs/abl_few_shot_hybrid_mask/predictions.sql --db test_database --table test_tables.json --etype exec
+Evaluator output: /Users/andreah/Downloads/spider_data/runs/abl_few_shot_hybrid_mask/evaluation_stdout.txt
+
+Summary: /Users/andreah/Downloads/spider_data/runs/abl_few_shot_hybrid_mask/summary.json
+{
+  "experiment_id": "abl_few_shot_hybrid_mask",
+  "routing": "oracle",
+  "retrieval": "hybrid",
+  "retrieval_easy_medium": "hybrid",
+  "retrieval_hard_extra": "hybrid",
+  "masking": true,
+  "mask_style": "semantic",
+  "prompt": "few_shot",
+  "model": "llama3.1-8b",
+  "max_retries": 3,
+  "cost_cap_usd": 0.05,
+  "limit": null,
+  "n_processed": 320,
+  "exec_success_rate_runtime": 0.859375,
+  "spider_exec_accuracy_overall": 0.228,
+  "spider_exec_by_difficulty": {
+    "easy": 0.325,
+    "medium": 0.287,
+    "hard": 0.212,
+    "extra": 0.087
+  },
+  "total_cost_usd": 0.0,
+  "wall_time_seconds": 1005
+}
+Loading tables, vector index, blurbs, train data ...
+  [1/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=0s
+  [11/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=3s
+  [21/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=66s
+  [31/320] db=bbc_channels              ok=True ret=0 cost=$0.0000 elapsed=68s
+  [41/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=71s
+  [51/320] db=online_exams              ok=True ret=0 cost=$0.0000 elapsed=134s
+  [61/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=137s
+  [71/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=139s
+  [81/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=202s
+  [91/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=205s
+  [101/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=209s
+  [111/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=276s
+  [121/320] db=bbc_channels              ok=True ret=0 cost=$0.0000 elapsed=283s
+  [131/320] db=tv_shows                  ok=True ret=0 cost=$0.0000 elapsed=289s
+  [141/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=298s
+  [151/320] db=online_exams              ok=True ret=0 cost=$0.0000 elapsed=363s
+  [161/320] db=soccer_3                  ok=True ret=1 cost=$0.0000 elapsed=368s
+  [171/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=375s
+  [181/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=442s
+  [191/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=447s
+  [201/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=451s
+  [211/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=455s
+  [221/320] db=online_exams              ok=True ret=0 cost=$0.0000 elapsed=522s
+  [231/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=526s
+  [241/320] db=e_commerce                ok=True ret=1 cost=$0.0000 elapsed=531s
+  [251/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=539s
+  [261/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=603s
+  [271/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=608s
+  [281/320] db=government_shift          ok=True ret=0 cost=$0.0000 elapsed=616s
+  [291/320] db=vehicle_rent              ok=True ret=0 cost=$0.0000 elapsed=680s
+  [301/320] db=cre_Students_Information_ ok=True ret=0 cost=$0.0000 elapsed=687s
+  [311/320] db=cre_Students_Information_ ok=False ret=3 cost=$0.0000 elapsed=694s
+
+Processed 320 new questions, 314 succeeded.
+Predictions: /Users/andreah/Downloads/spider_data/runs/abl_few_shot_lexical_nomask/predictions.sql
+Per-question: /Users/andreah/Downloads/spider_data/runs/abl_few_shot_lexical_nomask/per_question.csv
+Total LLM cost: $0.0000
+
+Running Spider evaluator ...
+  /Users/andreah/Downloads/spider_data/venv/bin/python /Users/andreah/Downloads/spider_data/evaluation.py --gold /Users/andreah/Downloads/spider_data/baseline/results/gold_test_balanced_80x4.sql --pred /Users/andreah/Downloads/spider_data/runs/abl_few_shot_lexical_nomask/predictions.sql --db test_database --table test_tables.json --etype exec
+Evaluator output: /Users/andreah/Downloads/spider_data/runs/abl_few_shot_lexical_nomask/evaluation_stdout.txt
+
+Summary: /Users/andreah/Downloads/spider_data/runs/abl_few_shot_lexical_nomask/summary.json
+{
+  "experiment_id": "abl_few_shot_lexical_nomask",
+  "routing": "oracle",
+  "retrieval": "lexical",
+  "retrieval_easy_medium": "lexical",
+  "retrieval_hard_extra": "lexical",
+  "top_k_tables": 4,
+  "top_n_columns": 6,
+  "masking": false,
+  "mask_style": "none",
+  "prompt": "few_shot",
+  "model": "llama3.1-8b",
+  "max_retries": 3,
+  "cost_cap_usd": 0.05,
+  "limit": null,
+  "n_processed": 320,
+  "exec_success_rate_runtime": 0.98125,
+  "spider_exec_accuracy_overall": 0.622,
+  "spider_exec_by_difficulty": {
+    "easy": 0.7,
+    "medium": 0.787,
+    "hard": 0.562,
+    "extra": 0.438
+  },
+  "total_cost_usd": 0.0,
+  "wall_time_seconds": 757
+}
+Loading tables, vector index, blurbs, train data ...
+  [1/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=2s
+  [11/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=17s
+  [21/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=26s
+  [31/320] db=bbc_channels              ok=True ret=0 cost=$0.0000 elapsed=34s
+  [41/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=111s
+  [51/320] db=online_exams              ok=True ret=0 cost=$0.0000 elapsed=122s
+  [61/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=137s
+  [71/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=206s
+  [81/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=215s
+  [91/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=221s
+  [101/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=288s
+  [111/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=296s
+  [121/320] db=bbc_channels              ok=False ret=3 cost=$0.0000 elapsed=303s
+  [131/320] db=tv_shows                  ok=False ret=3 cost=$0.0000 elapsed=373s
+  [141/320] db=vehicle_driver            ok=False ret=3 cost=$0.0000 elapsed=384s
+  [151/320] db=online_exams              ok=True ret=0 cost=$0.0000 elapsed=391s
+  [161/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=405s
+  [171/320] db=e_commerce                ok=True ret=1 cost=$0.0000 elapsed=482s
+  [181/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=495s
+  [191/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=504s
+  [201/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=574s
+  [211/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=585s
+  [221/320] db=online_exams              ok=True ret=1 cost=$0.0000 elapsed=592s
+  [231/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=665s
+  [241/320] db=e_commerce                ok=False ret=3 cost=$0.0000 elapsed=676s
+  [251/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=745s
+  [261/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=753s
+  [271/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=761s
+  [281/320] db=government_shift          ok=True ret=0 cost=$0.0000 elapsed=774s
+  [291/320] db=vehicle_rent              ok=True ret=0 cost=$0.0000 elapsed=786s
+  [301/320] db=cre_Students_Information_ ok=True ret=0 cost=$0.0000 elapsed=858s
+  [311/320] db=cre_Students_Information_ ok=True ret=0 cost=$0.0000 elapsed=870s
+
+Processed 320 new questions, 287 succeeded.
+Predictions: /Users/andreah/Downloads/spider_data/runs/abl_few_shot_lexical_mask/predictions.sql
+Per-question: /Users/andreah/Downloads/spider_data/runs/abl_few_shot_lexical_mask/per_question.csv
+Total LLM cost: $0.0000
+
+Running Spider evaluator ...
+  /Users/andreah/Downloads/spider_data/venv/bin/python /Users/andreah/Downloads/spider_data/evaluation.py --gold /Users/andreah/Downloads/spider_data/baseline/results/gold_test_balanced_80x4.sql --pred /Users/andreah/Downloads/spider_data/runs/abl_few_shot_lexical_mask/predictions.sql --db test_database --table test_tables.json --etype exec
+Evaluator output: /Users/andreah/Downloads/spider_data/runs/abl_few_shot_lexical_mask/evaluation_stdout.txt
+
+Summary: /Users/andreah/Downloads/spider_data/runs/abl_few_shot_lexical_mask/summary.json
+{
+  "experiment_id": "abl_few_shot_lexical_mask",
+  "routing": "oracle",
+  "retrieval": "lexical",
+  "retrieval_easy_medium": "lexical",
+  "retrieval_hard_extra": "lexical",
+  "top_k_tables": 4,
+  "top_n_columns": 6,
+  "masking": true,
+  "mask_style": "semantic",
+  "prompt": "few_shot",
+  "model": "llama3.1-8b",
+  "max_retries": 3,
+  "cost_cap_usd": 0.05,
+  "limit": null,
+  "n_processed": 320,
+  "exec_success_rate_runtime": 0.896875,
+  "spider_exec_accuracy_overall": 0.275,
+  "spider_exec_by_difficulty": {
+    "easy": 0.425,
+    "medium": 0.3,
+    "hard": 0.25,
+    "extra": 0.125
+  },
+  "total_cost_usd": 0.0,
+  "wall_time_seconds": 940
+}
+Loading tables, vector index, blurbs, train data ...
+  [1/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=0s
+  [11/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=9s
+  [21/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=14s
+  [31/320] db=bbc_channels              ok=True ret=0 cost=$0.0000 elapsed=78s
+  [41/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=83s
+  [51/320] db=online_exams              ok=True ret=0 cost=$0.0000 elapsed=93s
+  [61/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=99s
+  [71/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=169s
+  [81/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=172s
+  [91/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=178s
+  [101/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=245s
+  [111/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=251s
+  [121/320] db=bbc_channels              ok=True ret=0 cost=$0.0000 elapsed=258s
+  [131/320] db=tv_shows                  ok=True ret=0 cost=$0.0000 elapsed=262s
+  [141/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=330s
+  [151/320] db=online_exams              ok=True ret=0 cost=$0.0000 elapsed=336s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [161/320] db=soccer_3                  ok=True ret=1 cost=$0.0000 elapsed=969s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [171/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=1464s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [181/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=2409s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [191/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=3508s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [201/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=4035s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [211/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=4504s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [221/320] db=online_exams              ok=True ret=0 cost=$0.0000 elapsed=5364s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [231/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=5931s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [241/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=6605s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [251/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=7503s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [261/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=8407s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [271/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=8917s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [281/320] db=government_shift          ok=True ret=0 cost=$0.0000 elapsed=9573s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [291/320] db=vehicle_rent              ok=True ret=0 cost=$0.0000 elapsed=10286s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 80s (attempt 4/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 80s (attempt 4/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [301/320] db=cre_Students_Information_ ok=True ret=0 cost=$0.0000 elapsed=11039s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 80s (attempt 4/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 80s (attempt 4/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 80s (attempt 4/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 80s (attempt 4/5)
+  [311/320] db=cre_Students_Information_ ok=True ret=0 cost=$0.0000 elapsed=12047s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  ! exception at pos=312: APIConnectionError('Connection error.')
+
+Processed 319 new questions, 309 succeeded.
+Predictions: /Users/andreah/Downloads/spider_data/runs/abl_few_shot_none_nomask/predictions.sql
+Per-question: /Users/andreah/Downloads/spider_data/runs/abl_few_shot_none_nomask/per_question.csv
+Total LLM cost: $0.0000
+
+Running Spider evaluator ...
+  /Users/andreah/Downloads/spider_data/venv/bin/python /Users/andreah/Downloads/spider_data/evaluation.py --gold /Users/andreah/Downloads/spider_data/baseline/results/gold_test_balanced_80x4.sql --pred /Users/andreah/Downloads/spider_data/runs/abl_few_shot_none_nomask/predictions.sql --db test_database --table test_tables.json --etype exec
+Evaluator output: /Users/andreah/Downloads/spider_data/runs/abl_few_shot_none_nomask/evaluation_stdout.txt
+
+Summary: /Users/andreah/Downloads/spider_data/runs/abl_few_shot_none_nomask/summary.json
+{
+  "experiment_id": "abl_few_shot_none_nomask",
+  "routing": "oracle",
+  "retrieval": "none",
+  "retrieval_easy_medium": "none",
+  "retrieval_hard_extra": "none",
+  "top_k_tables": 4,
+  "top_n_columns": 6,
+  "masking": false,
+  "mask_style": "none",
+  "prompt": "few_shot",
+  "model": "llama3.1-8b",
+  "max_retries": 3,
+  "cost_cap_usd": 0.05,
+  "limit": null,
+  "n_processed": 319,
+  "exec_success_rate_runtime": 0.9686520376175548,
+  "spider_exec_accuracy_overall": 0.641,
+  "spider_exec_by_difficulty": {
+    "easy": 0.762,
+    "medium": 0.762,
+    "hard": 0.525,
+    "extra": 0.512
+  },
+  "total_cost_usd": 0.0,
+  "wall_time_seconds": 13277
+}
+Loading tables, vector index, blurbs, train data ...
+  [1/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=6s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [11/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=609s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 80s (attempt 4/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [21/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=1346s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 80s (attempt 4/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 80s (attempt 4/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 80s (attempt 4/5)
+  [31/320] db=bbc_channels              ok=True ret=0 cost=$0.0000 elapsed=3036s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [41/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=6610s
+  [51/320] db=online_exams              ok=True ret=0 cost=$0.0000 elapsed=6690s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [61/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=7890s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [71/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=9016s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [81/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=10061s
+  [91/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=10077s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  ! exception at pos=100: APIConnectionError('Connection error.')
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 80s (attempt 4/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 80s (attempt 4/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [111/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=12643s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 80s (attempt 4/5)
+  [121/320] db=bbc_channels              ok=False ret=3 cost=$0.0000 elapsed=18251s
+  [131/320] db=tv_shows                  ok=True ret=0 cost=$0.0000 elapsed=18263s
+  [141/320] db=vehicle_driver            ok=False ret=3 cost=$0.0000 elapsed=18278s
+  [151/320] db=online_exams              ok=True ret=0 cost=$0.0000 elapsed=19326s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  ! exception at pos=159: APIConnectionError('Connection error.')
+  [161/320] db=soccer_3                  ok=True ret=0 cost=$0.0000 elapsed=19955s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [171/320] db=e_commerce                ok=True ret=0 cost=$0.0000 elapsed=22308s
+  [181/320] db=e_commerce                ok=False ret=3 cost=$0.0000 elapsed=22320s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 80s (attempt 4/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 80s (attempt 4/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 80s (attempt 4/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  ! exception at pos=183: APIConnectionError('Connection error.')
+  [hints] e_commerce: APIConnectionError('Connection error.')
+  ! exception at pos=184: APIConnectionError('Connection error.')
+  [hints] e_commerce: APIConnectionError('Connection error.')
+  ! exception at pos=185: APIConnectionError('Connection error.')
+  [hints] e_commerce: APIConnectionError('Connection error.')
+  ! exception at pos=186: APIConnectionError('Connection error.')
+  [hints] e_commerce: APIConnectionError('Connection error.')
+  ! exception at pos=187: APIConnectionError('Connection error.')
+  [hints] e_commerce: APIConnectionError('Connection error.')
+  ! exception at pos=188: APIConnectionError('Connection error.')
+  [hints] e_commerce: APIConnectionError('Connection error.')
+  ! exception at pos=189: APIConnectionError('Connection error.')
+  [hints] e_commerce: APIConnectionError('Connection error.')
+  ! exception at pos=190: APIConnectionError('Connection error.')
+  [hints] bbc_channels: APIConnectionError('Connection error.')
+  ! exception at pos=191: APIConnectionError('Connection error.')
+  [hints] bbc_channels: APIConnectionError('Connection error.')
+  ! exception at pos=192: APIConnectionError('Connection error.')
+  [hints] tv_shows: APIConnectionError('Connection error.')
+  ! exception at pos=193: APIConnectionError('Connection error.')
+  [hints] tv_shows: APIConnectionError('Connection error.')
+  ! exception at pos=194: APIConnectionError('Connection error.')
+  [hints] tv_shows: APIConnectionError('Connection error.')
+  ! exception at pos=195: APIConnectionError('Connection error.')
+  [hints] vehicle_driver: APIConnectionError('Connection error.')
+  ! exception at pos=196: APIConnectionError('Connection error.')
+  [hints] vehicle_driver: APIConnectionError('Connection error.')
+  ! exception at pos=197: APIConnectionError('Connection error.')
+  [hints] vehicle_driver: APIConnectionError('Connection error.')
+  ! exception at pos=198: APIConnectionError('Connection error.')
+  [hints] vehicle_driver: APIConnectionError('Connection error.')
+  ! exception at pos=199: APIConnectionError('Connection error.')
+  [201/320] db=vehicle_driver            ok=True ret=0 cost=$0.0000 elapsed=23655s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  ! exception at pos=209: APIConnectionError('Connection error.')
+  [hints] vehicle_driver: APIConnectionError('Connection error.')
+  ! exception at pos=210: APIConnectionError('Connection error.')
+  [hints] vehicle_driver: APIConnectionError('Connection error.')
+  ! exception at pos=211: APIConnectionError('Connection error.')
+  [hints] online_exams: APIConnectionError('Connection error.')
+  ! exception at pos=212: APIConnectionError('Connection error.')
+  [hints] online_exams: APIConnectionError('Connection error.')
+  ! exception at pos=213: APIConnectionError('Connection error.')
+  [hints] online_exams: APIConnectionError('Connection error.')
+  ! exception at pos=214: APIConnectionError('Connection error.')
+  [hints] online_exams: APIConnectionError('Connection error.')
+  ! exception at pos=215: APIConnectionError('Connection error.')
+  [hints] online_exams: APIConnectionError('Connection error.')
+  ! exception at pos=216: APIConnectionError('Connection error.')
+  [hints] online_exams: APIConnectionError('Connection error.')
+  ! exception at pos=217: APIConnectionError('Connection error.')
+  [hints] online_exams: APIConnectionError('Connection error.')
+  ! exception at pos=218: APIConnectionError('Connection error.')
+  [hints] online_exams: APIConnectionError('Connection error.')
+  ! exception at pos=219: APIConnectionError('Connection error.')
+  [hints] online_exams: APIConnectionError('Connection error.')
+  ! exception at pos=220: APIConnectionError('Connection error.')
+  [hints] online_exams: APIConnectionError('Connection error.')
+  ! exception at pos=221: APIConnectionError('Connection error.')
+  [hints] customers_and_orders: APIConnectionError('Connection error.')
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)
+  [231/320] db=customers_and_orders      ok=True ret=0 cost=$0.0000 elapsed=25729s
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 10s (attempt 1/5)
+  [llm] rate-limited on llama3.1-8b; waiting 20s (attempt 2/5)
+  [llm] rate-limited on llama3.1-8b; waiting 40s (attempt 3/5)

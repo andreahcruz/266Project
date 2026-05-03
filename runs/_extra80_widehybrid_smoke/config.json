@@ -1,0 +1,16 @@
+{
+  "experiment_id": "_extra80_widehybrid_smoke",
+  "routing": "oracle",
+  "retrieval": "hybrid",
+  "retrieval_easy_medium": "hybrid",
+  "retrieval_hard_extra": "hybrid",
+  "top_k_tables": 6,
+  "top_n_columns": 10,
+  "masking": true,
+  "mask_style": "hard",
+  "prompt": "few_shot",
+  "model": "gpt-5.2",
+  "max_retries": 3,
+  "cost_cap_usd": 0.25,
+  "limit": null
+}

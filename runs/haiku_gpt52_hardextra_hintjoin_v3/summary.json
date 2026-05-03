@@ -1,0 +1,26 @@
+{
+  "experiment_id": "haiku_gpt52_hardextra_hintjoin_v3",
+  "routing": "oracle",
+  "retrieval": "hybrid",
+  "retrieval_easy_medium": "hybrid",
+  "retrieval_hard_extra": "none",
+  "masking": true,
+  "mask_style": "hard",
+  "prompt": "few_shot",
+  "model": "claude-haiku-4-5-20251001",
+  "max_retries": 3,
+  "cost_cap_usd": 1.2,
+  "limit": null,
+  "cascade_hard_model": "gpt-5.2",
+  "n_processed": 320,
+  "exec_success_rate_runtime": 0.996875,
+  "spider_exec_accuracy_overall": 0.431,
+  "spider_exec_by_difficulty": {
+    "easy": 0.537,
+    "medium": 0.575,
+    "hard": 0.45,
+    "extra": 0.163
+  },
+  "total_cost_usd": 0.5297422499999999,
+  "wall_time_seconds": 524
+}

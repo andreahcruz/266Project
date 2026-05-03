@@ -1,0 +1,25 @@
+{
+  "experiment_id": "abl_few_shot_hybrid_mask",
+  "routing": "oracle",
+  "retrieval": "hybrid",
+  "retrieval_easy_medium": "hybrid",
+  "retrieval_hard_extra": "hybrid",
+  "masking": true,
+  "mask_style": "semantic",
+  "prompt": "few_shot",
+  "model": "llama3.1-8b",
+  "max_retries": 3,
+  "cost_cap_usd": 0.05,
+  "limit": null,
+  "n_processed": 320,
+  "exec_success_rate_runtime": 0.859375,
+  "spider_exec_accuracy_overall": 0.228,
+  "spider_exec_by_difficulty": {
+    "easy": 0.325,
+    "medium": 0.287,
+    "hard": 0.212,
+    "extra": 0.087
+  },
+  "total_cost_usd": 0.0,
+  "wall_time_seconds": 1005
+}

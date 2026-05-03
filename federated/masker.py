@@ -166,6 +166,8 @@ def mask_selection(
         col_idx_to_token[ci] = token
         token_to_column[token] = cname
 
+    fk_src_to_dst = {src: dst for src, dst in foreign_keys}
+
     # ── Render masked schema string ────────────────────────────────
     lines: list[str] = []
     for ti in selected_tables:
@@ -179,6 +181,15 @@ def mask_selection(
             desc = f"{ctok} ({col_type}"
             if ci in primary_keys:
                 desc += ", primary key"
+            if ci in foreign_key_columns:
+                desc += ", foreign key"
+                dst_ci = fk_src_to_dst.get(ci)
+                if dst_ci in col_idx_to_token:
+                    dst_ti = columns[dst_ci][0]
+                    desc += (
+                        f" -> {table_idx_to_token[dst_ti]}."
+                        f"{col_idx_to_token[dst_ci]}"
+                    )
             desc += ")"
             col_parts.append(desc)
         lines.append(f"Table: {ttok}")
@@ -193,11 +204,13 @@ def mask_selection(
         if src_ci not in col_idx_to_token or dst_ci not in col_idx_to_token:
             continue
         fk_parts.append(
-            f"{table_idx_to_token[src_ti]}.{col_idx_to_token[src_ci]} = "
+            f"{table_idx_to_token[src_ti]}.{col_idx_to_token[src_ci]} references "
             f"{table_idx_to_token[dst_ti]}.{col_idx_to_token[dst_ci]}"
         )
     if fk_parts:
-        lines.append(f"Foreign Keys: {', '.join(fk_parts)}")
+        lines.append("Relationships:")
+        for rel in fk_parts:
+            lines.append(f"  - {rel}")
 
     mask_dict = {
         "db_id": db_id,

@@ -1,0 +1,11 @@
+setting,bucket,table_recall,column_recall,table_blast,column_blast,element_blast
+lexical_top4_top6,easy,0.975,0.7875,0.555536,0.543675,0.545654
+lexical_top4_top6,medium,0.9875,0.977083,0.632589,0.618088,0.620517
+lexical_top4_top6,hard,0.925,0.939583,0.578482,0.562413,0.565109
+lexical_top4_top6,extra,0.935417,0.948065,0.483408,0.490121,0.48849
+lexical_top4_top6,all,0.955729,0.913058,0.562504,0.553574,0.554942
+mixed_v5_breadth,easy,0.975,0.7875,0.555536,0.543675,0.545654
+mixed_v5_breadth,medium,0.9875,0.977083,0.632589,0.618088,0.620517
+mixed_v5_breadth,hard,1.0,1.0,1.0,1.0,1.0
+mixed_v5_breadth,extra,1.0,1.0,1.0,1.0,1.0
+mixed_v5_breadth,all,0.990625,0.941146,0.797031,0.790441,0.791543

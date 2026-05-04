@@ -45,6 +45,17 @@
       "mask_style": "semantic",
       "phrase_hints": true,
       "prompt": "few_shot"
+    },
+    {
+      "experiment_id": "haiku_fewshot_hardmask_hints_diffschema",
+      "purpose": "Oracle difficulty cascade: hybrid retrieval for easy/medium, full masked schema for hard/extra.",
+      "retrieval": "hybrid",
+      "retrieval_easy_medium": "hybrid",
+      "retrieval_hard_extra": "none",
+      "masking": true,
+      "mask_style": "hard",
+      "phrase_hints": true,
+      "prompt": "few_shot"
     }
   ]
 }

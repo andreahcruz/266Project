@@ -7,7 +7,7 @@ You are an expert SQL assistant. Below are example natural-language questions an
 Current database schema:
 {schema}
 
-Hints (mapping question phrases to schema tokens — use these to pick the right tokens for SELECT/WHERE/JOIN clauses):
+Hints (mapping question phrases to schema tokens — some hints point to table tokens for FROM/JOIN choices, others point to column tokens for SELECT/WHERE/GROUP BY choices):
 {hints}
 
 Question: {question}
@@ -15,7 +15,11 @@ Question: {question}
 Instructions:
 - Write a valid SQLite query that answers the question for the current schema only.
 - Use ONLY the table and column names exactly as they appear in the current schema above.
-- The hints above tell you which token corresponds to which phrase in the question. Use them to decide which tokens go in SELECT, WHERE, JOIN, ORDER BY, etc.
+- The hints above tell you which token corresponds to which phrase in the question. Use table hints to choose the right FROM/JOIN targets, and use column hints to choose the right SELECT, WHERE, GROUP BY, HAVING, and ORDER BY tokens.
+- The schema's Relationships section gives the valid join paths between masked tables and columns. Follow those relationships instead of inventing new joins.
+- Do NOT add a JOIN unless the question needs columns from another table, or a listed relationship is required for filtering, grouping, or aggregation.
+- If the question asks for a descriptive field such as a name, country, title, status, or manufacturer, prefer that descriptive column instead of returning an id/code column.
+- For "how many" / count questions, prefer COUNT(*) unless the question explicitly asks for a distinct count or a specific counted column.
 - Do NOT use tokens not listed in the schema.
 - Use proper JOIN syntax with the foreign key relationships when querying across tables.
 - Return ONLY the SQL query, with no explanation, comments, or markdown formatting.

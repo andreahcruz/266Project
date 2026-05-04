@@ -1,0 +1,25 @@
+{
+  "experiment_id": "_haiku_diffschema_smoke",
+  "routing": "oracle",
+  "retrieval": "hybrid",
+  "retrieval_easy_medium": "hybrid",
+  "retrieval_hard_extra": "none",
+  "masking": true,
+  "mask_style": "hard",
+  "prompt": "few_shot",
+  "model": "claude-haiku-4-5-20251001",
+  "max_retries": 3,
+  "cost_cap_usd": 0.2,
+  "limit": null,
+  "n_processed": 8,
+  "exec_success_rate_runtime": 1.0,
+  "spider_exec_accuracy_overall": 0.375,
+  "spider_exec_by_difficulty": {
+    "easy": 0.5,
+    "medium": 1.0,
+    "hard": 0.0,
+    "extra": 0.0
+  },
+  "total_cost_usd": 0.009278,
+  "wall_time_seconds": 13
+}

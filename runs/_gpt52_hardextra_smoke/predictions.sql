@@ -1,0 +1,4 @@
+SELECT player.Country FROM player WHERE player.Wins_count > 2 ORDER BY player.Earnings DESC LIMIT 1
+SELECT Country FROM player WHERE Wins_count > 2 ORDER BY Events_number DESC LIMIT 1
+SELECT t2.customer_id, t2.gender_code, t2.customer_first_name FROM Customers AS t2 JOIN Orders AS t5 ON t5.customer_id = t2.customer_id JOIN Order_Items AS t6 ON t6.order_id = t5.order_id GROUP BY t2.customer_id, t2.gender_code, t2.customer_first_name HAVING COUNT(DISTINCT t5.order_id) > 2 AND COUNT(t6.order_item_id) >= 3
+SELECT Customers.customer_id, Customers.gender_code, Customers.customer_first_name FROM Customers JOIN Orders ON Orders.customer_id = Customers.customer_id JOIN Order_Items ON Order_Items.order_id = Orders.order_id GROUP BY Customers.customer_id, Customers.gender_code, Customers.customer_first_name HAVING COUNT(DISTINCT Orders.order_id) > 2 AND COUNT(Order_Items.order_item_id) >= 3

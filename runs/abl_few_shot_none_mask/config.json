@@ -1,0 +1,16 @@
+{
+  "experiment_id": "abl_few_shot_none_mask",
+  "routing": "oracle",
+  "retrieval": "none",
+  "retrieval_easy_medium": "none",
+  "retrieval_hard_extra": "none",
+  "top_k_tables": 4,
+  "top_n_columns": 6,
+  "masking": true,
+  "mask_style": "semantic",
+  "prompt": "few_shot",
+  "model": "llama3.1-8b",
+  "max_retries": 3,
+  "cost_cap_usd": 0.05,
+  "limit": null
+}

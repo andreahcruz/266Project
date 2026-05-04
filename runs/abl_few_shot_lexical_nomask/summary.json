@@ -1,0 +1,27 @@
+{
+  "experiment_id": "abl_few_shot_lexical_nomask",
+  "routing": "oracle",
+  "retrieval": "lexical",
+  "retrieval_easy_medium": "lexical",
+  "retrieval_hard_extra": "lexical",
+  "top_k_tables": 4,
+  "top_n_columns": 6,
+  "masking": false,
+  "mask_style": "none",
+  "prompt": "few_shot",
+  "model": "llama3.1-8b",
+  "max_retries": 3,
+  "cost_cap_usd": 0.05,
+  "limit": null,
+  "n_processed": 320,
+  "exec_success_rate_runtime": 0.98125,
+  "spider_exec_accuracy_overall": 0.622,
+  "spider_exec_by_difficulty": {
+    "easy": 0.7,
+    "medium": 0.787,
+    "hard": 0.562,
+    "extra": 0.438
+  },
+  "total_cost_usd": 0.0,
+  "wall_time_seconds": 757
+}

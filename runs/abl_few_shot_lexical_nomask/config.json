@@ -1,0 +1,16 @@
+{
+  "experiment_id": "abl_few_shot_lexical_nomask",
+  "routing": "oracle",
+  "retrieval": "lexical",
+  "retrieval_easy_medium": "lexical",
+  "retrieval_hard_extra": "lexical",
+  "top_k_tables": 4,
+  "top_n_columns": 6,
+  "masking": false,
+  "mask_style": "none",
+  "prompt": "few_shot",
+  "model": "llama3.1-8b",
+  "max_retries": 3,
+  "cost_cap_usd": 0.05,
+  "limit": null
+}

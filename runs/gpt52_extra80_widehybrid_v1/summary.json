@@ -1,0 +1,27 @@
+{
+  "experiment_id": "gpt52_extra80_widehybrid_v1",
+  "routing": "oracle",
+  "retrieval": "hybrid",
+  "retrieval_easy_medium": "hybrid",
+  "retrieval_hard_extra": "hybrid",
+  "top_k_tables": 6,
+  "top_n_columns": 10,
+  "masking": true,
+  "mask_style": "hard",
+  "prompt": "few_shot",
+  "model": "gpt-5.2",
+  "max_retries": 3,
+  "cost_cap_usd": 1.0,
+  "limit": null,
+  "n_processed": 80,
+  "exec_success_rate_runtime": 1.0,
+  "spider_exec_accuracy_overall": 0.2,
+  "spider_exec_by_difficulty": {
+    "easy": 0.0,
+    "medium": 0.0,
+    "hard": 0.0,
+    "extra": 0.2
+  },
+  "total_cost_usd": 0.18184775000000003,
+  "wall_time_seconds": 160
+}

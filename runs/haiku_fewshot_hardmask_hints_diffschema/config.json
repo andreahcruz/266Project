@@ -1,0 +1,14 @@
+{
+  "experiment_id": "haiku_fewshot_hardmask_hints_diffschema",
+  "routing": "oracle",
+  "retrieval": "hybrid",
+  "retrieval_easy_medium": "hybrid",
+  "retrieval_hard_extra": "none",
+  "masking": true,
+  "mask_style": "hard",
+  "prompt": "few_shot",
+  "model": "claude-haiku-4-5-20251001",
+  "max_retries": 3,
+  "cost_cap_usd": 0.6,
+  "limit": null
+}

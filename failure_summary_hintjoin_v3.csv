@@ -1,0 +1,4 @@
+experiment_id,n,exec_runtime_error,extra_clause,missing_clause,other,success,wrong_column,wrong_table,wrong_values
+haiku_fewshot_hardmask_hints,320,1,48,2,84,0,141,42,2
+haiku_gpt52_hardextra_diffschema_v2,320,0,61,6,82,0,134,35,2
+haiku_gpt52_hardextra_hintjoin_v3,320,1,43,9,93,0,141,32,1

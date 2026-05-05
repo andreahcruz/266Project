@@ -225,3 +225,4 @@ SELECT product_type_code FROM Products WHERE product_price > (SELECT AVG(product
 SELECT product_name, MAX(product_price) FROM Products WHERE product_name = 'Clothes' GROUP BY product_name ORDER BY MAX(product_price) DESC LIMIT 1
 SELECT product_type_code FROM Products WHERE product_price = (SELECT MAX(product_price) FROM Products)
 SELECT Products.product_id, Products.DESCRIBITIVE_ATTRIBUTE_3 FROM Products JOIN Order_Items ON Products.product_id = Order_Items.product_id WHERE Order_Items.order_quantity = 'Hardware' ORDER BY Products.product_price ASC LIMIT 1
+SELECT product_id, product_type_code FROM Products WHERE product_type_code = 'Hardware' ORDER BY product_price ASC LIMIT 1

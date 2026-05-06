@@ -1,0 +1,3 @@
+experiment_id,n,exec_runtime_error,extra_clause,missing_clause,other,success,wrong_column,wrong_table,wrong_values
+haiku_gpt52_hardextra_colfix_v5,320,1,39,8,116,0,115,39,2
+broker_haiku_gpt52_colfix_v5,320,2,29,10,85,0,107,85,2

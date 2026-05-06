@@ -1,0 +1,27 @@
+{
+  "experiment_id": "abl_few_shot_none_mask",
+  "routing": "oracle",
+  "retrieval": "none",
+  "retrieval_easy_medium": "none",
+  "retrieval_hard_extra": "none",
+  "top_k_tables": 4,
+  "top_n_columns": 6,
+  "masking": true,
+  "mask_style": "semantic",
+  "prompt": "few_shot",
+  "model": "llama3.1-8b",
+  "max_retries": 3,
+  "cost_cap_usd": 0.05,
+  "limit": null,
+  "n_processed": 282,
+  "exec_success_rate_runtime": 0.8191489361702128,
+  "spider_exec_accuracy_overall": 0.175,
+  "spider_exec_by_difficulty": {
+    "easy": 0.338,
+    "medium": 0.225,
+    "hard": 0.087,
+    "extra": 0.05
+  },
+  "total_cost_usd": 0.0,
+  "wall_time_seconds": 41158
+}

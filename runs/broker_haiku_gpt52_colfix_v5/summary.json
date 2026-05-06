@@ -1,0 +1,28 @@
+{
+  "experiment_id": "broker_haiku_gpt52_colfix_v5",
+  "routing": "broker",
+  "retrieval": "hybrid",
+  "retrieval_easy_medium": "hybrid",
+  "retrieval_hard_extra": "none",
+  "top_k_tables": 4,
+  "top_n_columns": 6,
+  "masking": true,
+  "mask_style": "hard",
+  "prompt": "few_shot",
+  "model": "claude-haiku-4-5-20251001",
+  "max_retries": 3,
+  "cost_cap_usd": 1.5,
+  "limit": null,
+  "cascade_hard_model": "gpt-5.2",
+  "n_processed": 320,
+  "exec_success_rate_runtime": 0.99375,
+  "spider_exec_accuracy_overall": 0.381,
+  "spider_exec_by_difficulty": {
+    "easy": 0.512,
+    "medium": 0.388,
+    "hard": 0.45,
+    "extra": 0.175
+  },
+  "total_cost_usd": 0.5647350000000002,
+  "wall_time_seconds": 820
+}

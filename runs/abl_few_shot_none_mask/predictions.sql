@@ -311,3 +311,10 @@ SELECT 1
 SELECT COUNT(Teachers.teacher_id) FROM Students AS Students JOIN Transcripts AS Transcripts ON Students.student_id = Transcripts.student_id JOIN Behaviour_Monitoring AS Behaviour_Monitoring ON Students.student_id = Behaviour_Monitoring.student_id JOIN Teachers AS Teachers ON Students.student_id = Teachers.teacher_id WHERE Behaviour_Monitoring.student_details = ''
 SELECT COUNT(Teachers.teacher_id) FROM Teachers JOIN Students ON Teachers.teacher_id = Students.student_id WHERE Students.student_id NOT IN (SELECT Students.student_id FROM Students JOIN Achievements ON Students.student_id = Achievements.student_id)
 SELECT Ref_Event_Types.event_type_description, Addresses.address_details FROM Classes JOIN Teachers ON Classes.teacher_id = Teachers.teacher_id JOIN Addresses ON Classes.student_id = Addresses.address_id JOIN Ref_Event_Types ON Classes.teacher_id = Ref_Event_Types.event_type_code WHERE Classes.class_details = (SELECT Ref_Event_Types.event_type_description FROM Classes JOIN Teachers ON Classes.teacher_id = Teachers.teacher_id JOIN Ref_Event_Types ON Classes.teacher_id = Ref_Event_Types.event_type_code GROUP BY Ref_Event_Types.event_type_description ORDER BY COUNT(*) ASC LIMIT 1)
+SELECT Classes.class_details, Ref_Event_Types.event_type_description FROM Classes AS Students JOIN Ref_Event_Types AS Transcripts ON Students.student_id = Transcripts.event_type_code GROUP BY Classes.class_details ORDER BY COUNT(Classes.class_details) LIMIT 1
+SELECT Students.student_id , Students.bio_data , Students.student_details FROM Students INNER JOIN Student_Loans ON Students.student_id = Student_Loans.student_id WHERE Student_Loans.amount_of_loan > ( SELECT AVG(amount_of_loan) FROM Student_Loans )
+SELECT Students.bio_data, Student_Events.other_details FROM Students INNER JOIN Student_Events ON Student_Events.student_id = Students.student_id INNER JOIN Student_Loans ON Student_Loans.student_id = Students.student_id WHERE Student_Loans.amount_of_loan > ( SELECT AVG(amount_of_loan) FROM Student_Loans )
+SELECT 1
+SELECT 1
+SELECT 1
+SELECT 1

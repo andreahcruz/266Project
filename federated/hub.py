@@ -6,7 +6,8 @@ Routes a question through:
            → Node.retrieve_and_mask
            → LLM with masked prompt
            → Node.unmask_and_execute
-           → on error: self-correction retry with masked error
+           → on error: self-correction retry with masked error (few-shot demos
+             included when ``prompt_strategy`` is ``few_shot``)
            → return AnswerRecord
 
 Reuses existing prompt templates (zero_shot.txt, few_shot.txt,
@@ -33,7 +34,7 @@ from few_shot_examples import (
     index_train_by_db,
     load_train_spider,
 )
-from prompt_utils import load_prompt
+from prompt_utils import load_prompt, sql_chat_system_prompt
 
 
 @dataclass
@@ -55,6 +56,10 @@ class AnswerRecord:
     difficulty: Optional[str] = None
     model_used: Optional[str] = None
     retrieval_used: Optional[str] = None
+    # Broker diagnostics / margin tie-break (oracle runs leave these falsy).
+    embedding_top1_margin: Optional[float] = None
+    routing_tiebreak_used: bool = False
+    db_routing_correct: Optional[bool] = None
     extras: dict = field(default_factory=dict)
 
 
@@ -104,6 +109,7 @@ class Hub:
         retrieval_for_difficulty: Optional[dict[str, str]] = None,
         top_k_tables: int = 4,
         top_n_columns: int = 6,
+        broker_margin_delta: float = 0.07,
     ):
         self.broker = broker
         self.nodes = nodes_by_db_id
@@ -120,6 +126,8 @@ class Hub:
         self._few_shot_hints_tpl = load_prompt("few_shot_with_hints.txt")
         self._cot_tpl = load_prompt("chain_of_thought.txt")
         self._self_correct_tpl = load_prompt("self_correction.txt")
+        self._few_shot_sc_tpl = load_prompt("few_shot_self_correction.txt")
+        self._few_shot_hints_sc_tpl = load_prompt("few_shot_with_hints_self_correction.txt")
         self._train_rows = train_rows or []
         self._train_by_db = index_train_by_db(self._train_rows) if self._train_rows else {}
         self._few_shot_k = few_shot_k
@@ -133,17 +141,51 @@ class Hub:
         self.retrieval_for_difficulty = retrieval_for_difficulty or {}
         self.top_k_tables = top_k_tables
         self.top_n_columns = top_n_columns
+        self.broker_margin_delta = broker_margin_delta
+        self._system_primary_sql = sql_chat_system_prompt(masking=masking, correction=False)
+        self._system_correction_sql = sql_chat_system_prompt(correction=True)
 
     # ── Routing ───────────────────────────────────────────────
-    def _route(
-        self, question: str, oracle_db_id: Optional[str]
-    ) -> tuple[str, Optional[str], list]:
-        if self.routing_mode == "oracle":
-            assert oracle_db_id is not None, "oracle routing needs oracle_db_id"
-            return oracle_db_id, None, []
-        assert self.broker is not None, "broker routing needs a broker"
+    def _broker_resolve_with_optional_tiebreak(
+        self, question: str
+    ) -> tuple[str, str, list[tuple[str, float]], bool, Optional[float]]:
+        """Return (db_id_used, embedding_top1_db_id, ranking, tiebreak_used, margin).
+
+        ``broker_pick`` (embedding MacroRAG top-1) is always ``embedding_top1_db_id``.
+        If blurb cosine margin is below ``broker_margin_delta``, each of the top-2
+        nodes emits a lexical alignment scalar; we pick whichever is higher.
+
+        Tie-break comparisons use only aggregates computed inside sovereign nodes —
+        schema strings are not surfaced to the broker.
+        """
+        assert self.broker is not None
         ranking = self.broker.route(question)
-        return ranking[0][0], ranking[0][0], ranking
+        embed_top_db = ranking[0][0]
+        top_sim = ranking[0][1]
+        second_sim = ranking[1][1] if len(ranking) > 1 else None
+        margin = (top_sim - second_sim) if second_sim is not None else None
+
+        db_id_used = embed_top_db
+        tiebreak_used = False
+
+        if (
+            margin is not None
+            and second_sim is not None
+            and len(ranking) >= 2
+            and self.broker_margin_delta > 0
+            and margin < self.broker_margin_delta
+        ):
+            a, b = ranking[0][0], ranking[1][0]
+            na = self.nodes.get(a)
+            nb = self.nodes.get(b)
+            if na is not None and nb is not None:
+                ta = na.routing_tiebreaker_score(question)
+                tb = nb.routing_tiebreaker_score(question)
+                tiebreak_used = True
+                if tb > ta:
+                    db_id_used = b
+
+        return db_id_used, embed_top_db, ranking, tiebreak_used, margin
 
     # ── Prompt construction ───────────────────────────────────
     @staticmethod
@@ -164,49 +206,90 @@ class Hub:
         schema: str,
         db_id_for_examples: str,
         hints: Optional[list[tuple[str, str]]] = None,
+        *,
+        few_shot_examples_formatted: Optional[str] = None,
     ) -> tuple[str, Optional[str]]:
-        """Return ``(user_prompt, system_prompt_or_None)``."""
+        """Return ``(user_prompt, system_prompt)``."""
+        sys_msg = self._system_primary_sql
         if self.prompt_strategy == "zero_shot":
-            return self._zero_shot_tpl.format(schema=schema, question=question), None
+            return self._zero_shot_tpl.format(schema=schema, question=question), sys_msg
         if self.prompt_strategy == "few_shot":
             if not self._train_rows:
                 # fall back to zero-shot if train rows not provided
-                return self._zero_shot_tpl.format(schema=schema, question=question), None
-            examples = build_few_shot_examples(
-                self._train_rows,
-                self._train_by_db,
-                db_id_for_examples,
-                self._few_shot_k,
-                self._rng,
-            )
+                return self._zero_shot_tpl.format(schema=schema, question=question), sys_msg
+            if few_shot_examples_formatted is None:
+                demos = build_few_shot_examples(
+                    self._train_rows,
+                    self._train_by_db,
+                    db_id_for_examples,
+                    self._few_shot_k,
+                    self._rng,
+                )
+                few_shot_examples_formatted = format_examples_for_prompt(demos)
             if self.use_phrase_hints and hints is not None:
                 return (
                     self._few_shot_hints_tpl.format(
-                        examples=format_examples_for_prompt(examples),
+                        examples=few_shot_examples_formatted,
                         schema=schema,
                         hints=self._format_hints(hints),
                         question=question,
                     ),
-                    None,
+                    sys_msg,
                 )
             return (
                 self._few_shot_tpl.format(
-                    examples=format_examples_for_prompt(examples),
+                    examples=few_shot_examples_formatted,
                     schema=schema,
                     question=question,
                 ),
-                None,
+                sys_msg,
             )
         if self.prompt_strategy == "self_correction":
             # First attempt is zero-shot; correction kicks in on retry.
-            return self._zero_shot_tpl.format(schema=schema, question=question), None
+            return self._zero_shot_tpl.format(schema=schema, question=question), sys_msg
         if self.prompt_strategy == "chain_of_thought":
-            return self._cot_tpl.format(schema=schema, question=question), None
+            return self._cot_tpl.format(schema=schema, question=question), sys_msg
         raise ValueError(f"unknown prompt_strategy {self.prompt_strategy!r}")
 
     def _build_correction_prompt(
-        self, question: str, schema: str, sql: str, error: str
+        self,
+        question: str,
+        schema: str,
+        sql: str,
+        error: str,
+        db_id_for_examples: str,
+        hints: Optional[list[tuple[str, str]]] = None,
+        *,
+        few_shot_examples_formatted: Optional[str] = None,
     ) -> str:
+        """Retry prompt: same few-shot block as primary when strategy is few_shot."""
+        if self.prompt_strategy == "few_shot" and self._train_rows:
+            examples_block = few_shot_examples_formatted
+            if examples_block is None:
+                demos = build_few_shot_examples(
+                    self._train_rows,
+                    self._train_by_db,
+                    db_id_for_examples,
+                    self._few_shot_k,
+                    self._rng,
+                )
+                examples_block = format_examples_for_prompt(demos)
+            if self.use_phrase_hints and hints is not None:
+                return self._few_shot_hints_sc_tpl.format(
+                    examples=examples_block,
+                    schema=schema,
+                    hints=self._format_hints(hints),
+                    question=question,
+                    sql=sql,
+                    error=error,
+                )
+            return self._few_shot_sc_tpl.format(
+                examples=examples_block,
+                schema=schema,
+                question=question,
+                sql=sql,
+                error=error,
+            )
         return self._self_correct_tpl.format(
             schema=schema, question=question, sql=sql, error=error
         )
@@ -232,9 +315,29 @@ class Hub:
         question_idx: Optional[int] = None,
         difficulty: Optional[str] = None,
     ) -> AnswerRecord:
-        db_id_used, broker_pick, ranking = self._route(question, oracle_db_id)
-        broker_correct = (
-            (broker_pick == oracle_db_id) if (broker_pick is not None and oracle_db_id is not None) else None
+        embedding_top1_margin: Optional[float] = None
+        routing_tiebreak_used = False
+        ranking: list[tuple[str, float]] = []
+
+        if self.routing_mode == "oracle":
+            assert oracle_db_id is not None, "oracle routing needs oracle_db_id"
+            db_id_used = oracle_db_id
+            broker_pick: Optional[str] = None
+            broker_correct = None
+        else:
+            db_id_used, broker_pick, ranking, routing_tiebreak_used, embedding_top1_margin = (
+                self._broker_resolve_with_optional_tiebreak(question)
+            )
+            broker_correct = (
+                (broker_pick == oracle_db_id)
+                if (broker_pick is not None and oracle_db_id is not None)
+                else None
+            )
+
+        db_routing_correct = (
+            (db_id_used == oracle_db_id)
+            if oracle_db_id is not None
+            else None
         )
 
         if db_id_used not in self.nodes:
@@ -259,6 +362,9 @@ class Hub:
                     rows_or_error=f"No node for {db_id_used!r}",
                     retries=0,
                     cost_usd_so_far=self.cost_logger.total_cost_usd if self.cost_logger else 0.0,
+                    embedding_top1_margin=embedding_top1_margin,
+                    routing_tiebreak_used=routing_tiebreak_used,
+                    db_routing_correct=db_routing_correct,
                 )
 
         session = SessionState(db_id=db_id_used)
@@ -300,7 +406,7 @@ class Hub:
 
         # Optionally compute phrase hints — node-side embedding match between
         # question content words and real column names. Only token IDs leak.
-        hints: list[tuple[str, str, str]] = []
+        hints: list[tuple[str, str]] = []
         if self.use_phrase_hints and self.masking:
             try:
                 hints = node.compute_phrase_hints(question, session)
@@ -309,7 +415,24 @@ class Hub:
                 hints = []
                 print(f"  [hints] {db_id_used}: {exc!r}")
 
-        prompt, system = self._build_prompt(question, masked_schema, db_id_used, hints=hints)
+        few_shot_block: Optional[str] = None
+        if self.prompt_strategy == "few_shot" and self._train_rows:
+            demos0 = build_few_shot_examples(
+                self._train_rows,
+                self._train_by_db,
+                db_id_used,
+                self._few_shot_k,
+                self._rng,
+            )
+            few_shot_block = format_examples_for_prompt(demos0)
+
+        prompt, system = self._build_prompt(
+            question,
+            masked_schema,
+            db_id_used,
+            hints=hints,
+            few_shot_examples_formatted=few_shot_block,
+        )
         # Resolve which model to use — cascade if difficulty is provided and
         # model_for_difficulty is set, otherwise primary_model.
         chosen_model = self._model_for(difficulty)
@@ -334,16 +457,28 @@ class Hub:
             retries += 1
             error_msg = str(rows)[:500]
             correction_prompt = self._build_correction_prompt(
-                question, masked_schema, masked_sql, error_msg
+                question,
+                masked_schema,
+                masked_sql,
+                error_msg,
+                db_id_used,
+                hints=hints,
+                few_shot_examples_formatted=few_shot_block,
+            )
+            sc_note = (
+                "self_correction_few_shot|diff="
+                if self.prompt_strategy == "few_shot" and self._train_rows
+                else "self_correction|diff="
             )
             text, _usage = complete(
                 messages=[{"role": "user", "content": correction_prompt}],
                 model=chosen_model,
+                system=self._system_correction_sql,
                 cost_logger=self.cost_logger,
                 question_idx=question_idx,
                 db_id=db_id_used,
                 retry_idx=retries,
-                note=f"self_correction|diff={difficulty or 'na'}",
+                note=f"{sc_note}{difficulty or 'na'}",
             )
             masked_sql = _strip_sql_response(text)
             ok, rows, real_sql = node.unmask_and_execute(masked_sql, session)
@@ -366,4 +501,7 @@ class Hub:
             difficulty=difficulty,
             model_used=chosen_model,
             retrieval_used=retrieval_used,
+            embedding_top1_margin=embedding_top1_margin,
+            routing_tiebreak_used=routing_tiebreak_used,
+            db_routing_correct=db_routing_correct,
         )

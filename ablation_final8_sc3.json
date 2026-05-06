@@ -1,0 +1,90 @@
+{
+  "_comment": "Phase 2 (8 runs): same as ablation_final8_no_sc.json but max_retries=3 (self-correction on). Run after Phase 1 completes.",
+  "_default_model": "claude-haiku-4-5-20251001",
+  "_default_routing": "oracle",
+  "_default_max_retries": 3,
+  "_default_cost_cap_usd": 3.0,
+  "_default_broker_margin_delta": 0.07,
+  "cells": [
+    {
+      "experiment_id": "final_mr3_oracle_nomask",
+      "routing": "oracle",
+      "retrieval": "hybrid",
+      "masking": false,
+      "prompt": "few_shot",
+      "cascade_hard_model": "gpt-5.2",
+      "max_retries": 3
+    },
+    {
+      "experiment_id": "final_mr3_oracle_semantic",
+      "routing": "oracle",
+      "retrieval": "hybrid",
+      "masking": true,
+      "mask_style": "semantic",
+      "prompt": "few_shot",
+      "cascade_hard_model": "gpt-5.2",
+      "max_retries": 3
+    },
+    {
+      "experiment_id": "final_mr3_oracle_hard",
+      "routing": "oracle",
+      "retrieval": "hybrid",
+      "masking": true,
+      "mask_style": "hard",
+      "prompt": "few_shot",
+      "cascade_hard_model": "gpt-5.2",
+      "max_retries": 3
+    },
+    {
+      "experiment_id": "final_mr3_oracle_semantic_hints",
+      "routing": "oracle",
+      "retrieval": "hybrid",
+      "masking": true,
+      "mask_style": "semantic",
+      "phrase_hints": true,
+      "prompt": "few_shot",
+      "cascade_hard_model": "gpt-5.2",
+      "max_retries": 3
+    },
+    {
+      "experiment_id": "final_mr3_broker_nomask",
+      "routing": "broker",
+      "retrieval": "hybrid",
+      "masking": false,
+      "prompt": "few_shot",
+      "cascade_hard_model": "gpt-5.2",
+      "max_retries": 3
+    },
+    {
+      "experiment_id": "final_mr3_broker_semantic",
+      "routing": "broker",
+      "retrieval": "hybrid",
+      "masking": true,
+      "mask_style": "semantic",
+      "prompt": "few_shot",
+      "cascade_hard_model": "gpt-5.2",
+      "max_retries": 3
+    },
+    {
+      "experiment_id": "final_mr3_broker_hard",
+      "routing": "broker",
+      "retrieval": "hybrid",
+      "masking": true,
+      "mask_style": "hard",
+      "prompt": "few_shot",
+      "cascade_hard_model": "gpt-5.2",
+      "max_retries": 3
+    },
+    {
+      "experiment_id": "final_mr3_broker_semantic_hints",
+      "routing": "broker",
+      "retrieval": "hybrid",
+      "masking": true,
+      "mask_style": "semantic",
+      "phrase_hints": true,
+      "prompt": "few_shot",
+      "cascade_hard_model": "gpt-5.2",
+      "max_retries": 3
+    }
+  ]
+}

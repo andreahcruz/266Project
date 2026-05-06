@@ -22,8 +22,13 @@ from pathlib import Path
 from typing import Optional
 
 from sql_executor import execute_sql
-from retriever import retrieve_schema_details, _tokenize as _retriever_tokenize
+from retriever import (
+    lexical_db_question_alignment_score,
+    retrieve_schema_details,
+    _tokenize as _retriever_tokenize,
+)
 from federated.masker import mask_selection, unmask_sql
+from federated.retail_routing_signals import retail_pair_tiebreak_nudge
 from federated.session import SessionState
 
 
@@ -140,6 +145,15 @@ class Node:
         trigger broker re-pick before consuming retry budget.
         """
         return not (session.masked_schema and session.masked_schema.strip())
+
+    def routing_tiebreaker_score(self, question: str) -> float:
+        """Node-local lexical alignment score for broker routing tie-break only.
+
+        The Hub compares this scalar across the top two blurb-ranked candidates;
+        identifiers never leave the node.
+        """
+        base = lexical_db_question_alignment_score(question, self.db_id, self.tables_data)
+        return base + retail_pair_tiebreak_nudge(question, self.db_id)
 
     # ── Column-level retrieval hints ──────────────────────────────────
     def _ensure_col_embeddings(self) -> dict[int, list[float]]:

@@ -55,7 +55,7 @@ from few_shot_examples import (
     index_train_by_db,
     load_train_spider,
 )
-from prompt_utils import load_prompt
+from prompt_utils import load_prompt, sql_chat_system_prompt
 from retriever import retrieve_schema
 from schema_loader import load_tables
 from sql_executor import execute_sql
@@ -63,12 +63,16 @@ from sqlgen_parse import parse_sql_response
 from vector_store import load_index
 
 
-def call_cerebras(client, prompt, max_attempts=5):
+def call_cerebras(client, prompt, max_attempts=5, *, system=None):
+    messages = []
+    if system:
+        messages.append({"role": "system", "content": system})
+    messages.append({"role": "user", "content": prompt})
     for attempt in range(max_attempts):
         try:
             response = client.chat.completions.create(
                 model=CEREBRAS_MODEL,
-                messages=[{"role": "user", "content": prompt}],
+                messages=messages,
                 temperature=0,
                 max_tokens=CEREBRAS_MAX_TOKENS,
             )
@@ -147,6 +151,9 @@ def main():
     rag_suffix = "hybrid_rag" if args.mode == "hybrid" else "rag"
     out_path = RESULTS_DIR / balanced_pred_filename(f"cerebras_few_shot_self_correction_{rag_suffix}")
 
+    sys_primary = sql_chat_system_prompt(masking=False)
+    sys_correct = sql_chat_system_prompt(correction=True)
+
     # Load training examples for few-shot
     print(f"Loading train examples from {TRAIN_SPIDER_JSON} ...")
     train_rows = load_train_spider(TRAIN_SPIDER_JSON)
@@ -182,7 +189,7 @@ def main():
                 schema=schema, question=question, examples=examples_block,
             )
             try:
-                raw = call_cerebras(client, prompt)
+                raw = call_cerebras(client, prompt, system=sys_primary)
                 sql = parse_sql_response(raw)
             except Exception as e:
                 print(f"  [ERROR] Question {i} initial: {e}")
@@ -201,7 +208,7 @@ def main():
                     error=error_msg,
                 )
                 try:
-                    raw = call_cerebras(client, correction_prompt)
+                    raw = call_cerebras(client, correction_prompt, system=sys_correct)
                     sql = parse_sql_response(raw)
                 except Exception as e:
                     print(f"  [ERROR] Question {i} correction {attempt + 1}: {e}")

@@ -157,6 +157,45 @@ def _score_table(
     return s
 
 
+# Phrases where the word "order" means sort order, not commerce `Orders`.
+_ROUTING_SORT_ORDER_PHRASES = re.compile(
+    r"\bascending\s+order\b|\bdescending\s+order\b|\bin\s+order\s+of\b|,\s*ascending\s*\.?\s*$",
+    re.IGNORECASE,
+)
+
+
+def lexical_db_question_alignment_score(
+    question: str,
+    db_id: str,
+    tables_data: dict,
+    *,
+    max_secondary_tables: int = 3,
+    secondary_weight: float = 0.12,
+) -> float:
+    """Lexical overlap between question tokens and this DB's table/column names.
+
+    Used for **privacy-preserving broker tie-breaking** inside a node only: only
+    a single scalar score may be compared across two candidate databases; raw
+    schema text is not sent to the broker.
+    """
+    entry = tables_data[db_id]
+    table_names = entry["table_names_original"]
+    columns = entry["column_names_original"]
+    question_for_lex = _ROUTING_SORT_ORDER_PHRASES.sub(" ", question)
+    q_tokens = _tokenize(question_for_lex)
+    q_stems = {_stem(t) for t in q_tokens}
+    scores = [
+        _score_table(i, entry, table_names, columns, q_stems)
+        for i in range(len(table_names))
+    ]
+    scores.sort(reverse=True)
+    if not scores:
+        return 0.0
+    top = scores[0]
+    rest = scores[1 : 1 + max_secondary_tables]
+    return float(top + secondary_weight * sum(rest))
+
+
 def _looks_like_single_table_question(
     question: str,
     table_scores: list[tuple[int, float]],

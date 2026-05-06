@@ -63,6 +63,11 @@ def parse_args():
     p.add_argument("--experiment-id", required=True)
     p.add_argument("--routing", default="broker", choices=["broker", "oracle"])
     p.add_argument(
+        "--blurbs-dir",
+        default=str(BASE_DIR / "federated" / "blurbs"),
+        help="Directory containing per-db_id .md blurbs for broker routing.",
+    )
+    p.add_argument(
         "--retrieval", default="hybrid", choices=["hybrid", "lexical", "none"]
     )
     p.add_argument(
@@ -106,6 +111,14 @@ def parse_args():
                         "model instead of --model. easy/medium still use --model. "
                         "Difficulty is derived from gold SQL via Spider's "
                         "Evaluator.eval_hardness (oracle difficulty).")
+    p.add_argument(
+        "--broker-margin-delta",
+        type=float,
+        default=0.07,
+        help="Broker-only: when cosine(blurb_top1)-cosine(blurb_top2) < this margin, "
+        "both top-2 nodes contribute a lexical tie-break scalar (no DDL leaves nodes). "
+        "Set to 0 to disable.",
+    )
     return p.parse_args()
 
 
@@ -151,6 +164,9 @@ def main():
         "max_retries": args.max_retries,
         "cost_cap_usd": args.cost_cap_usd,
         "limit": args.limit,
+        "phrase_hints": bool(args.phrase_hints),
+        "broker_margin_delta": float(args.broker_margin_delta),
+        "blurbs_dir": str(Path(args.blurbs_dir).resolve()),
     }
     config_path.write_text(json.dumps(config_dump, indent=2))
 
@@ -181,7 +197,7 @@ def main():
         for db in DB_IDS_IN_SPLIT
     }
     broker = (
-        Broker(BASE_DIR / "federated" / "blurbs", openai_client)
+        Broker(Path(args.blurbs_dir), openai_client)
         if args.routing == "broker"
         else None
     )
@@ -222,6 +238,7 @@ def main():
         cost_logger=cost_logger,
         train_rows=train_rows,
         use_phrase_hints=args.phrase_hints,
+        broker_margin_delta=float(args.broker_margin_delta),
         model_for_difficulty=model_for_difficulty,
         retrieval_for_difficulty=retrieval_for_difficulty,
         top_k_tables=args.top_k_tables,
@@ -252,11 +269,14 @@ def main():
         c = Counter(difficulty_by_idx.get(idx, "medium") for idx, _q in eval_qs)
         print(f"[cascade] difficulty distribution over {len(eval_qs)} q: {dict(c)}")
         if model_for_difficulty:
-            print(f"[cascade] easy/medium model → {args.model}, hard/extra model → {args.cascade_hard_model}")
+            print(
+                f"[cascade] easy/medium model -> {args.model}, "
+                f"hard/extra model -> {args.cascade_hard_model}"
+            )
         if retrieval_for_difficulty:
             print(
-                "[cascade] easy/medium retrieval → "
-                f"{retrieval_for_difficulty['easy']}, hard/extra retrieval → "
+                "[cascade] easy/medium retrieval -> "
+                f"{retrieval_for_difficulty['easy']}, hard/extra retrieval -> "
                 f"{retrieval_for_difficulty['hard']}"
             )
 
@@ -269,7 +289,8 @@ def main():
     if csv_mode == "w":
         csv_w.writerow([
             "pos", "test_idx", "db_id_gold", "db_id_used", "broker_pick",
-            "broker_correct", "re_picked", "retries", "exec_success",
+            "broker_correct", "db_routing_correct", "embedding_top1_margin",
+            "routing_tiebreak_used", "re_picked", "retries", "exec_success",
             "difficulty", "model_used", "retrieval_used",
             "masked_sql", "real_sql",
         ])
@@ -297,7 +318,13 @@ def main():
                 pred_f.flush()
                 csv_w.writerow([
                     pos, test_idx, q["db_id"], rec.db_id_used, rec.broker_pick,
-                    rec.broker_correct, rec.re_picked, rec.retries,
+                    rec.broker_correct,
+                    rec.db_routing_correct if rec.db_routing_correct is not None else "",
+                    f"{rec.embedding_top1_margin:.6f}"
+                    if rec.embedding_top1_margin is not None
+                    else "",
+                    rec.routing_tiebreak_used,
+                    rec.re_picked, rec.retries,
                     rec.success,
                     rec.difficulty or "", rec.model_used or "", rec.retrieval_used or "",
                     " ".join(rec.masked_sql_final.split()),
@@ -320,7 +347,8 @@ def main():
                 pred_f.write(PLACEHOLDER_SQL + "\n")
                 pred_f.flush()
                 csv_w.writerow([
-                    pos, test_idx, q["db_id"], "ERR", None, None, False, 0,
+                    pos, test_idx, q["db_id"], "ERR", None, None, "", "", False,
+                    False, 0,
                     False, difficulty_by_idx.get(test_idx, "") or "", "", "",
                     "", f"ERR: {exc!r}",
                 ])

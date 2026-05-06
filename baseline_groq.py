@@ -18,19 +18,23 @@ from config import (
 from schema_loader import load_tables, get_schema_string
 from sql_executor import execute_sql
 from sqlgen_parse import parse_sql_response
-from prompt_utils import load_prompt
+from prompt_utils import load_prompt, sql_chat_system_prompt
 
 
-def call_groq(client, prompt, max_attempts=5):
+def call_groq(client, prompt, max_attempts=5, *, system=None):
     """Send a prompt to Groq and return the response text.
 
     Retries with exponential backoff on rate-limit (429) errors.
     """
+    messages = []
+    if system:
+        messages.append({"role": "system", "content": system})
+    messages.append({"role": "user", "content": prompt})
     for attempt in range(max_attempts):
         try:
             response = client.chat.completions.create(
                 model=GROQ_MODEL,
-                messages=[{"role": "user", "content": prompt}],
+                messages=messages,
                 temperature=0,
                 max_tokens=512,
             )
@@ -48,6 +52,7 @@ def call_groq(client, prompt, max_attempts=5):
 def run_zero_shot(questions, tables_data, client, output_path):
     """Run zero-shot prompting on all questions and save predictions."""
     template = load_prompt("zero_shot.txt")
+    sql_sys = sql_chat_system_prompt(masking=False)
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     out = open(output_path, "w", encoding="utf-8")
 
@@ -60,7 +65,7 @@ def run_zero_shot(questions, tables_data, client, output_path):
             prompt = template.format(schema=schema, question=question)
 
             try:
-                raw = call_groq(client, prompt)
+                raw = call_groq(client, prompt, system=sql_sys)
                 sql = parse_sql_response(raw)
             except Exception as e:
                 print(f"  [ERROR] Question {i}: {e}")
@@ -84,6 +89,8 @@ def run_self_correction(questions, tables_data, client, output_path):
     """Run zero-shot with self-correction on execution errors."""
     zs_template = load_prompt("zero_shot.txt")
     sc_template = load_prompt("self_correction.txt")
+    sys_primary = sql_chat_system_prompt(masking=False)
+    sys_correct = sql_chat_system_prompt(correction=True)
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     out = open(output_path, "w", encoding="utf-8")
 
@@ -96,7 +103,7 @@ def run_self_correction(questions, tables_data, client, output_path):
 
             prompt = zs_template.format(schema=schema, question=question)
             try:
-                raw = call_groq(client, prompt)
+                raw = call_groq(client, prompt, system=sys_primary)
                 sql = parse_sql_response(raw)
             except Exception as e:
                 print(f"  [ERROR] Question {i} initial: {e}")
@@ -112,7 +119,7 @@ def run_self_correction(questions, tables_data, client, output_path):
                     schema=schema, question=question, sql=sql, error=error_msg,
                 )
                 try:
-                    raw = call_groq(client, correction_prompt)
+                    raw = call_groq(client, correction_prompt, system=sys_correct)
                     sql = parse_sql_response(raw)
                 except Exception as e:
                     print(f"  [ERROR] Question {i} correction {attempt + 1}: {e}")

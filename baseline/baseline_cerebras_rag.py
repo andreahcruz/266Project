@@ -56,21 +56,25 @@ from few_shot_examples import (
     index_train_by_db,
     load_train_spider,
 )
-from prompt_utils import load_prompt
+from prompt_utils import load_prompt, sql_chat_system_prompt
 from retriever import retrieve_schema
 from vector_store import load_index
 from schema_loader import load_tables
 from sqlgen_parse import parse_sql_after_chain_of_thought, parse_sql_response
 
 
-def call_cerebras(client, prompt, max_tokens=None, max_attempts=5):
+def call_cerebras(client, prompt, max_tokens=None, max_attempts=5, *, system=None):
     """Send prompt to Cerebras (OpenAI-compatible); retry on rate limits."""
     mt = CEREBRAS_MAX_TOKENS if max_tokens is None else max_tokens
+    messages = []
+    if system:
+        messages.append({"role": "system", "content": system})
+    messages.append({"role": "user", "content": prompt})
     for attempt in range(max_attempts):
         try:
             response = client.chat.completions.create(
                 model=CEREBRAS_MODEL,
-                messages=[{"role": "user", "content": prompt}],
+                messages=messages,
                 temperature=0,
                 max_tokens=mt,
             )
@@ -181,6 +185,8 @@ def main():
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     out_path = RESULTS_DIR / out_name
 
+    sql_system = sql_chat_system_prompt(masking=False)
+
     train_rows = None
     by_db_indices = None
     rng = random.Random(FEW_SHOT_SEED)
@@ -223,7 +229,7 @@ def main():
                 prompt = template.format(schema=schema, question=question)
 
             try:
-                raw = call_cerebras(client, prompt, max_tokens=max_tok)
+                raw = call_cerebras(client, prompt, max_tokens=max_tok, system=sql_system)
                 sql = parse_fn(raw)
             except Exception as e:
                 print(f"  [ERROR] Question {i}: {e}")

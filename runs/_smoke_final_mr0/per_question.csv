@@ -1,0 +1,3 @@
+pos,test_idx,db_id_gold,db_id_used,broker_pick,broker_correct,re_picked,retries,exec_success,difficulty,model_used,retrieval_used,masked_sql,real_sql
+0,0,soccer_3,soccer_3,,,False,0,True,easy,claude-haiku-4-5-20251001,hybrid,SELECT COUNT(*) FROM club,SELECT COUNT(*) FROM club
+1,1,soccer_3,soccer_3,,,False,0,True,easy,claude-haiku-4-5-20251001,hybrid,SELECT COUNT(*) FROM club,SELECT COUNT(*) FROM club

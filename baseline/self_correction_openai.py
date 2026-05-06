@@ -32,18 +32,22 @@ from config import (
     TABLES_FOR_RUN,
     select_test_questions,
 )
-from prompt_utils import load_prompt
+from prompt_utils import load_prompt, sql_chat_system_prompt
 from schema_loader import load_tables, get_schema_string
 from sql_executor import execute_sql
 from sqlgen_parse import parse_sql_response
 
 
-def call_openai(client, prompt, max_attempts=5):
+def call_openai(client, prompt, max_attempts=5, *, system=None):
+    messages = []
+    if system:
+        messages.append({"role": "system", "content": system})
+    messages.append({"role": "user", "content": prompt})
     for attempt in range(max_attempts):
         try:
             response = client.chat.completions.create(
                 model=OPENAI_MODEL,
-                messages=[{"role": "user", "content": prompt}],
+                messages=messages,
                 temperature=0,
                 max_completion_tokens=512,
             )
@@ -95,6 +99,9 @@ def main():
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     out_path = RESULTS_DIR / balanced_pred_filename("openai_self_correction")
 
+    sys_primary = sql_chat_system_prompt(masking=False)
+    sys_correct = sql_chat_system_prompt(correction=True)
+
     print(f"Running OpenAI ({OPENAI_MODEL}) self-correction on {len(questions)} questions (test split)...")
     with open(out_path, "w", encoding="utf-8") as out:
         for i, q in enumerate(questions):
@@ -104,7 +111,7 @@ def main():
 
             prompt = zs_template.format(schema=schema, question=question)
             try:
-                raw = call_openai(client, prompt)
+                raw = call_openai(client, prompt, system=sys_primary)
                 sql = parse_sql_response(raw)
             except Exception as e:
                 print(f"  [ERROR] Question {i} initial: {e}")
@@ -122,7 +129,7 @@ def main():
                     error=error_msg,
                 )
                 try:
-                    raw = call_openai(client, correction_prompt)
+                    raw = call_openai(client, correction_prompt, system=sys_correct)
                     sql = parse_sql_response(raw)
                 except Exception as e:
                     print(f"  [ERROR] Question {i} correction {attempt + 1}: {e}")

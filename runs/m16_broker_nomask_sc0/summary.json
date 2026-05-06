@@ -1,0 +1,29 @@
+{
+  "experiment_id": "m16_broker_nomask_sc0",
+  "routing": "broker",
+  "retrieval": "hybrid",
+  "retrieval_easy_medium": "hybrid",
+  "retrieval_hard_extra": "hybrid",
+  "top_k_tables": 4,
+  "top_n_columns": 6,
+  "masking": false,
+  "mask_style": "none",
+  "prompt": "few_shot",
+  "model": "claude-haiku-4-5-20251001",
+  "max_retries": 0,
+  "cost_cap_usd": 3.0,
+  "limit": null,
+  "phrase_hints": false,
+  "cascade_hard_model": "gpt-5.2",
+  "n_processed": 320,
+  "exec_success_rate_runtime": 0.965625,
+  "spider_exec_accuracy_overall": 0.459,
+  "spider_exec_by_difficulty": {
+    "easy": 0.675,
+    "medium": 0.512,
+    "hard": 0.438,
+    "extra": 0.212
+  },
+  "total_cost_usd": 0.36468024999999976,
+  "wall_time_seconds": 467
+}

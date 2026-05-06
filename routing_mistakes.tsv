@@ -1,0 +1,34 @@
+test_idx	gold_db	predicted_db	embed_top1	embed_top1_ok	top2_db	margin	tiebreak	lex_scores	question
+9	soccer_3	e_commerce	e_commerce	0	vehicle_driver	0.010799	1	2.3400|0.7500	Return the names of players in order of count of wins, ascending.
+219	online_exams	cre_Students_Information_Systems	cre_Students_Information_Systems	0	online_exams	0.066126	0		"List the last names of the students whose gender is not ""M""."
+220	online_exams	cre_Students_Information_Systems	cre_Students_Information_Systems	0	online_exams	0.061721	0		"What are the last names of the students with gender other than ""M""?"
+237	customers_and_orders	e_commerce	customers_and_orders	1	e_commerce	0.024092	1	12.3800|12.6800	How many products do we have?
+238	customers_and_orders	e_commerce	customers_and_orders	1	e_commerce	0.016723	1	12.3800|12.6800	Count the number of products.
+241	customers_and_orders	e_commerce	vehicle_rent	0	e_commerce	0.002434	1	0.0000|14.1800	What is the price for the product with name Monitor?
+242	customers_and_orders	bbc_channels	bbc_channels	0	vehicle_rent	0.001520	1	0.0000|0.0000	Give the price of the Monitor product.
+245	customers_and_orders	e_commerce	customers_and_orders	1	e_commerce	0.016007	1	13.6800|14.1800	What is the average price for products with type Clothes?
+246	customers_and_orders	e_commerce	e_commerce	0	customers_and_orders	0.001284	1	1.5000|1.5000	Return the average price of Clothes.
+247	customers_and_orders	e_commerce	customers_and_orders	1	e_commerce	0.037523	1	11.8800|12.6800	How many hardware type products do we have?
+42	e_commerce	customers_and_orders	e_commerce	1	customers_and_orders	0.014115	1	19.0400|19.5200	For the orders with any produts, how many products does each orders contain ? List the order id, status and the number.
+138	tv_shows	bbc_channels	bbc_channels	0	tv_shows	0.119888	0		What are the names and original air dates of tv shows?
+211	online_exams	cre_Students_Information_Systems	online_exams	1	cre_Students_Information_Systems	0.006542	1	13.7500|14.9800	Please show the email addresses of students and the dates of their answers in descending order of dates.
+212	online_exams	cre_Students_Information_Systems	online_exams	1	cre_Students_Information_Systems	0.028226	1	16.0800|16.5700	For each student answer, find the email address of the student and the date of the answer. Sort them in descending order of dates.
+249	customers_and_orders	e_commerce	customers_and_orders	1	e_commerce	0.001557	1	10.5200|15.2000	Show all product names with price higher than the average.
+250	customers_and_orders	e_commerce	e_commerce	0	customers_and_orders	0.008907	1	15.2000|10.5200	What are the names of products that have a price above the average for all products.
+253	customers_and_orders	e_commerce	customers_and_orders	1	e_commerce	0.021956	1	12.1800|12.6800	What is the name of the most expensive product with type Clothes?
+254	customers_and_orders	e_commerce	customers_and_orders	1	e_commerce	0.018534	1	10.6800|12.6800	Give the name of the most expensive Clothes product.
+255	customers_and_orders	e_commerce	customers_and_orders	1	e_commerce	0.042447	1	16.6400|16.9400	What is the product id and product name for the cheapest Hardware type product?
+278	customers_and_orders	e_commerce	e_commerce	0	customers_and_orders	0.009572	1	9.0400|8.0600	Give the code of the payment method that is most commonly used.
+303	customers_and_orders	e_commerce	e_commerce	0	customers_and_orders	0.004076	1	15.2300|12.6600	Show all product names without an order.
+304	customers_and_orders	e_commerce	e_commerce	0	customers_and_orders	0.021442	1	14.6000|12.1200	What are the names of products that have not been ordered?
+251	customers_and_orders	e_commerce	e_commerce	0	customers_and_orders	0.000305	1	15.2000|14.2200	Show all hardware product names with price higher than the average price of hardware type products.
+252	customers_and_orders	e_commerce	customers_and_orders	1	e_commerce	0.006679	1	12.7200|15.2000	What are the names of Hardware product with prices above the average price of Hardware products.
+313	customers_and_orders	e_commerce	e_commerce	0	customers_and_orders	0.050758	0		Show all the order dates and ids of the orders with quantity of any product larger than 6 or with more than 3 products.
+314	customers_and_orders	e_commerce	e_commerce	0	customers_and_orders	0.041113	1	14.6000|13.8300	What are the order ids and corresponding order dates for orders with a quantity greater than 6 or consisting of more than 3 products?
+367	government_shift	customers_and_orders	customers_and_orders	0	e_commerce	0.006867	1	10.5100|7.6000	Find the name of the customer who has used the most types of services .
+371	government_shift	customers_and_orders	e_commerce	0	customers_and_orders	0.002171	1	5.3000|6.8900	Find the details of the customers who have used the least-used service .
+372	government_shift	customers_and_orders	customers_and_orders	0	e_commerce	0.009439	1	11.6000|8.6000	Which customers used the least commonly-used service ? Give me the distinct customer details .
+401	vehicle_rent	vehicle_driver	vehicle_driver	0	vehicle_rent	0.066993	0		Show name, type of powertrain, and annual fuel cost for all vehicles with model year 2013 or 2014.
+402	vehicle_rent	vehicle_driver	vehicle_driver	0	vehicle_rent	0.057957	0		What are the names, types of powertrains, and yearly fuel costs for vehicles with model years in either 2013 2014?
+429	vehicle_rent	vehicle_driver	vehicle_rent	1	vehicle_driver	0.021318	1	5.2300|6.9200	Show the name and model year of the vehicle with most number of renting history records.
+430	vehicle_rent	vehicle_driver	vehicle_driver	0	vehicle_rent	0.010217	1	6.9200|4.3300	What is the name and model year of the vehicle which has been rented the most times?

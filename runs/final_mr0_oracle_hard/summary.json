@@ -1,0 +1,30 @@
+{
+  "experiment_id": "final_mr0_oracle_hard",
+  "routing": "oracle",
+  "retrieval": "hybrid",
+  "retrieval_easy_medium": "hybrid",
+  "retrieval_hard_extra": "hybrid",
+  "top_k_tables": 4,
+  "top_n_columns": 6,
+  "masking": true,
+  "mask_style": "hard",
+  "prompt": "few_shot",
+  "model": "claude-haiku-4-5-20251001",
+  "max_retries": 0,
+  "cost_cap_usd": 3.0,
+  "limit": null,
+  "phrase_hints": false,
+  "broker_margin_delta": 0.05,
+  "cascade_hard_model": "gpt-5.2",
+  "n_processed": 320,
+  "exec_success_rate_runtime": 0.990625,
+  "spider_exec_accuracy_overall": 0.166,
+  "spider_exec_by_difficulty": {
+    "easy": 0.287,
+    "medium": 0.125,
+    "hard": 0.175,
+    "extra": 0.075
+  },
+  "total_cost_usd": 0.4416577500000002,
+  "wall_time_seconds": 420
+}

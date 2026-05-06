@@ -1,0 +1,23 @@
+You are an expert SQL assistant. Below are example natural-language questions and their correct SQLite queries (from other databases). Use them only as patterns for how to translate questions into SQL. Then fix the failed query for the current database.
+
+{examples}
+
+---
+
+Current database schema:
+{schema}
+
+Question: {question}
+
+Previously generated SQL:
+{sql}
+
+Error message:
+{error}
+
+Instructions:
+- Write a corrected SQLite query that fixes the error and answers the question for the current schema only.
+- Use ONLY the table and column names (or masked tokens) exactly as they appear in the current schema above.
+- Do NOT use tables, columns, or tokens that are not listed in the current schema.
+- Use proper JOIN syntax with the foreign key relationships when querying across tables.
+- Return ONLY the corrected SQL query, with no explanation, comments, or markdown formatting.

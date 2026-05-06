@@ -26,7 +26,7 @@ from federated.llm_clients import complete
 from federated.masker import find_real_name_leaks
 from federated.node import Node
 from federated.session import SessionState
-from prompt_utils import load_prompt
+from prompt_utils import load_prompt, sql_chat_system_prompt
 from schema_loader import load_tables
 from vector_store import load_index
 
@@ -84,6 +84,7 @@ def main():
     text, usage = complete(
         messages=[{"role": "user", "content": prompt}],
         model=args.model,
+        system=sql_chat_system_prompt(masking=True),
         cost_logger=logger,
         db_id=args.db,
         note="phase1-smoketest",

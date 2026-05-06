@@ -1,0 +1,2 @@
+SELECT COUNT(*) FROM club
+SELECT COUNT(*) FROM club

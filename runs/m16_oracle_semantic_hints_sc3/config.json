@@ -1,0 +1,18 @@
+{
+  "experiment_id": "m16_oracle_semantic_hints_sc3",
+  "routing": "oracle",
+  "retrieval": "hybrid",
+  "retrieval_easy_medium": "hybrid",
+  "retrieval_hard_extra": "hybrid",
+  "top_k_tables": 4,
+  "top_n_columns": 6,
+  "masking": true,
+  "mask_style": "semantic",
+  "prompt": "few_shot",
+  "model": "claude-haiku-4-5-20251001",
+  "max_retries": 3,
+  "cost_cap_usd": 3.0,
+  "limit": null,
+  "phrase_hints": true,
+  "cascade_hard_model": "gpt-5.2"
+}

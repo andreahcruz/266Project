@@ -1,0 +1,3 @@
+**Identity tag:** Student enrollment, academic records, and institutional registration system
+Route here when you need: student demographics, enrollment status, academic transcripts, class assignments, achievement records, or institutional contact information for individual learners.
+Hard negatives: This is NOT a behavioral incident tracking system, asset/facility maintenance database, research grant management platform, or academic performance assessment tool. It focuses on student identity and enrollment rather than disciplinary monitoring, equipment inventory, funding workflows, or learning outcome evaluation.

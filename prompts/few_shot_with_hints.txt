@@ -18,8 +18,12 @@ Instructions:
 - The hints above tell you which token corresponds to which phrase in the question. Use table hints to choose the right FROM/JOIN targets, and use column hints to choose the right SELECT, WHERE, GROUP BY, HAVING, and ORDER BY tokens.
 - The schema's Relationships section gives the valid join paths between masked tables and columns. Follow those relationships instead of inventing new joins.
 - Do NOT add a JOIN unless the question needs columns from another table, or a listed relationship is required for filtering, grouping, or aggregation.
+- If the question asks for "all details", "all information", or every field about an entity, use `SELECT *` from the relevant table unless the question explicitly restricts the returned columns.
 - If the question asks for a descriptive field such as a name, country, title, status, or manufacturer, prefer that descriptive column instead of returning an id/code column.
+- Match each requested phrase to the corresponding column semantics exactly: for example `city` should map to a city column, `developers` to a developer column, `flavor` to a flavor column, and `capital` to a capital column.
+- If all requested fields and filters can be answered from one table, prefer the single-table query instead of joining to semantically related tables.
 - For "how many" / count questions, prefer COUNT(*) unless the question explicitly asks for a distinct count or a specific counted column.
+- For "most/least/owns the most/has the most" questions, prefer ordering by `COUNT(*)` unless the question explicitly names a numeric measure such as price, score, weight, or year.
 - Do NOT use tokens not listed in the schema.
 - Use proper JOIN syntax with the foreign key relationships when querying across tables.
 - Return ONLY the SQL query, with no explanation, comments, or markdown formatting.

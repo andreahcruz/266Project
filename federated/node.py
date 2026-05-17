@@ -269,14 +269,24 @@ class Node:
 
         id_like = {"id", "code"} & col_toks or col_name.endswith("_id")
         text_like_words = {
-            "name", "country", "title", "status", "manager", "captain",
-            "manufacturer", "city", "state", "address", "type",
+            "name", "names", "country", "title", "titles", "status",
+            "manager", "captain", "manufacturer", "city", "state",
+            "capital", "address", "type", "types", "developer",
+            "developers", "flavor", "language", "bio", "biographical",
+            "detail", "details", "information", "location",
         }
         numeric_words = {
             "price", "amount", "salary", "earnings", "count", "number",
             "total", "score", "age", "year", "rank", "rating",
         }
         date_words = {"date", "year", "month", "day", "time"}
+        generic_overlap_words = {"details", "detail", "information", "data", "all"}
+
+        overlap = phrase_toks & col_toks
+        if overlap:
+            sim += 0.10
+            if overlap - generic_overlap_words:
+                sim += 0.08
 
         if phrase_toks & text_like_words:
             if phrase_toks & col_toks:
@@ -299,6 +309,23 @@ class Node:
         if phrase_toks & {"after", "before", "date", "year", "month", "day"}:
             if col_type in {"time", "datetime", "date", "year"} or (date_words & col_toks):
                 sim += 0.10
+        if {"all", "details"} <= phrase_toks or {"all", "information"} <= phrase_toks:
+            if id_like:
+                sim -= 0.10
+        if {"city"} & phrase_toks and "city" in col_toks:
+            sim += 0.12
+        if {"state"} & phrase_toks and "state" in col_toks:
+            sim += 0.12
+        if {"capital"} & phrase_toks and "capital" in col_toks:
+            sim += 0.12
+        if {"developer", "developers"} & phrase_toks and {"developer", "developers"} & col_toks:
+            sim += 0.14
+        if {"flavor"} & phrase_toks and "flavor" in col_toks:
+            sim += 0.14
+        if {"bio", "biographical"} & phrase_toks and ("bio" in col_toks or "data" in col_toks):
+            sim += 0.14
+        if {"language"} & phrase_toks and "language" in col_toks:
+            sim += 0.10
 
         return sim
 

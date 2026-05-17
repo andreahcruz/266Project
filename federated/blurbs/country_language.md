@@ -1,0 +1,1 @@
+Country and language registry. Tracks languages, countries, country-level scores, and which languages are official in which countries. Route here for questions about language names, official languages, countries that use a language, or country metrics tied to language data. Distinct from university or conference datasets because the central entities are countries and languages.

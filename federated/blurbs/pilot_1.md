@@ -1,0 +1,1 @@
+Pilot and aircraft-location database. Tracks which pilots have skills for which planes, the pilots' ages, and the hangar location of each plane. Route here for questions about pilots younger than a given age, plane names, or where a specific aircraft such as an F-14 is located. Distinct from vehicle-driver databases because this one is about pilots, aircraft, and hangars.

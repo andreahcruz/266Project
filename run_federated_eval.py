@@ -47,14 +47,6 @@ from few_shot_examples import load_train_spider
 from schema_loader import load_tables
 from vector_store import load_index
 
-
-# 11 db_ids covered by the balanced 320 split.
-DB_IDS_IN_SPLIT = [
-    "e_commerce", "customers_and_orders", "vehicle_driver", "soccer_3",
-    "online_exams", "cre_Students_Information_Systems", "bbc_channels",
-    "tv_shows", "government_shift", "vehicle_rent", "region_building",
-]
-
 PLACEHOLDER_SQL = "SELECT 1"  # written when generation/exec fails — keeps line counts aligned
 
 
@@ -94,6 +86,24 @@ def parse_args():
                    help="Skip questions already in predictions.sql.")
     p.add_argument("--phrase-hints", action="store_true",
                    help="Enable phrase→token column hints from each node.")
+    p.add_argument("--phrase-hint-threshold", type=float, default=0.40,
+                   help="Default similarity threshold for phrase hints.")
+    p.add_argument("--phrase-hint-max", type=int, default=8,
+                   help="Default max number of phrase hints.")
+    p.add_argument("--phrase-hint-threshold-hard-extra", type=float, default=None,
+                   help="Optional phrase-hint threshold override for hard/extra.")
+    p.add_argument("--phrase-hint-max-hard-extra", type=int, default=None,
+                   help="Optional max-hints override for hard/extra.")
+    p.add_argument("--broker-smart-routing", action="store_true",
+                   help="Enable broker keyword biasing and low-margin top-2 override "
+                        "for known confusion pairs.")
+    p.add_argument("--few-shot-family-match", action="store_true",
+                   help="For hard/extra, choose deterministic few-shot examples by "
+                        "question-inferred SQL family rather than generic fallback only.")
+    p.add_argument("--few-shot-k", type=int, default=3,
+                   help="Number of few-shot examples for easy/medium by default.")
+    p.add_argument("--few-shot-k-hard-extra", type=int, default=None,
+                   help="Optional few-shot example count override for hard/extra.")
     p.add_argument("--top-k-tables", type=int, default=4,
                    help="Number of tables to retrieve when using lexical/hybrid retrieval.")
     p.add_argument("--top-n-columns", type=int, default=6,
@@ -101,6 +111,10 @@ def parse_args():
     p.add_argument("--indices-from", default=None,
                    help="Path to JSON list of test_idx values to evaluate. "
                         "Overrides the default 320 split (used for stratified subsets).")
+    p.add_argument("--difficulty-json", default=str(BASE_DIR / "balanced_difficulty.json"),
+                   help="Path to JSON map of test_idx -> difficulty label.")
+    p.add_argument("--difficulty-filter", nargs="+", choices=["easy", "medium", "hard", "extra"],
+                   help="Optional subset filter by precomputed difficulty labels.")
     p.add_argument("--cascade-hard-model", default=None,
                    help="If set, route hard+extra difficulty questions to this "
                         "model instead of --model. easy/medium still use --model. "
@@ -109,10 +123,20 @@ def parse_args():
     return p.parse_args()
 
 
-def load_eval_questions():
-    """Return list of ``(test_idx, question_dict)`` for the 320 split, in order."""
+def _read_indices_file(path: str | Path) -> list[int]:
+    raw = json.loads(Path(path).read_text())
+    if isinstance(raw, dict):
+        raw = raw.get("indices", [])
+    return [int(x) for x in raw]
+
+
+def load_eval_questions(indices_path: str | None = None):
+    """Return list of ``(test_idx, question_dict)`` in the requested order."""
     questions = json.load(open(TEST_JSON))
-    indices = json.load(open(BASE_DIR / "balanced_test_indices_80x4.json"))["indices"]
+    if indices_path:
+        indices = _read_indices_file(indices_path)
+    else:
+        indices = json.load(open(BASE_DIR / "balanced_test_indices_80x4.json"))["indices"]
     return [(i, questions[i]) for i in indices]
 
 
@@ -147,10 +171,21 @@ def main():
         "masking": not args.no_mask,
         "mask_style": args.mask_style if not args.no_mask else "none",
         "prompt": args.prompt,
+        "few_shot_k": args.few_shot_k,
+        "few_shot_k_hard_extra": args.few_shot_k_hard_extra or args.few_shot_k,
+        "phrase_hints": args.phrase_hints,
+        "phrase_hint_threshold": args.phrase_hint_threshold,
+        "phrase_hint_max": args.phrase_hint_max,
+        "phrase_hint_threshold_hard_extra": args.phrase_hint_threshold_hard_extra,
+        "phrase_hint_max_hard_extra": args.phrase_hint_max_hard_extra,
+        "broker_smart_routing": args.broker_smart_routing,
+        "few_shot_family_match": args.few_shot_family_match,
         "model": args.model,
         "max_retries": args.max_retries,
         "cost_cap_usd": args.cost_cap_usd,
         "limit": args.limit,
+        "difficulty_json": args.difficulty_json,
+        "difficulty_filter": args.difficulty_filter or [],
     }
     config_path.write_text(json.dumps(config_dump, indent=2))
 
@@ -176,15 +211,27 @@ def main():
     vector_index = load_index() if uses_hybrid_retrieval else None
     train_rows = load_train_spider(TRAIN_SPIDER_JSON)
 
+    eval_qs = load_eval_questions(args.indices_from)
+    if args.limit:
+        eval_qs = eval_qs[: args.limit]
+    eval_db_ids = sorted({q["db_id"] for _, q in eval_qs})
+
     nodes = {
         db: Node(db, tables_data, TEST_DATABASE_DIR, openai_client, vector_index)
-        for db in DB_IDS_IN_SPLIT
+        for db in eval_db_ids
     }
     broker = (
         Broker(BASE_DIR / "federated" / "blurbs", openai_client)
         if args.routing == "broker"
         else None
     )
+    if args.routing == "broker":
+        missing_blurbs = sorted(set(eval_db_ids) - set(broker.db_ids))
+        if missing_blurbs:
+            sys.exit(
+                "broker routing requires blurbs for every eval DB; missing: "
+                + ", ".join(missing_blurbs)
+            )
     cost_logger = CostLogger(args.experiment_id, cost_cap_usd=args.cost_cap_usd)
 
     # Cascade routing config: easy/medium → primary, hard/extra → cascade model.
@@ -221,25 +268,26 @@ def main():
         max_retries=args.max_retries,
         cost_logger=cost_logger,
         train_rows=train_rows,
+        few_shot_k=args.few_shot_k,
+        few_shot_k_hard_extra=args.few_shot_k_hard_extra,
         use_phrase_hints=args.phrase_hints,
+        phrase_hint_threshold=args.phrase_hint_threshold,
+        phrase_hint_max=args.phrase_hint_max,
+        phrase_hint_threshold_hard_extra=args.phrase_hint_threshold_hard_extra,
+        phrase_hint_max_hard_extra=args.phrase_hint_max_hard_extra,
         model_for_difficulty=model_for_difficulty,
         retrieval_for_difficulty=retrieval_for_difficulty,
         top_k_tables=args.top_k_tables,
         top_n_columns=args.top_n_columns,
+        broker_smart_routing=args.broker_smart_routing,
+        few_shot_family_match=args.few_shot_family_match,
     )
-
-    eval_qs = load_eval_questions()
-    if args.indices_from:
-        wanted = set(json.loads(Path(args.indices_from).read_text()))
-        eval_qs = [(i, q) for (i, q) in eval_qs if i in wanted]
-    if args.limit:
-        eval_qs = eval_qs[: args.limit]
 
     # Pre-classify difficulty per question via the precomputed JSON.
     # Used by cascade routing; harmless when model_for_difficulty is empty.
     difficulty_by_idx: dict[int, str] = {}
-    if model_for_difficulty or retrieval_for_difficulty:
-        diff_path = BASE_DIR / "balanced_difficulty.json"
+    if model_for_difficulty or retrieval_for_difficulty or args.difficulty_filter:
+        diff_path = Path(args.difficulty_json)
         if not diff_path.exists():
             sys.exit(
                 f"difficulty-aware routing needs {diff_path}; run "
@@ -259,6 +307,13 @@ def main():
                 f"{retrieval_for_difficulty['easy']}, hard/extra retrieval → "
                 f"{retrieval_for_difficulty['hard']}"
             )
+    if args.difficulty_filter:
+        allowed = set(args.difficulty_filter)
+        eval_qs = [
+            (idx, q) for idx, q in eval_qs
+            if difficulty_by_idx.get(idx, "medium") in allowed
+        ]
+        print(f"[subset] kept {len(eval_qs)} questions for difficulties {sorted(allowed)}")
 
     # Open files for streaming append
     pred_mode = "a" if (args.resume and resume_pos > 0) else "w"
@@ -271,6 +326,9 @@ def main():
             "pos", "test_idx", "db_id_gold", "db_id_used", "broker_pick",
             "broker_correct", "re_picked", "retries", "exec_success",
             "difficulty", "model_used", "retrieval_used",
+            "few_shot_example_ids", "few_shot_example_dbs", "few_shot_k_used",
+            "broker_top1_score", "broker_top2", "broker_top2_score", "broker_margin",
+            "broker_override", "broker_override_reason",
             "masked_sql", "real_sql",
         ])
 
@@ -300,6 +358,15 @@ def main():
                     rec.broker_correct, rec.re_picked, rec.retries,
                     rec.success,
                     rec.difficulty or "", rec.model_used or "", rec.retrieval_used or "",
+                    rec.extras.get("few_shot_example_ids", ""),
+                    rec.extras.get("few_shot_example_dbs", ""),
+                    rec.extras.get("few_shot_k_used", ""),
+                    rec.extras.get("broker_top1_score", ""),
+                    rec.extras.get("broker_top2", ""),
+                    rec.extras.get("broker_top2_score", ""),
+                    rec.extras.get("broker_margin", ""),
+                    rec.extras.get("broker_override", False),
+                    rec.extras.get("broker_override_reason", ""),
                     " ".join(rec.masked_sql_final.split()),
                     pred_sql_oneline,
                 ])
@@ -322,6 +389,8 @@ def main():
                 csv_w.writerow([
                     pos, test_idx, q["db_id"], "ERR", None, None, False, 0,
                     False, difficulty_by_idx.get(test_idx, "") or "", "", "",
+                    "", "", "",
+                    "", "", "", "", False, "",
                     "", f"ERR: {exc!r}",
                 ])
                 csv_f.flush()
@@ -352,7 +421,7 @@ def main():
         return
 
     # Run Spider evaluator
-    if args.indices_from:
+    if args.indices_from or args.difficulty_filter:
         # Build a custom gold slice ordered to match the predictions we wrote
         ordered_indices = [test_idx for (test_idx, _) in eval_qs]
         slice_name = f"gold_{args.experiment_id}.sql"

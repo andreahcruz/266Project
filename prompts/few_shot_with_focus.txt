@@ -1,0 +1,27 @@
+You are an expert SQL assistant. Below are example natural-language questions and their correct SQLite queries (from other databases). Use them only as patterns for how to translate questions into SQL. Then answer the new question using ONLY the schema given for the current database.
+
+{examples}
+
+---
+
+Question focus:
+{focus_block}
+
+Current database schema:
+{schema}
+
+Masked role hints:
+{hints}
+
+Question: {question}
+
+Instructions:
+- Write a valid SQLite query that answers the question for the current schema only.
+- Use ONLY the table and column names exactly as they appear in the current schema above.
+- Use the focus block to decide the SQL family first: projection, grouping/count-ranking, set-op/exclusion, or multi-hop join.
+- Use return-field hints mainly for SELECT, grouping hints for GROUP BY/HAVING, aggregation hints for WHERE/HAVING/ORDER BY, and join-path hints for FROM/JOIN choices.
+- The schema's Relationships section gives the valid join paths between masked tables and columns. Follow those relationships instead of inventing new joins.
+- If a hint conflicts with the question or schema relationships, follow the question and schema.
+- Do NOT add a JOIN unless the question needs columns from another table, or a listed relationship is required for filtering, grouping, or aggregation.
+- Do NOT use tokens that are not listed in the schema.
+- Return ONLY the SQL query, with no explanation, comments, or markdown formatting.

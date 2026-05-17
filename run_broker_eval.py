@@ -6,6 +6,7 @@ and top-2 accuracy and prints the most-confused DB pairs.
 
 from __future__ import annotations
 
+import argparse
 import json
 from collections import Counter
 from pathlib import Path
@@ -21,7 +22,15 @@ from config import (
 from federated.broker import Broker
 
 
+def parse_args():
+    p = argparse.ArgumentParser()
+    p.add_argument("--smart-routing", action="store_true",
+                   help="Enable broker keyword biasing and low-margin override.")
+    return p.parse_args()
+
+
 def main():
+    args = parse_args()
     questions = json.load(open(TEST_JSON))
     indices = json.load(open(BASE_DIR / "balanced_test_indices_80x4.json"))["indices"]
     eval_qs = [questions[i] for i in indices]
@@ -47,10 +56,19 @@ def main():
     for q in eval_qs:
         gold_db = q["db_id"]
         question = q["question"]
-        ranking = broker.route(question)
-        top1 = ranking[0][0]
-        top2 = {r[0] for r in ranking[:2]}
-        score_records.append((gold_db, top1, ranking[0][1], ranking[1][1]))
+        ranking_details = broker.route_with_details(question)
+        top1 = ranking_details[0].db_id
+        top2_detail = ranking_details[1] if len(ranking_details) > 1 else None
+        if (
+            args.smart_routing
+            and top2_detail is not None
+            and (ranking_details[0].score - top2_detail.score) <= broker.low_margin_threshold
+            and top2_detail.bonus > ranking_details[0].bonus
+        ):
+            top1 = top2_detail.db_id
+        top2 = {r.db_id for r in ranking_details[:2]}
+        top2_score = top2_detail.score if top2_detail is not None else 0.0
+        score_records.append((gold_db, top1, ranking_details[0].score, top2_score))
         if top1 == gold_db:
             top1_hits += 1
         else:
